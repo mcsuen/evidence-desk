@@ -1,0 +1,354 @@
+{
+  "$defs": {
+    "Citation": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "block_id": {
+          "title": "Block Id",
+          "type": "string"
+        },
+        "quote": {
+          "minLength": 1,
+          "title": "Quote",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "block_id",
+        "quote"
+      ],
+      "title": "Citation",
+      "type": "object"
+    },
+    "Reference": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 240,
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "Reference",
+      "type": "object"
+    },
+    "Relation": {
+      "additionalProperties": false,
+      "properties": {
+        "target": {
+          "$ref": "#/$defs/Reference"
+        },
+        "relation": {
+          "enum": [
+            "supports",
+            "derived_from",
+            "used_in",
+            "related"
+          ],
+          "title": "Relation",
+          "type": "string"
+        },
+        "paragraph": {
+          "default": "",
+          "title": "Paragraph",
+          "type": "string"
+        }
+      },
+      "required": [
+        "target",
+        "relation"
+      ],
+      "title": "Relation",
+      "type": "object"
+    },
+    "RevisionDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 240,
+          "minLength": 1,
+          "pattern": "^[\\w:.\\-]+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "knowledge",
+            "page",
+            "policy"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "expected_version": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Expected Version",
+          "type": "integer"
+        },
+        "title": {
+          "maxLength": 300,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "content": {
+          "maxLength": 100000,
+          "minLength": 1,
+          "title": "Content",
+          "type": "string"
+        },
+        "summary": {
+          "default": "",
+          "title": "Summary",
+          "type": "string"
+        },
+        "page_type": {
+          "anyOf": [
+            {
+              "enum": [
+                "source",
+                "company",
+                "concept",
+                "topic",
+                "analysis"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Page Type"
+        },
+        "nature": {
+          "anyOf": [
+            {
+              "enum": [
+                "fact",
+                "interpretation",
+                "method"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nature"
+        },
+        "scope": {
+          "default": "",
+          "title": "Scope",
+          "type": "string"
+        },
+        "business_period": {
+          "default": "",
+          "title": "Business Period",
+          "type": "string"
+        },
+        "applicability": {
+          "default": "",
+          "title": "Applicability",
+          "type": "string"
+        },
+        "formula": {
+          "default": "",
+          "title": "Formula",
+          "type": "string"
+        },
+        "failure_cases": {
+          "default": "",
+          "title": "Failure Cases",
+          "type": "string"
+        },
+        "example": {
+          "default": "",
+          "title": "Example",
+          "type": "string"
+        },
+        "citations": {
+          "items": {
+            "$ref": "#/$defs/Citation"
+          },
+          "title": "Citations",
+          "type": "array"
+        },
+        "relations": {
+          "items": {
+            "$ref": "#/$defs/Relation"
+          },
+          "title": "Relations",
+          "type": "array"
+        },
+        "numeric_assertions": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Numeric Assertions",
+          "type": "array"
+        },
+        "corrects": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "change_type": {
+          "default": "new",
+          "enum": [
+            "new",
+            "supplement",
+            "conflict",
+            "scope",
+            "correction"
+          ],
+          "title": "Change Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "title",
+        "content",
+        "reason"
+      ],
+      "title": "RevisionDraft",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "maxLength": 160,
+      "minLength": 8,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "company": {
+      "minLength": 1,
+      "title": "Company",
+      "type": "string"
+    },
+    "policy": {
+      "$ref": "#/$defs/Reference"
+    },
+    "changes": {
+      "items": {
+        "$ref": "#/$defs/RevisionDraft"
+      },
+      "maxItems": 50,
+      "minItems": 1,
+      "title": "Changes",
+      "type": "array"
+    },
+    "inputs": {
+      "items": {
+        "$ref": "#/$defs/Reference"
+      },
+      "title": "Inputs",
+      "type": "array"
+    },
+    "reason": {
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    },
+    "origin": {
+      "default": "human",
+      "enum": [
+        "human",
+        "agent",
+        "ingest",
+        "query",
+        "inspection",
+        "research"
+      ],
+      "title": "Origin",
+      "type": "string"
+    },
+    "replaces": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Replaces"
+    },
+    "issue_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Issue Ids",
+      "type": "array"
+    },
+    "as_of": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "As Of"
+    },
+    "model_output": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Model Output"
+    }
+  },
+  "required": [
+    "operation_id",
+    "company",
+    "policy",
+    "changes",
+    "reason"
+  ],
+  "title": "ProposalInput",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/wiki_proposal_input.v1.json"
+}

@@ -1,0 +1,41 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "sequence": {
+      "title": "Sequence",
+      "type": "integer"
+    },
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "company": {
+      "title": "Company",
+      "type": "string"
+    },
+    "kind": {
+      "title": "Kind",
+      "type": "string"
+    },
+    "occurred_at": {
+      "title": "Occurred At",
+      "type": "string"
+    },
+    "payload_object": {
+      "title": "Payload Object",
+      "type": "string"
+    }
+  },
+  "required": [
+    "sequence",
+    "id",
+    "company",
+    "kind",
+    "occurred_at",
+    "payload_object"
+  ],
+  "title": "KnowledgeEvent",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/wiki_knowledge_event.v1.json"
+}

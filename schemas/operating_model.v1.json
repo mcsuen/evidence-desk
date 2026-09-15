@@ -1,0 +1,308 @@
+{
+  "$defs": {
+    "Assumption": {
+      "additionalProperties": false,
+      "properties": {
+        "parameter": {
+          "title": "Parameter",
+          "type": "string"
+        },
+        "period": {
+          "title": "Period",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "reason": {
+          "default": "",
+          "title": "Reason",
+          "type": "string"
+        },
+        "provenance": {
+          "default": "user",
+          "enum": [
+            "user",
+            "mechanical_reference"
+          ],
+          "title": "Provenance",
+          "type": "string"
+        },
+        "citations": {
+          "items": {
+            "$ref": "#/$defs/Citation"
+          },
+          "title": "Citations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "parameter",
+        "period"
+      ],
+      "title": "Assumption",
+      "type": "object"
+    },
+    "Citation": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "block_id": {
+          "title": "Block Id",
+          "type": "string"
+        },
+        "quote": {
+          "minLength": 1,
+          "title": "Quote",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "block_id",
+        "quote"
+      ],
+      "title": "Citation",
+      "type": "object"
+    },
+    "ModelCell": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "title": "Key",
+          "type": "string"
+        },
+        "period": {
+          "title": "Period",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        },
+        "kind": {
+          "enum": [
+            "actual",
+            "forecast",
+            "mixed"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "formula": {
+          "title": "Formula",
+          "type": "string"
+        },
+        "dependencies": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Dependencies",
+          "type": "array"
+        },
+        "missing": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Missing",
+          "type": "array"
+        },
+        "citations": {
+          "items": {
+            "$ref": "#/$defs/Citation"
+          },
+          "title": "Citations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "key",
+        "period",
+        "value",
+        "kind",
+        "formula"
+      ],
+      "title": "ModelCell",
+      "type": "object"
+    },
+    "ModelSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "engine": {
+          "const": "pdd-operating.1",
+          "default": "pdd-operating.1",
+          "title": "Engine",
+          "type": "string"
+        },
+        "snapshot": {
+          "title": "Snapshot",
+          "type": "string"
+        },
+        "anchor_period": {
+          "title": "Anchor Period",
+          "type": "string"
+        },
+        "assumptions": {
+          "items": {
+            "$ref": "#/$defs/Assumption"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "scenario": {
+          "default": "基准草稿",
+          "title": "Scenario",
+          "type": "string"
+        },
+        "investigation_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Investigation Id"
+        }
+      },
+      "required": [
+        "snapshot",
+        "anchor_period"
+      ],
+      "title": "ModelSpec",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "spec": {
+      "$ref": "#/$defs/ModelSpec"
+    },
+    "company": {
+      "title": "Company",
+      "type": "string"
+    },
+    "as_of": {
+      "title": "As Of",
+      "type": "string"
+    },
+    "history_periods": {
+      "items": {
+        "type": "string"
+      },
+      "title": "History Periods",
+      "type": "array"
+    },
+    "forecast_periods": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Forecast Periods",
+      "type": "array"
+    },
+    "parameters": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Parameters",
+      "type": "array"
+    },
+    "outputs": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Outputs",
+      "type": "array"
+    },
+    "cells": {
+      "items": {
+        "$ref": "#/$defs/ModelCell"
+      },
+      "title": "Cells",
+      "type": "array"
+    },
+    "annual": {
+      "items": {
+        "$ref": "#/$defs/ModelCell"
+      },
+      "title": "Annual",
+      "type": "array"
+    },
+    "checks": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Checks",
+      "type": "array"
+    },
+    "references": {
+      "items": {
+        "$ref": "#/$defs/Assumption"
+      },
+      "title": "References",
+      "type": "array"
+    },
+    "published": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Published"
+    },
+    "issues": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Issues",
+      "type": "array"
+    }
+  },
+  "required": [
+    "spec",
+    "company",
+    "as_of",
+    "history_periods",
+    "forecast_periods",
+    "parameters",
+    "outputs",
+    "cells",
+    "annual",
+    "checks",
+    "references",
+    "issues"
+  ],
+  "title": "ModelView",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/operating_model.v1.json"
+}

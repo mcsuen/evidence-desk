@@ -1,0 +1,433 @@
+{
+  "$defs": {
+    "TraceLink": {
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "title": "Target",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "sequence",
+            "dependency",
+            "repair",
+            "recovery",
+            "artifact"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "label": {
+          "default": "",
+          "title": "Label",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "target",
+        "kind"
+      ],
+      "title": "TraceLink",
+      "type": "object"
+    },
+    "TraceSpan": {
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "parent_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent Id"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "kind": {
+          "title": "Kind",
+          "type": "string"
+        },
+        "executor": {
+          "default": "controller",
+          "title": "Executor",
+          "type": "string"
+        },
+        "status": {
+          "default": "running",
+          "title": "Status",
+          "type": "string"
+        },
+        "started_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Started At"
+        },
+        "ended_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ended At"
+        },
+        "duration_ms": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duration Ms"
+        },
+        "timing": {
+          "default": "missing",
+          "enum": [
+            "measured",
+            "observed",
+            "missing"
+          ],
+          "title": "Timing",
+          "type": "string"
+        },
+        "attempt": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Attempt"
+        },
+        "call_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Call Id"
+        },
+        "ordinal": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ordinal"
+        },
+        "input_version": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Input Version"
+        },
+        "input_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Input Ref"
+        },
+        "output_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Output Ref"
+        },
+        "error_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error Ref"
+        },
+        "artifact_refs": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Artifact Refs",
+          "type": "array"
+        },
+        "tool_count": {
+          "default": 0,
+          "title": "Tool Count",
+          "type": "integer"
+        },
+        "issue_count": {
+          "default": 0,
+          "title": "Issue Count",
+          "type": "integer"
+        },
+        "first_seq": {
+          "default": 0,
+          "title": "First Seq",
+          "type": "integer"
+        },
+        "last_seq": {
+          "default": 0,
+          "title": "Last Seq",
+          "type": "integer"
+        },
+        "metadata": {
+          "additionalProperties": true,
+          "title": "Metadata",
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "kind"
+      ],
+      "title": "TraceSpan",
+      "type": "object"
+    },
+    "TraceSummary": {
+      "properties": {
+        "active_seconds": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Active Seconds"
+        },
+        "queue_seconds": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Queue Seconds"
+        },
+        "waiting_seconds": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Waiting Seconds"
+        },
+        "tool_seconds": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tool Seconds"
+        },
+        "measured_tools": {
+          "default": 0,
+          "title": "Measured Tools",
+          "type": "integer"
+        },
+        "tool_count": {
+          "default": 0,
+          "title": "Tool Count",
+          "type": "integer"
+        },
+        "budget_tool_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Budget Tool Count"
+        },
+        "tokens": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Tokens",
+          "type": "object"
+        },
+        "cost": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cost"
+        },
+        "capture": {
+          "default": "partial",
+          "title": "Capture",
+          "type": "string"
+        },
+        "gaps": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Gaps",
+          "type": "array"
+        },
+        "reconstructed": {
+          "default": false,
+          "title": "Reconstructed",
+          "type": "boolean"
+        },
+        "sync": {
+          "additionalProperties": true,
+          "title": "Sync",
+          "type": "object"
+        }
+      },
+      "title": "TraceSummary",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "version": {
+      "default": "research-trace.1",
+      "title": "Version",
+      "type": "string"
+    },
+    "request_id": {
+      "title": "Request Id",
+      "type": "string"
+    },
+    "task_id": {
+      "title": "Task Id",
+      "type": "string"
+    },
+    "seq": {
+      "title": "Seq",
+      "type": "integer"
+    },
+    "latest_seq": {
+      "title": "Latest Seq",
+      "type": "integer"
+    },
+    "task_status": {
+      "title": "Task Status",
+      "type": "string"
+    },
+    "spans": {
+      "items": {
+        "$ref": "#/$defs/TraceSpan"
+      },
+      "title": "Spans",
+      "type": "array"
+    },
+    "links": {
+      "items": {
+        "$ref": "#/$defs/TraceLink"
+      },
+      "title": "Links",
+      "type": "array"
+    },
+    "plans": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Plans",
+      "type": "array"
+    },
+    "summary": {
+      "$ref": "#/$defs/TraceSummary"
+    }
+  },
+  "required": [
+    "request_id",
+    "task_id",
+    "seq",
+    "latest_seq",
+    "task_status",
+    "summary"
+  ],
+  "title": "TraceView",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/trace_view.v1.json"
+}

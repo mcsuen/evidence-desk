@@ -1,0 +1,179 @@
+{
+  "$defs": {
+    "ResearchSubject": {
+      "additionalProperties": false,
+      "properties": {
+        "company_id": {
+          "default": "",
+          "title": "Company Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "mention": {
+          "default": "",
+          "title": "Mention",
+          "type": "string"
+        },
+        "role": {
+          "default": "target",
+          "enum": [
+            "target",
+            "reference",
+            "excluded"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "securities": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Securities",
+          "type": "array"
+        },
+        "rationale": {
+          "default": "",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "identity_sources": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Identity Sources",
+          "type": "array"
+        },
+        "verified": {
+          "default": false,
+          "title": "Verified",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "ResearchSubject",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "intent": {
+      "default": "investigation",
+      "enum": [
+        "earnings",
+        "report_review",
+        "investigation",
+        "collect"
+      ],
+      "title": "Intent",
+      "type": "string"
+    },
+    "scope_type": {
+      "default": "company",
+      "enum": [
+        "company",
+        "comparison",
+        "industry"
+      ],
+      "title": "Scope Type",
+      "type": "string"
+    },
+    "topic": {
+      "default": "",
+      "title": "Topic",
+      "type": "string"
+    },
+    "subjects": {
+      "items": {
+        "$ref": "#/$defs/ResearchSubject"
+      },
+      "title": "Subjects",
+      "type": "array"
+    },
+    "questions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Questions",
+      "type": "array"
+    },
+    "plan": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Plan",
+      "type": "array"
+    },
+    "period": {
+      "default": "",
+      "title": "Period",
+      "type": "string"
+    },
+    "time_description": {
+      "default": "",
+      "title": "Time Description",
+      "type": "string"
+    },
+    "as_of": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "As Of"
+    },
+    "clarification": {
+      "default": "",
+      "title": "Clarification",
+      "type": "string"
+    },
+    "options": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Options",
+      "type": "array"
+    },
+    "assumptions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Assumptions",
+      "type": "array"
+    },
+    "context_action": {
+      "default": "keep",
+      "enum": [
+        "keep",
+        "replace"
+      ],
+      "title": "Context Action",
+      "type": "string"
+    },
+    "allow_public_search": {
+      "default": true,
+      "title": "Allow Public Search",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "title"
+  ],
+  "title": "ResearchInterpretation",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/research_interpretation.v3.json"
+}

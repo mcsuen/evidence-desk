@@ -1,0 +1,45 @@
+[project]
+name = "pitr"
+version = "0.1.0"
+description = "Evidence-based research and LLM Wiki with local Codex and Claude bridges"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+dependencies = [
+    "pydantic>=2.7",
+    "typer>=0.12",
+    "httpx>=0.27",
+    "selectolax>=0.3",
+    "numpy>=1.26",
+    "jieba==0.42.1",
+    "matplotlib>=3.9",
+    "fastapi>=0.115",
+    "uvicorn>=0.30",
+    "mcp>=1.2",
+    "slack-bolt>=1.21,<2",
+    "slack-sdk>=3.44,<4",
+    "pdfplumber>=0.11.10",
+    "python-multipart>=0.0.32",
+    "langsmith>=0.12.4",
+    "opentelemetry-proto>=1.44.0",
+]
+
+[project.optional-dependencies]
+wiki-semantic = ["fastembed==0.8.0", "onnxruntime>=1.22,<2", "huggingface-hub>=0.34,<1"]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23", "httpx>=0.27"]
+
+[project.scripts]
+research = "pitr.cli.main:app"
+pitr-wiki-capture = "pitr.wiki.capture:main"
+
+[build-system]
+requires = ["uv_build>=0.12.13,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv]
+# cryptography >= 47 ships no macOS x86_64 wheels; pin so `uv sync` never needs a Rust toolchain.
+constraint-dependencies = ["cryptography<47"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

@@ -1,0 +1,119 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "job_id": {
+      "title": "Job Id",
+      "type": "string"
+    },
+    "execution_status": {
+      "title": "Execution Status",
+      "type": "string"
+    },
+    "publication_status": {
+      "default": "not_published",
+      "title": "Publication Status",
+      "type": "string"
+    },
+    "materials": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Materials",
+      "type": "array"
+    },
+    "coverage": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Coverage",
+      "type": "array"
+    },
+    "checks": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Checks",
+      "type": "array"
+    },
+    "failures": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Failures",
+      "type": "array"
+    },
+    "skipped": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Skipped",
+      "type": "array"
+    },
+    "proposal_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Proposal Id"
+    },
+    "previous_failures": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Previous Failures",
+      "type": "array"
+    },
+    "supplemental_discovery": {
+      "additionalProperties": true,
+      "title": "Supplemental Discovery",
+      "type": "object"
+    },
+    "catalog_checks": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Catalog Checks",
+      "type": "array"
+    },
+    "catalog_excluded": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Catalog Excluded",
+      "type": "array"
+    },
+    "resumed_from": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Resumed From"
+    }
+  },
+  "required": [
+    "job_id",
+    "execution_status"
+  ],
+  "title": "WikiJobResult",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/wiki_wiki_job_result.v1.json"
+}

@@ -1,0 +1,28 @@
+{
+  "name": "pdd-company-wiki-development-v1",
+  "scope": "synthetic development fixture; not real PDD findings or human utility validation",
+  "documents": [
+    {"id":"wiki:margin","title":"利润率持续性","content":"利润率需结合费用投入与收入结构判断，单一变化无法独立解释长期盈利。"},
+    {"id":"wiki:cash","title":"现金与利润","content":"经营现金流和会计利润可能背离，需检查非现金费用与营运资本。"},
+    {"id":"wiki:transaction","title":"交易服务口径","content":"交易服务收入涵盖不同服务，不等同于跨境平台的独立收入。"},
+    {"id":"wiki:temu","title":"跨境业务披露边界","content":"Temu 独立利润缺少披露，不能将集团盈利直接归属于跨境业务。"},
+    {"id":"wiki:merchants","title":"商家支持投入","content":"商家扶持与平台补贴可能影响销售费用，需要持续跟踪政策适用条件。"},
+    {"id":"wiki:rd","title":"研发费用机制","content":"研发投入涉及人员与技术基础，支出变化不直接等同短期营收贡献。"},
+    {"id":"wiki:comparability","title":"期间与口径可比性","content":"同比分析应核对报告期间、币种与会计口径，累计现金流需区分独立季度。"},
+    {"id":"wiki:depreciation","title":"折旧与资本开支","content":"折旧属于非现金费用，资本开支是投资支出，现金与利润影响时间不同。"},
+    {"id":"wiki:working-capital","title":"营运资本变动","content":"应收款、存货与应付款变化影响现金转换，负营运资本优势依赖结算条件。"},
+    {"id":"wiki:sbc","title":"股权激励成本","content":"股权激励可能形成股份稀释，即使作为非现金项加回也不自动等于股东收益。"},
+    {"id":"wiki:interest","title":"利息与经营表现","content":"利息收入取决于资金余额与收益率，区分经营利润和资金收益。"},
+    {"id":"wiki:logistics","title":"跨境履约成本","content":"物流配送、退货和仓储成本决定履约效率，需区分平台与商家承担的成本。"}
+  ],
+  "queries": [
+    {"question":"利润率能否持续？","relevant":["wiki:margin@v1"]},
+    {"question":"交易服务收入就是 Temu 收入吗？","relevant":["wiki:transaction@v1","wiki:temu@v1"]},
+    {"question":"利润增长却缺少现金，检查什么？","relevant":["wiki:cash@v1","wiki:working-capital@v1"]},
+    {"question":"独立季度与累计期间怎么比较？","relevant":["wiki:comparability@v1"]},
+    {"question":"股权激励加回有没有股东成本？","relevant":["wiki:sbc@v1"]},
+    {"question":"capital spending versus depreciation","relevant":["wiki:depreciation@v1"]},
+    {"question":"Working capital cash conversion","relevant":["wiki:working-capital@v1","wiki:cash@v1"]},
+    {"question":"配送退货由谁承担费用？","relevant":["wiki:logistics@v1"]}
+  ]
+}

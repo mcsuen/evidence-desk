@@ -1,0 +1,78 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "maxLength": 160,
+      "minLength": 8,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "text": {
+      "default": "",
+      "maxLength": 12000,
+      "title": "Text",
+      "type": "string"
+    },
+    "source_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 10,
+      "title": "Source Ids",
+      "type": "array"
+    },
+    "expected_input_version": {
+      "minimum": 0,
+      "title": "Expected Input Version",
+      "type": "integer"
+    },
+    "company": {
+      "default": "",
+      "title": "Company",
+      "type": "string"
+    },
+    "intent": {
+      "anyOf": [
+        {
+          "enum": [
+            "earnings",
+            "report_review",
+            "investigation",
+            "collect"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Intent"
+    },
+    "as_of": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "As Of"
+    },
+    "release_context": {
+      "default": false,
+      "title": "Release Context",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "operation_id",
+    "expected_input_version"
+  ],
+  "title": "ResearchMessage",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/research_message.v3.json"
+}

@@ -1,0 +1,133 @@
+{
+  "$defs": {
+    "Citation": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "block_id": {
+          "title": "Block Id",
+          "type": "string"
+        },
+        "quote": {
+          "minLength": 1,
+          "title": "Quote",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "block_id",
+        "quote"
+      ],
+      "title": "Citation",
+      "type": "object"
+    },
+    "Reference": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 240,
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "Reference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "maxLength": 160,
+      "minLength": 8,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "query_id": {
+      "title": "Query Id",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "content": {
+      "title": "Content",
+      "type": "string"
+    },
+    "used": {
+      "items": {
+        "$ref": "#/$defs/Reference"
+      },
+      "minItems": 1,
+      "title": "Used",
+      "type": "array"
+    },
+    "citations": {
+      "items": {
+        "$ref": "#/$defs/Citation"
+      },
+      "minItems": 1,
+      "title": "Citations",
+      "type": "array"
+    },
+    "numeric_assertions": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Numeric Assertions",
+      "type": "array"
+    },
+    "save_proposal": {
+      "default": true,
+      "title": "Save Proposal",
+      "type": "boolean"
+    },
+    "target": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Reference"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "writeback": {
+      "default": "topic",
+      "enum": [
+        "topic",
+        "analysis"
+      ],
+      "title": "Writeback",
+      "type": "string"
+    }
+  },
+  "required": [
+    "operation_id",
+    "query_id",
+    "title",
+    "content",
+    "used",
+    "citations"
+  ],
+  "title": "AnswerInput",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/wiki_answer_input.v1.json"
+}

@@ -1,0 +1,497 @@
+{
+  "$defs": {
+    "Citation": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "block_id": {
+          "title": "Block Id",
+          "type": "string"
+        },
+        "quote": {
+          "minLength": 1,
+          "title": "Quote",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "block_id",
+        "quote"
+      ],
+      "title": "Citation",
+      "type": "object"
+    },
+    "Document": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "company": {
+          "title": "Company",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        },
+        "digest": {
+          "title": "Digest",
+          "type": "string"
+        },
+        "media_type": {
+          "title": "Media Type",
+          "type": "string"
+        },
+        "published_at": {
+          "title": "Published At",
+          "type": "string"
+        },
+        "available_at": {
+          "title": "Available At",
+          "type": "string"
+        },
+        "observed_at": {
+          "title": "Observed At",
+          "type": "string"
+        },
+        "publication_precision": {
+          "default": "observed",
+          "enum": [
+            "timestamp",
+            "day",
+            "observed"
+          ],
+          "title": "Publication Precision",
+          "type": "string"
+        },
+        "origin_group": {
+          "title": "Origin Group",
+          "type": "string"
+        },
+        "blocks": {
+          "items": {
+            "$ref": "#/$defs/SourceBlock"
+          },
+          "title": "Blocks",
+          "type": "array"
+        },
+        "supersedes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Supersedes"
+        },
+        "withdrawn_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Withdrawn At"
+        },
+        "file_name": {
+          "title": "File Name",
+          "type": "string"
+        },
+        "issues": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Issues",
+          "type": "array"
+        },
+        "identity_version": {
+          "default": "desk-original.1",
+          "title": "Identity Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "company",
+        "title",
+        "url",
+        "digest",
+        "media_type",
+        "published_at",
+        "available_at",
+        "observed_at",
+        "origin_group",
+        "blocks",
+        "file_name"
+      ],
+      "title": "Document",
+      "type": "object"
+    },
+    "MetricRow": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "title": "Key",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "group": {
+          "title": "Group",
+          "type": "string"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "basis": {
+          "title": "Basis",
+          "type": "string"
+        },
+        "nature": {
+          "enum": [
+            "flow",
+            "stock",
+            "ratio",
+            "per_share"
+          ],
+          "title": "Nature",
+          "type": "string"
+        },
+        "actual": {
+          "$ref": "#/$defs/Point"
+        },
+        "prior": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Point"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "baseline": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Baseline"
+        },
+        "baseline_type": {
+          "default": "user_forecast",
+          "title": "Baseline Type",
+          "type": "string"
+        },
+        "difference": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Difference"
+        },
+        "difference_pct": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Difference Pct"
+        },
+        "yoy": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Yoy"
+        },
+        "yoy_bps": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Yoy Bps"
+        },
+        "series": {
+          "items": {
+            "$ref": "#/$defs/Point"
+          },
+          "title": "Series",
+          "type": "array"
+        },
+        "checked": {
+          "default": false,
+          "title": "Checked",
+          "type": "boolean"
+        },
+        "issues": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Issues",
+          "type": "array"
+        }
+      },
+      "required": [
+        "key",
+        "label",
+        "group",
+        "unit",
+        "basis",
+        "nature",
+        "actual",
+        "series"
+      ],
+      "title": "MetricRow",
+      "type": "object"
+    },
+    "Point": {
+      "additionalProperties": false,
+      "properties": {
+        "reviewed": {
+          "default": false,
+          "title": "Reviewed",
+          "type": "boolean"
+        },
+        "period": {
+          "title": "Period",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        },
+        "observation_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Observation Ids",
+          "type": "array"
+        },
+        "citations": {
+          "items": {
+            "$ref": "#/$defs/Citation"
+          },
+          "title": "Citations",
+          "type": "array"
+        },
+        "calculation": {
+          "default": "",
+          "title": "Calculation",
+          "type": "string"
+        },
+        "issues": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Issues",
+          "type": "array"
+        }
+      },
+      "required": [
+        "period",
+        "value"
+      ],
+      "title": "Point",
+      "type": "object"
+    },
+    "SourceBlock": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "page": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Page"
+        },
+        "bbox": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bbox"
+        },
+        "kind": {
+          "default": "paragraph",
+          "enum": [
+            "paragraph",
+            "table"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "cells": {
+          "items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Cells",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "text"
+      ],
+      "title": "SourceBlock",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "company": {
+      "title": "Company",
+      "type": "string"
+    },
+    "period": {
+      "title": "Period",
+      "type": "string"
+    },
+    "periods": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Periods",
+      "type": "array"
+    },
+    "as_of": {
+      "title": "As Of",
+      "type": "string"
+    },
+    "snapshot": {
+      "title": "Snapshot",
+      "type": "string"
+    },
+    "rows": {
+      "items": {
+        "$ref": "#/$defs/MetricRow"
+      },
+      "title": "Rows",
+      "type": "array"
+    },
+    "documents": {
+      "items": {
+        "$ref": "#/$defs/Document"
+      },
+      "title": "Documents",
+      "type": "array"
+    },
+    "bridge": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Bridge",
+      "type": "array"
+    },
+    "model": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Model"
+    },
+    "issues": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Issues",
+      "type": "array"
+    }
+  },
+  "required": [
+    "company",
+    "period",
+    "periods",
+    "as_of",
+    "snapshot",
+    "rows",
+    "documents",
+    "bridge",
+    "issues"
+  ],
+  "title": "DeskView",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/desk_view.v1.json"
+}

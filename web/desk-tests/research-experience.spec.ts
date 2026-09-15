@@ -1,0 +1,86 @@
+import {test,expect} from '@playwright/test'
+
+test('Natural language submission retains every target and ignores passive page company',async({page,request})=>{
+ await page.goto('/research')
+ await expect(page.getByLabel('当前公司',{exact:true})).toHaveCount(0)
+ await page.getByLabel('研究问题',{exact:true}).fill('比较拼多多和阿里的利润持续性')
+ const response=page.waitForResponse(r=>r.url().endsWith('/api/desk/research/requests')&&r.request().method()==='POST')
+ await page.getByRole('button',{name:/开始研究/}).click()
+ const created=await(await response).json()
+ expect(created.input.company).toBe('');expect(created.input.workflow_version).toBe(3)
+ await expect(page.getByRole('heading',{name:'利润持续性研究',exact:true})).toBeVisible()
+ await expect.poll(async()=>(await(await request.get('/api/desk/research/requests/'+created.id)).json()).input.scope.subjects?.length).toBe(2)
+ await expect(page.locator('.rx-understanding')).toContainText('拼多多')
+ await expect(page.locator('.rx-understanding')).toContainText('阿里巴巴')
+ await page.getByRole('button',{name:'补充 / 调整 ↓'}).click()
+ await expect(page.getByLabel('补充研究要求')).toBeFocused()
+ await page.getByLabel('补充研究要求').fill('先看现金流')
+ await page.getByRole('button',{name:'发送补充',exact:true}).click()
+ await expect(page.locator('.rx-message-history')).toContainText('先看现金流')
+ await page.reload()
+ await page.locator('.rx-message-history summary').click()
+ await expect(page.locator('.rx-message-history')).toContainText('先看现金流')
+})
+
+test('Uploading can retry without duplicating successfully saved attachments',async({page})=>{
+ await page.goto('/research')
+ let uploads=0,requests=0
+ await page.route('**/api/desk/research/attachments',async route=>{uploads++;await route.continue()})
+ await page.route('**/api/desk/research/requests',async route=>{
+  if(route.request().method()==='POST'&&requests++===0)await route.fulfill({status:503,json:{detail:'测试连接异常'}})
+  else await route.continue()
+ })
+ await page.getByLabel('研究问题',{exact:true}).fill('分析阿里，核对这份材料')
+ await page.getByLabel('研究附件',{exact:true}).setInputFiles({name:'test-note.txt',mimeType:'text/plain',buffer:Buffer.from('Offline acceptance fixture: Alibaba company description. Not company data.')})
+ await page.getByRole('button',{name:/开始研究/}).click()
+ await expect(page.getByRole('alert')).toContainText('测试连接异常')
+ await expect(page.getByLabel('研究问题')).toHaveValue('分析阿里，核对这份材料')
+ await page.getByRole('button',{name:/开始研究/}).click()
+ await expect(page).toHaveURL(/\/research\/research_/)
+ expect(uploads).toBe(1)
+})
+
+for(const width of [1440,1280,390])test(`Answer, original and return position at ${width}px`,async({page,request},testInfo)=>{
+ await page.setViewportSize({width,height:900})
+ const rows=await(await request.get('/api/desk/research/requests')).json()
+ const fixture=rows.find((r:any)=>r.input.question==='离线界面验收：利润率变化核对')
+ await page.goto('/research/'+fixture.id)
+ const answer=page.getByRole('heading',{name:'目前可以得出的判断'})
+ await expect(answer).toBeVisible()
+ expect((await answer.boundingBox())!.y).toBeLessThan(width===390?650:520)
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBeTruthy()
+ await page.screenshot({path:testInfo.outputPath(`answer-${width}.png`),fullPage:false})
+ const trigger=page.getByRole('button',{name:'查看判断依据 ↗'}).first()
+ await trigger.click()
+ await expect(page.locator('.d-research-evidence blockquote')).toContainText('Investment')
+ await page.screenshot({path:testInfo.outputPath(`evidence-${width}.png`),fullPage:false})
+ if(width===390){
+  await expect(page.getByRole('button',{name:'关闭证据'})).toBeFocused()
+  await page.keyboard.press('Escape')
+  await expect(trigger).toBeFocused()
+  await expect(page.locator('.d-research-evidence')).not.toBeVisible()
+ }
+ const href=await page.getByRole('link',{name:'下载报告 ↓'}).getAttribute('href')
+ expect(href).toContain('?version=1')
+ const download=await request.get(href!);expect(download.ok()).toBeTruthy()
+ expect(await download.text()).toContain('离线界面验收')
+})
+
+test('Chinese composition does not submit the research form',async({page})=>{
+ await page.goto('/research')
+ await page.getByLabel('研究问题').fill('阿里')
+ await page.getByLabel('研究问题').dispatchEvent('keydown',{key:'Enter',ctrlKey:true,isComposing:true})
+ await expect(page).toHaveURL(/\/research$/)
+})
+
+test('Validated inline numbers open their calculation evidence',async({page,request})=>{
+ const rows=await(await request.get('/api/desk/research/requests')).json()
+ const fixture=rows.find((r:any)=>r.input.question==='离线界面验收：利润率变化核对')
+ const report=await(await request.get('/api/desk/research/requests/'+fixture.id+'/report')).json()
+ report.schema_version=3
+ await page.route('**/api/desk/research/requests/'+fixture.id+'/report',route=>route.fulfill({json:report}))
+ await page.goto('/research/'+fixture.id+'?tab=report')
+ await expect(page.getByRole('tab',{name:'研究',exact:true})).toHaveAttribute('aria-selected','true')
+ await page.getByRole('button',{name:/查看计算：/}).first().click()
+ await expect(page.locator('.d-research-evidence blockquote')).toContainText('Investment')
+})

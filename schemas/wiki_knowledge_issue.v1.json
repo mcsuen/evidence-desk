@@ -1,0 +1,205 @@
+{
+  "$defs": {
+    "Citation": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "block_id": {
+          "title": "Block Id",
+          "type": "string"
+        },
+        "quote": {
+          "minLength": 1,
+          "title": "Quote",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "block_id",
+        "quote"
+      ],
+      "title": "Citation",
+      "type": "object"
+    },
+    "Reference": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 240,
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "Reference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "maxLength": 160,
+      "minLength": 8,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "target": {
+      "$ref": "#/$defs/Reference"
+    },
+    "paragraph": {
+      "default": "",
+      "title": "Paragraph",
+      "type": "string"
+    },
+    "issue_type": {
+      "enum": [
+        "citation",
+        "object",
+        "numeric",
+        "calculation",
+        "semantic",
+        "conflict",
+        "scope",
+        "gap",
+        "structure"
+      ],
+      "title": "Issue Type",
+      "type": "string"
+    },
+    "description": {
+      "minLength": 1,
+      "title": "Description",
+      "type": "string"
+    },
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/Citation"
+      },
+      "title": "Evidence",
+      "type": "array"
+    },
+    "discovered_by": {
+      "default": "human",
+      "enum": [
+        "human",
+        "agent",
+        "slack",
+        "rule",
+        "semantic"
+      ],
+      "title": "Discovered By",
+      "type": "string"
+    },
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "state": {
+      "enum": [
+        "open",
+        "closed"
+      ],
+      "title": "State",
+      "type": "string"
+    },
+    "impacts": {
+      "additionalProperties": true,
+      "title": "Impacts",
+      "type": "object"
+    },
+    "content_resolution": {
+      "default": "",
+      "title": "Content Resolution",
+      "type": "string"
+    },
+    "company": {
+      "title": "Company",
+      "type": "string"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "policy": {
+      "$ref": "#/$defs/Reference"
+    },
+    "confirmed_hard_error": {
+      "title": "Confirmed Hard Error",
+      "type": "boolean"
+    },
+    "reproduced_failures": {
+      "items": {
+        "additionalProperties": {
+          "type": "string"
+        },
+        "type": "object"
+      },
+      "title": "Reproduced Failures",
+      "type": "array"
+    },
+    "previous_status": {
+      "additionalProperties": true,
+      "title": "Previous Status",
+      "type": "object"
+    },
+    "updated_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Updated At"
+    },
+    "decisions": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Decisions",
+      "type": "array"
+    },
+    "reports": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Reports",
+      "type": "array"
+    }
+  },
+  "required": [
+    "operation_id",
+    "target",
+    "issue_type",
+    "description",
+    "id",
+    "state",
+    "impacts",
+    "company",
+    "created_at",
+    "policy",
+    "confirmed_hard_error",
+    "previous_status"
+  ],
+  "title": "KnowledgeIssue",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/wiki_knowledge_issue.v1.json"
+}

@@ -1,0 +1,1 @@
+{"cli_version":"codex-cli 0.153.4","observed_events":["codex.api_request","codex.conversation_starts","codex.startup_phase","codex.user_prompt","codex.websocket_connect","codex.websocket_request","codex.sse_event","codex.turn_ttft","codex.tool_result"]}

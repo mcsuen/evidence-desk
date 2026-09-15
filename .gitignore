@@ -1,0 +1,29 @@
+# Local environment and dependencies
+.venv/
+.pitr/
+__pycache__/
+*.pyc
+*.egg-info/
+web/node_modules/
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# Local data and private runtime state
+/data/
+/tmp/
+/runs/
+
+# Generated builds, test results and diagnostics
+/dist/
+web/dist/
+/output/
+.pytest_cache/
+.ruff_cache/
+web/test-results/
+web/test-results-*/
+web/playwright-report/
+
+# Licensed input used by optional regression tests
+/CMBI-PDD-2025-08-26.pdf

@@ -1,0 +1,764 @@
+{
+  "$defs": {
+    "CalculationRef": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "metric": {
+          "title": "Metric",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "currency": {
+          "default": "",
+          "title": "Currency",
+          "type": "string"
+        },
+        "basis": {
+          "default": "",
+          "title": "Basis",
+          "type": "string"
+        },
+        "share_basis": {
+          "default": "",
+          "title": "Share Basis",
+          "type": "string"
+        },
+        "period": {
+          "default": "",
+          "title": "Period",
+          "type": "string"
+        },
+        "frequency": {
+          "default": "",
+          "title": "Frequency",
+          "type": "string"
+        },
+        "direction": {
+          "anyOf": [
+            {
+              "enum": [
+                "increase",
+                "decrease",
+                "unchanged"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Direction"
+        },
+        "precision": {
+          "default": 3,
+          "title": "Precision",
+          "type": "integer"
+        },
+        "formula": {
+          "title": "Formula",
+          "type": "string"
+        },
+        "dependencies": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Dependencies",
+          "type": "array"
+        },
+        "assumption": {
+          "default": false,
+          "title": "Assumption",
+          "type": "boolean"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "source_roles": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Roles",
+          "type": "array"
+        },
+        "verification_status": {
+          "default": "source_bound",
+          "title": "Verification Status",
+          "type": "string"
+        },
+        "source_locator": {
+          "additionalProperties": true,
+          "title": "Source Locator",
+          "type": "object"
+        },
+        "company_id": {
+          "default": "",
+          "title": "Company Id",
+          "type": "string"
+        },
+        "subject_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Subject Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "metric",
+        "value",
+        "unit",
+        "formula"
+      ],
+      "title": "CalculationRef",
+      "type": "object"
+    },
+    "CoverageCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "title": "Key",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "answered",
+            "gap",
+            "missing",
+            "invalid"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "claim_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Claim Ids",
+          "type": "array"
+        },
+        "explanation": {
+          "default": "",
+          "title": "Explanation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "status"
+      ],
+      "title": "CoverageCheck",
+      "type": "object"
+    },
+    "EvidenceRef": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "source_version": {
+          "title": "Source Version",
+          "type": "string"
+        },
+        "block_id": {
+          "title": "Block Id",
+          "type": "string"
+        },
+        "start": {
+          "title": "Start",
+          "type": "integer"
+        },
+        "end": {
+          "title": "End",
+          "type": "integer"
+        },
+        "quote": {
+          "title": "Quote",
+          "type": "string"
+        },
+        "available_at": {
+          "title": "Available At",
+          "type": "string"
+        },
+        "origin": {
+          "title": "Origin",
+          "type": "string"
+        },
+        "page": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Page"
+        },
+        "title": {
+          "default": "",
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "default": "",
+          "title": "Url",
+          "type": "string"
+        },
+        "source_role": {
+          "default": "",
+          "title": "Source Role",
+          "type": "string"
+        },
+        "origin_group": {
+          "default": "",
+          "title": "Origin Group",
+          "type": "string"
+        },
+        "published_at": {
+          "default": "",
+          "title": "Published At",
+          "type": "string"
+        },
+        "observed_at": {
+          "default": "",
+          "title": "Observed At",
+          "type": "string"
+        },
+        "publication_precision": {
+          "default": "",
+          "title": "Publication Precision",
+          "type": "string"
+        },
+        "modified_at": {
+          "default": "",
+          "title": "Modified At",
+          "type": "string"
+        },
+        "publication_note": {
+          "default": "",
+          "title": "Publication Note",
+          "type": "string"
+        },
+        "original_url": {
+          "default": "",
+          "title": "Original Url",
+          "type": "string"
+        },
+        "reported_date": {
+          "default": "",
+          "title": "Reported Date",
+          "type": "string"
+        },
+        "bbox": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Bbox",
+          "type": "array"
+        },
+        "company_id": {
+          "default": "",
+          "title": "Company Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source_id",
+        "source_version",
+        "block_id",
+        "start",
+        "end",
+        "quote",
+        "available_at",
+        "origin"
+      ],
+      "title": "EvidenceRef",
+      "type": "object"
+    },
+    "RequiredComparison": {
+      "additionalProperties": false,
+      "properties": {
+        "metric": {
+          "title": "Metric",
+          "type": "string"
+        },
+        "period": {
+          "default": "",
+          "title": "Period",
+          "type": "string"
+        },
+        "basis": {
+          "default": "",
+          "title": "Basis",
+          "type": "string"
+        }
+      },
+      "required": [
+        "metric"
+      ],
+      "title": "RequiredComparison",
+      "type": "object"
+    },
+    "RequiredConcept": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "terms": {
+          "description": "Equivalent explicit terms for this concept; at least one must appear in the linked report claims, not only in the coverage self-assessment.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Terms",
+          "type": "array"
+        }
+      },
+      "required": [
+        "name",
+        "terms"
+      ],
+      "title": "RequiredConcept",
+      "type": "object"
+    },
+    "Requirement": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "question": {
+          "title": "Question",
+          "type": "string"
+        },
+        "source_id": {
+          "default": "",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "pages": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Pages",
+          "type": "array"
+        },
+        "kind": {
+          "default": "question",
+          "enum": [
+            "question",
+            "table",
+            "figure",
+            "model",
+            "temporal"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "reason": {
+          "default": "",
+          "title": "Reason",
+          "type": "string"
+        },
+        "check": {
+          "default": "answer",
+          "enum": [
+            "answer",
+            "consensus_comparison_ratios",
+            "forecast_revision_ratios",
+            "valuation_price_reconciliation",
+            "consensus_profit_reconciliation",
+            "segment_revenue_reconciliation",
+            "public_investigation"
+          ],
+          "title": "Check",
+          "type": "string"
+        },
+        "required_concepts": {
+          "items": {
+            "$ref": "#/$defs/RequiredConcept"
+          },
+          "title": "Required Concepts",
+          "type": "array"
+        },
+        "required_metrics": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Metrics",
+          "type": "array"
+        },
+        "required_periods": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Periods",
+          "type": "array"
+        },
+        "required_comparisons": {
+          "items": {
+            "$ref": "#/$defs/RequiredComparison"
+          },
+          "title": "Required Comparisons",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "question"
+      ],
+      "title": "Requirement",
+      "type": "object"
+    },
+    "RequirementResolution": {
+      "additionalProperties": false,
+      "properties": {
+        "requirement_id": {
+          "title": "Requirement Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "answered",
+            "gap",
+            "pending"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "claim_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Claim Ids",
+          "type": "array"
+        },
+        "explanation": {
+          "default": "",
+          "title": "Explanation",
+          "type": "string"
+        },
+        "check_receipts": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Check Receipts",
+          "type": "array"
+        },
+        "needed_input": {
+          "default": "",
+          "title": "Needed Input",
+          "type": "string"
+        }
+      },
+      "required": [
+        "requirement_id",
+        "status"
+      ],
+      "title": "RequirementResolution",
+      "type": "object"
+    },
+    "ResearchSubject": {
+      "additionalProperties": false,
+      "properties": {
+        "company_id": {
+          "default": "",
+          "title": "Company Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "mention": {
+          "default": "",
+          "title": "Mention",
+          "type": "string"
+        },
+        "role": {
+          "default": "target",
+          "enum": [
+            "target",
+            "reference",
+            "excluded"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "securities": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Securities",
+          "type": "array"
+        },
+        "rationale": {
+          "default": "",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "identity_sources": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Identity Sources",
+          "type": "array"
+        },
+        "verified": {
+          "default": false,
+          "title": "Verified",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "ResearchSubject",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "artifact_version": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Artifact Version"
+    },
+    "schema_version": {
+      "const": 3,
+      "default": 3,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "request_id": {
+      "title": "Request Id",
+      "type": "string"
+    },
+    "input_version": {
+      "title": "Input Version",
+      "type": "integer"
+    },
+    "snapshot": {
+      "title": "Snapshot",
+      "type": "string"
+    },
+    "as_of": {
+      "title": "As Of",
+      "type": "string"
+    },
+    "intent": {
+      "title": "Intent",
+      "type": "string"
+    },
+    "claims": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Claims",
+      "type": "array"
+    },
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/EvidenceRef"
+      },
+      "title": "Evidence",
+      "type": "array"
+    },
+    "calculations": {
+      "items": {
+        "$ref": "#/$defs/CalculationRef"
+      },
+      "title": "Calculations",
+      "type": "array"
+    },
+    "metrics": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Metrics",
+      "type": "array"
+    },
+    "coverage": {
+      "items": {
+        "$ref": "#/$defs/CoverageCheck"
+      },
+      "title": "Coverage",
+      "type": "array"
+    },
+    "gaps": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Gaps",
+      "type": "array"
+    },
+    "issues": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Issues",
+      "type": "array"
+    },
+    "status": {
+      "enum": [
+        "review_ready",
+        "partial",
+        "needs_review"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "verification": {
+      "additionalProperties": true,
+      "title": "Verification",
+      "type": "object"
+    },
+    "handoffs": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Handoffs",
+      "type": "array"
+    },
+    "human_review": {
+      "default": "not_reviewed",
+      "title": "Human Review",
+      "type": "string"
+    },
+    "requirements": {
+      "items": {
+        "$ref": "#/$defs/Requirement"
+      },
+      "title": "Requirements",
+      "type": "array"
+    },
+    "requirement_resolutions": {
+      "items": {
+        "$ref": "#/$defs/RequirementResolution"
+      },
+      "title": "Requirement Resolutions",
+      "type": "array"
+    },
+    "reviews": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Reviews",
+      "type": "array"
+    },
+    "reading": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Reading",
+      "type": "array"
+    },
+    "delivery": {
+      "additionalProperties": true,
+      "title": "Delivery",
+      "type": "object"
+    },
+    "subjects": {
+      "items": {
+        "$ref": "#/$defs/ResearchSubject"
+      },
+      "title": "Subjects",
+      "type": "array"
+    },
+    "scope_type": {
+      "default": "company",
+      "title": "Scope Type",
+      "type": "string"
+    },
+    "key_claim_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Key Claim Ids",
+      "type": "array"
+    },
+    "sections": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Sections",
+      "type": "array"
+    },
+    "comparisons": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Comparisons",
+      "type": "array"
+    }
+  },
+  "required": [
+    "title",
+    "request_id",
+    "input_version",
+    "snapshot",
+    "as_of",
+    "intent",
+    "status",
+    "verification"
+  ],
+  "title": "ResearchOutcome",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/research_outcome.v3.json"
+}

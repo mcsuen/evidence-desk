@@ -1,0 +1,398 @@
+{
+  "$defs": {
+    "Citation": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "block_id": {
+          "title": "Block Id",
+          "type": "string"
+        },
+        "quote": {
+          "minLength": 1,
+          "title": "Quote",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "block_id",
+        "quote"
+      ],
+      "title": "Citation",
+      "type": "object"
+    },
+    "Metric": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "period": {
+          "title": "Period",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "basis": {
+          "default": "GAAP",
+          "enum": [
+            "GAAP",
+            "non-GAAP",
+            "disclosed"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "frequency": {
+          "default": "quarter",
+          "enum": [
+            "quarter",
+            "annual",
+            "ytd",
+            "instant"
+          ],
+          "title": "Frequency",
+          "type": "string"
+        },
+        "citation": {
+          "$ref": "#/$defs/Citation"
+        },
+        "status": {
+          "default": "extracted",
+          "enum": [
+            "extracted",
+            "checked",
+            "corrected"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "correction_reason": {
+          "default": "",
+          "title": "Correction Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "label",
+        "period",
+        "value",
+        "unit",
+        "citation"
+      ],
+      "title": "Metric",
+      "type": "object"
+    },
+    "Reference": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 240,
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "Reference",
+      "type": "object"
+    },
+    "Relation": {
+      "additionalProperties": false,
+      "properties": {
+        "target": {
+          "$ref": "#/$defs/Reference"
+        },
+        "relation": {
+          "enum": [
+            "supports",
+            "derived_from",
+            "used_in",
+            "related"
+          ],
+          "title": "Relation",
+          "type": "string"
+        },
+        "paragraph": {
+          "default": "",
+          "title": "Paragraph",
+          "type": "string"
+        }
+      },
+      "required": [
+        "target",
+        "relation"
+      ],
+      "title": "Relation",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "maxLength": 240,
+      "minLength": 1,
+      "pattern": "^[\\w:.\\-]+$",
+      "title": "Id",
+      "type": "string"
+    },
+    "kind": {
+      "const": "page",
+      "default": "page",
+      "title": "Kind",
+      "type": "string"
+    },
+    "expected_version": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Expected Version",
+      "type": "integer"
+    },
+    "title": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    },
+    "content": {
+      "maxLength": 100000,
+      "minLength": 1,
+      "title": "Content",
+      "type": "string"
+    },
+    "summary": {
+      "default": "",
+      "title": "Summary",
+      "type": "string"
+    },
+    "page_type": {
+      "enum": [
+        "source",
+        "company",
+        "concept",
+        "topic",
+        "analysis"
+      ],
+      "title": "Page Type",
+      "type": "string"
+    },
+    "nature": {
+      "anyOf": [
+        {
+          "enum": [
+            "fact",
+            "interpretation",
+            "method"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Nature"
+    },
+    "scope": {
+      "default": "",
+      "title": "Scope",
+      "type": "string"
+    },
+    "business_period": {
+      "default": "",
+      "title": "Business Period",
+      "type": "string"
+    },
+    "applicability": {
+      "default": "",
+      "title": "Applicability",
+      "type": "string"
+    },
+    "formula": {
+      "default": "",
+      "title": "Formula",
+      "type": "string"
+    },
+    "failure_cases": {
+      "default": "",
+      "title": "Failure Cases",
+      "type": "string"
+    },
+    "example": {
+      "default": "",
+      "title": "Example",
+      "type": "string"
+    },
+    "citations": {
+      "items": {
+        "$ref": "#/$defs/Citation"
+      },
+      "title": "Citations",
+      "type": "array"
+    },
+    "relations": {
+      "items": {
+        "$ref": "#/$defs/Relation"
+      },
+      "title": "Relations",
+      "type": "array"
+    },
+    "numeric_assertions": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Numeric Assertions",
+      "type": "array"
+    },
+    "corrects": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Reference"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "reason": {
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    },
+    "change_type": {
+      "default": "new",
+      "enum": [
+        "new",
+        "supplement",
+        "conflict",
+        "scope",
+        "correction"
+      ],
+      "title": "Change Type",
+      "type": "string"
+    },
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "company": {
+      "title": "Company",
+      "type": "string"
+    },
+    "published_at": {
+      "title": "Published At",
+      "type": "string"
+    },
+    "publication_sequence": {
+      "minimum": 0,
+      "title": "Publication Sequence",
+      "type": "integer"
+    },
+    "policy": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Reference"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "proposal_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Proposal Id"
+    },
+    "review_status": {
+      "title": "Review Status",
+      "type": "string"
+    },
+    "body_object": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Body Object",
+      "type": "string"
+    },
+    "decision": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Decision"
+    },
+    "evidence_observations": {
+      "items": {
+        "$ref": "#/$defs/Metric"
+      },
+      "title": "Evidence Observations",
+      "type": "array"
+    },
+    "origin": {
+      "default": "",
+      "title": "Origin",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "title",
+    "content",
+    "page_type",
+    "reason",
+    "version",
+    "company",
+    "published_at",
+    "publication_sequence",
+    "review_status",
+    "body_object"
+  ],
+  "title": "WikiPageRevision",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/wiki_wiki_page_revision.v1.json"
+}

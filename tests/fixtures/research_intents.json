@@ -1,0 +1,147 @@
+[
+  {
+    "id": "negation",
+    "question": "不要研究拼多多，帮我分析阿里的利润持续性。",
+    "company": "PDD",
+    "context_source": "passive",
+    "targets": [
+      "BABA"
+    ],
+    "scope": "company",
+    "clarify": false
+  },
+  {
+    "id": "comparison",
+    "question": "比较拼多多和阿里的利润持续性，看看现金流支撑是否充分。",
+    "targets": [
+      "PDD",
+      "BABA"
+    ],
+    "scope": "comparison",
+    "clarify": false
+  },
+  {
+    "id": "brand",
+    "question": "Temu 的增长会不会一直拖累母公司的利润？",
+    "targets": [
+      "PDD"
+    ],
+    "scope": "company",
+    "clarify": false
+  },
+  {
+    "id": "industry",
+    "question": "研究跨境电商平台的竞争格局和盈利模式差异。",
+    "scope": "industry",
+    "clarify": false
+  },
+  {
+    "id": "reference",
+    "question": "以亚马逊为参照，分析京东的履约成本优势是否可持续。",
+    "targets": [
+      "JD"
+    ],
+    "scope": "company",
+    "clarify": false
+  },
+  {
+    "id": "alias",
+    "question": "帮我看一下阿里的现金转化。",
+    "targets": [
+      "BABA"
+    ],
+    "scope": "company",
+    "clarify": false
+  },
+  {
+    "id": "ticker",
+    "question": "Research MELI's competitive moat and cash conversion.",
+    "targets": [
+      "MELI"
+    ],
+    "scope": "company",
+    "clarify": false
+  },
+  {
+    "id": "context-conflict",
+    "question": "分析阿里利润持续性。",
+    "company": "PDD",
+    "context_source": "workspace",
+    "targets": [
+      "BABA"
+    ],
+    "clarify": true
+  },
+  {
+    "id": "ambiguous",
+    "question": "分析中信的利润，看看是否持续。",
+    "clarify": true
+  },
+  {
+    "id": "missing-subject",
+    "question": "它的利润增长可持续吗？",
+    "clarify": true
+  },
+  {
+    "id": "period",
+    "question": "分析京东2025年第二季度财报的关键变化。",
+    "targets": [
+      "JD"
+    ],
+    "period": "2025Q2",
+    "intent": "earnings",
+    "clarify": false
+  },
+  {
+    "id": "latest",
+    "question": "分析拼多多最新财报中的利润与现金流变化。",
+    "targets": [
+      "PDD"
+    ],
+    "period": "",
+    "intent": "earnings",
+    "clarify": false
+  },
+  {
+    "id": "multiple-periods",
+    "question": "比较拼多多2024Q2和2025Q2的费用结构。",
+    "targets": [
+      "PDD"
+    ],
+    "clarify": false
+  },
+  {
+    "id": "topic-ambiguous",
+    "question": "跨境电商",
+    "clarify": true
+  },
+  {
+    "id": "english",
+    "question": "Compare Amazon and MercadoLibre on logistics economics.",
+    "targets": [
+      "AMZN",
+      "MELI"
+    ],
+    "scope": "comparison",
+    "clarify": false
+  },
+  {
+    "id": "unknown-company",
+    "question": "研究一家叫星河蓝海的企业，看看利润是否持续。",
+    "clarify": true
+  },
+  {
+    "id": "new-listed-company",
+    "question": "研究腾讯控股有限公司（香港联交所 0700）的游戏和广告业务增长来源。",
+    "scope": "company",
+    "clarify": false,
+    "verified_name": "Tencent"
+  },
+  {
+    "id": "new-company-official-original",
+    "question": "研究腾讯控股有限公司（香港联交所 0700）的游戏和广告业务增长来源。公司官方披露：https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0408/2025040800716.pdf",
+    "scope": "company",
+    "clarify": false,
+    "verified_name": "Tencent"
+  }
+]

@@ -1,0 +1,43 @@
+#!/bin/sh
+set -eu
+PITR_REPO=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+cd "$PITR_REPO"
+if [ "$(uname -s)" != Darwin ]; then
+  echo '一键启动目前支持 macOS（Apple Silicon / Intel）。' >&2
+  exit 1
+fi
+case "$(uname -m)" in
+  arm64) PITR_ARCH=aarch64; PITR_UV_SHA=7e6ddb9316acc00f2296c82ff4d99977870ee34b2f0ddcae9444d714db9364ed ;;
+  x86_64) PITR_ARCH=x86_64; PITR_UV_SHA=5e287ef61cb6a9b61b3a83fef124fd143e400468a7dac794230147a810e17119 ;;
+  *) echo '暂不支持此 Mac 架构。' >&2; exit 1 ;;
+esac
+umask 077
+PITR_PRIVATE="$PITR_REPO/.pitr"
+mkdir -p "$PITR_PRIVATE"
+PITR_UV="$PITR_PRIVATE/uv-0.12.13/uv"
+if [ ! -x "$PITR_UV" ]; then
+  echo '正在准备 PITR 私有运行环境…'
+  PITR_DOWNLOAD=$(mktemp -d "$PITR_PRIVATE/.download.XXXXXX")
+  trap 'rm -rf "$PITR_DOWNLOAD"' EXIT
+  trap 'exit 129' HUP
+  trap 'exit 130' INT
+  trap 'exit 143' TERM
+  curl --fail --location --retry 3 --proto '=https' --tlsv1.2 \
+    "https://github.com/astral-sh/uv/releases/download/0.12.13/uv-$PITR_ARCH-apple-darwin.tar.gz" -o "$PITR_DOWNLOAD/uv.tar.gz"
+  PITR_ACTUAL=$(shasum -a 256 "$PITR_DOWNLOAD/uv.tar.gz" | awk '{print $1}')
+  if [ "$PITR_ACTUAL" != "$PITR_UV_SHA" ]; then echo '运行环境校验失败，请重试。' >&2; exit 1; fi
+  tar -xzf "$PITR_DOWNLOAD/uv.tar.gz" -C "$PITR_DOWNLOAD"
+  mkdir -p "$PITR_PRIVATE/uv-0.12.13"
+  cp "$PITR_DOWNLOAD/uv-$PITR_ARCH-apple-darwin/uv" "$PITR_PRIVATE/uv-0.12.13/.uv-$$"
+  mv "$PITR_PRIVATE/uv-0.12.13/.uv-$$" "$PITR_UV"
+  rm -rf "$PITR_DOWNLOAD"
+  trap - EXIT HUP INT TERM
+fi
+export UV_PYTHON_INSTALL_DIR="$PITR_PRIVATE/python"
+export UV_PYTHON_BIN_DIR="$PITR_PRIVATE/bin"
+export UV_CACHE_DIR="$PITR_PRIVATE/cache/uv"
+export UV_PYTHON_PREFERENCE=only-managed
+# The pinned uv release includes the Python build URLs and SHA-256 manifest.
+"$PITR_UV" python install 3.12.12 --no-progress --no-bin
+PITR_PYTHON=$("$PITR_UV" python find 3.12.12)
+exec "$PITR_PYTHON" "$PITR_REPO/scripts/bootstrap.py" "$@"

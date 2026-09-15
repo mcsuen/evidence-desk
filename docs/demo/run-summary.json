@@ -1,0 +1,48 @@
+{
+  "schema": "pitr.readme-demo.1",
+  "recorded_at": "2026-09-15T09:41:29.496799+00:00",
+  "request_id": "research_f1183d90f5e04f5689b6",
+  "input_version": 1,
+  "question_file": "question.txt",
+  "company": "PDD",
+  "periods": [
+    "2024Q2",
+    "2025Q2"
+  ],
+  "snapshot": "snapshot_5fa8446cf0c0d9a8294d94ac128f649d",
+  "snapshot_as_of": "2026-09-15T08:57:35.832407+00:00",
+  "historical_backtest": false,
+  "sources": [
+    "source_668ba948cc7272d79d9df51d",
+    "source_ff6fd9d38394cfcee24f6df0"
+  ],
+  "agent": {
+    "provider": "codex",
+    "model": "gpt-6-astra",
+    "reasoning": "medium",
+    "cli": "codex-cli 0.154.0-alpha.6.2"
+  },
+  "created_at": "2026-09-15T09:18:49.160228+00:00",
+  "finished_at": "2026-09-15T09:31:36.033006+00:00",
+  "execution_status": "completed",
+  "delivery": {
+    "reason": "要求、原件、计算和独立复核已完成；人工采纳仍待处理",
+    "status": "partial"
+  },
+  "artifact_version": 4,
+  "independent_review": "passed",
+  "numeric_integrity": "checked",
+  "gaps": [
+    "缺少事件前冻结的用户预测；不计算虚假的预期差",
+    "两份披露未提供足以量化竞争、商家扶持、平台或区域贡献的细分数据，不能确认盈利压力的期限与恢复路径。",
+    "股份支付变化及其余费用变化的经营原因和持续性仍缺少披露；已有附注能够支持会计分解。"
+  ],
+  "proposal": {
+    "id": "wp_27f46ef6ef0e419d838f",
+    "status": "pending",
+    "claim_id": "c5",
+    "artifact_version": 4,
+    "snapshot": "snapshot_5fa8446cf0c0d9a8294d94ac128f649d",
+    "human_adopted": false
+  }
+}

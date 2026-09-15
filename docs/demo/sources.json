@@ -1,0 +1,34 @@
+[
+  {
+    "period": "2024Q2",
+    "title": "PDD Holdings Announces Second Quarter 2024 Unaudited Financial Results",
+    "url": "https://investor.pddholdings.com/static-files/fd51ce6f-19eb-4ec7-a505-0bfe3bf30fb8",
+    "file": "pdd-2024q2-results.pdf",
+    "sha256": "b1cc6fb825e6999736e934a64b7a8f4dccaadf576ccfc4700434ca99f99edca4",
+    "bytes": 54899,
+    "pages": 6,
+    "source_id": "source_668ba948cc7272d79d9df51d",
+    "verified_at": "2026-09-15T08:57:33.992274+00:00",
+    "verification": {
+      "method": "official_download",
+      "http_status": 200
+    },
+    "published_at": "2024-08-26"
+  },
+  {
+    "period": "2025Q2",
+    "title": "PDD Holdings Announces Second Quarter 2025 Unaudited Financial Results",
+    "url": "https://investor.pddholdings.com/static-files/284c873a-332b-4fb6-b2d8-a9bfed73dbbe",
+    "file": "pdd-2025q2-results.pdf",
+    "sha256": "e607abe2844ec398a8aeef62ac0dd3d0c81bf9c1e6ac5e7d9eecc84afd5e20a6",
+    "bytes": 53648,
+    "pages": 6,
+    "source_id": "source_ff6fd9d38394cfcee24f6df0",
+    "verified_at": "2026-09-15T08:57:35.830481+00:00",
+    "verification": {
+      "method": "official_download",
+      "http_status": 200
+    },
+    "published_at": "2025-08-25"
+  }
+]

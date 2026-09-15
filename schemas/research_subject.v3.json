@@ -1,0 +1,61 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "company_id": {
+      "default": "",
+      "title": "Company Id",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "mention": {
+      "default": "",
+      "title": "Mention",
+      "type": "string"
+    },
+    "role": {
+      "default": "target",
+      "enum": [
+        "target",
+        "reference",
+        "excluded"
+      ],
+      "title": "Role",
+      "type": "string"
+    },
+    "securities": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Securities",
+      "type": "array"
+    },
+    "rationale": {
+      "default": "",
+      "title": "Rationale",
+      "type": "string"
+    },
+    "identity_sources": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Identity Sources",
+      "type": "array"
+    },
+    "verified": {
+      "default": false,
+      "title": "Verified",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "title": "ResearchSubject",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/research_subject.v3.json"
+}

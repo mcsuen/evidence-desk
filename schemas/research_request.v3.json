@@ -1,0 +1,192 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "maxLength": 160,
+      "minLength": 8,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "question": {
+      "default": "",
+      "maxLength": 12000,
+      "title": "Question",
+      "type": "string"
+    },
+    "company": {
+      "default": "",
+      "title": "Company",
+      "type": "string"
+    },
+    "period": {
+      "default": "",
+      "title": "Period",
+      "type": "string"
+    },
+    "intent": {
+      "default": "auto",
+      "enum": [
+        "auto",
+        "earnings",
+        "report_review",
+        "investigation"
+      ],
+      "title": "Intent",
+      "type": "string"
+    },
+    "as_of": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "As Of"
+    },
+    "snapshot": {
+      "default": "",
+      "title": "Snapshot",
+      "type": "string"
+    },
+    "model_draft_id": {
+      "default": "",
+      "title": "Model Draft Id",
+      "type": "string"
+    },
+    "context": {
+      "additionalProperties": true,
+      "title": "Context",
+      "type": "object"
+    },
+    "source_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 10,
+      "title": "Source Ids",
+      "type": "array"
+    },
+    "official_urls": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 10,
+      "title": "Official Urls",
+      "type": "array"
+    },
+    "channel": {
+      "default": "web",
+      "enum": [
+        "web",
+        "slack",
+        "cli",
+        "context"
+      ],
+      "title": "Channel",
+      "type": "string"
+    },
+    "parent_request_id": {
+      "default": "",
+      "title": "Parent Request Id",
+      "type": "string"
+    },
+    "workflow_version": {
+      "const": 3,
+      "default": 3,
+      "title": "Workflow Version",
+      "type": "integer"
+    },
+    "scope": {
+      "additionalProperties": true,
+      "title": "Scope",
+      "type": "object"
+    },
+    "context_source": {
+      "default": "none",
+      "enum": [
+        "none",
+        "explicit",
+        "workspace",
+        "passive"
+      ],
+      "title": "Context Source",
+      "type": "string"
+    },
+    "budget_seconds": {
+      "anyOf": [
+        {
+          "minimum": 10,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Budget Seconds"
+    },
+    "tool_budget": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Tool Budget"
+    },
+    "agent_provider": {
+      "anyOf": [
+        {
+          "enum": [
+            "codex",
+            "claude"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Agent Provider"
+    },
+    "model": {
+      "anyOf": [
+        {
+          "maxLength": 200,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Model"
+    },
+    "reasoning": {
+      "default": "medium",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "title": "Reasoning",
+      "type": "string"
+    }
+  },
+  "required": [
+    "operation_id"
+  ],
+  "title": "ResearchRequest",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/research_request.v3.json"
+}

@@ -1,0 +1,75 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "maxLength": 160,
+      "minLength": 8,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "company": {
+      "title": "Company",
+      "type": "string"
+    },
+    "enabled": {
+      "default": true,
+      "title": "Enabled",
+      "type": "boolean"
+    },
+    "frequency": {
+      "default": "weekly",
+      "enum": [
+        "daily",
+        "weekly",
+        "custom"
+      ],
+      "title": "Frequency",
+      "type": "string"
+    },
+    "weekdays": {
+      "items": {
+        "type": "integer"
+      },
+      "maxItems": 7,
+      "minItems": 1,
+      "title": "Weekdays",
+      "type": "array"
+    },
+    "local_time": {
+      "default": "09:00",
+      "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$",
+      "title": "Local Time",
+      "type": "string"
+    },
+    "timezone": {
+      "default": "Asia/Shanghai",
+      "title": "Timezone",
+      "type": "string"
+    },
+    "research_focus": {
+      "default": "复核新披露与已有研究认识的变化",
+      "title": "Research Focus",
+      "type": "string"
+    },
+    "budget_seconds": {
+      "default": 600,
+      "maximum": 1800,
+      "minimum": 10,
+      "title": "Budget Seconds",
+      "type": "integer"
+    },
+    "notification_event_id": {
+      "default": "",
+      "title": "Notification Event Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "operation_id",
+    "company"
+  ],
+  "title": "WikiUpdateSchedule",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/wiki_wiki_update_schedule.v1.json"
+}

@@ -1,0 +1,54 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "maxLength": 160,
+      "minLength": 8,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "digest": {
+      "title": "Digest",
+      "type": "string"
+    },
+    "action": {
+      "enum": [
+        "adopt",
+        "reject"
+      ],
+      "title": "Action",
+      "type": "string"
+    },
+    "reason": {
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    },
+    "alternatives": {
+      "default": "",
+      "title": "Alternatives",
+      "type": "string"
+    },
+    "consequences": {
+      "default": "",
+      "title": "Consequences",
+      "type": "string"
+    },
+    "reviewer_identity": {
+      "default": "local_owner",
+      "maxLength": 200,
+      "title": "Reviewer Identity",
+      "type": "string"
+    }
+  },
+  "required": [
+    "operation_id",
+    "digest",
+    "action",
+    "reason"
+  ],
+  "title": "DecisionRecord",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/wiki_decision_record.v1.json"
+}

@@ -1,6 +1,28 @@
 {
   "$defs": {
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    },
     "TraceLink": {
+      "additionalProperties": false,
       "properties": {
         "id": {
           "title": "Id",
@@ -24,11 +46,6 @@
           ],
           "title": "Kind",
           "type": "string"
-        },
-        "label": {
-          "default": "",
-          "title": "Label",
-          "type": "string"
         }
       },
       "required": [
@@ -41,6 +58,7 @@
       "type": "object"
     },
     "TraceSpan": {
+      "additionalProperties": false,
       "properties": {
         "id": {
           "title": "Id",
@@ -134,17 +152,10 @@
           "default": null,
           "title": "Attempt"
         },
-        "call_id": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Call Id"
+        "generation": {
+          "default": 0,
+          "title": "Generation",
+          "type": "integer"
         },
         "ordinal": {
           "anyOf": [
@@ -170,46 +181,9 @@
           "default": null,
           "title": "Input Version"
         },
-        "input_ref": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Input Ref"
-        },
-        "output_ref": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Output Ref"
-        },
-        "error_ref": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Error Ref"
-        },
         "artifact_refs": {
           "items": {
-            "additionalProperties": true,
-            "type": "object"
+            "$ref": "#/$defs/Ref"
           },
           "title": "Artifact Refs",
           "type": "array"
@@ -242,13 +216,31 @@
       },
       "required": [
         "id",
+        "parent_id",
         "name",
-        "kind"
+        "kind",
+        "executor",
+        "status",
+        "started_at",
+        "ended_at",
+        "duration_ms",
+        "timing",
+        "attempt",
+        "generation",
+        "ordinal",
+        "input_version",
+        "artifact_refs",
+        "tool_count",
+        "issue_count",
+        "first_seq",
+        "last_seq",
+        "metadata"
       ],
       "title": "TraceSpan",
       "type": "object"
     },
     "TraceSummary": {
+      "additionalProperties": false,
       "properties": {
         "active_seconds": {
           "anyOf": [
@@ -327,57 +319,42 @@
           "title": "Tokens",
           "type": "object"
         },
-        "cost": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Cost"
-        },
-        "capture": {
-          "default": "partial",
-          "title": "Capture",
-          "type": "string"
-        },
         "gaps": {
           "items": {
             "type": "string"
           },
           "title": "Gaps",
           "type": "array"
-        },
-        "reconstructed": {
-          "default": false,
-          "title": "Reconstructed",
-          "type": "boolean"
-        },
-        "sync": {
-          "additionalProperties": true,
-          "title": "Sync",
-          "type": "object"
         }
       },
+      "required": [
+        "active_seconds",
+        "queue_seconds",
+        "waiting_seconds",
+        "tool_seconds",
+        "measured_tools",
+        "tool_count",
+        "budget_tool_count",
+        "tokens",
+        "gaps"
+      ],
       "title": "TraceSummary",
       "type": "object"
     }
   },
+  "additionalProperties": false,
   "properties": {
     "version": {
-      "default": "research-trace.1",
+      "default": "trace.1",
       "title": "Version",
       "type": "string"
     },
-    "request_id": {
-      "title": "Request Id",
+    "run_id": {
+      "title": "Run Id",
       "type": "string"
     },
-    "task_id": {
-      "title": "Task Id",
+    "case_id": {
+      "title": "Case Id",
       "type": "string"
     },
     "seq": {
@@ -406,24 +383,19 @@
       "title": "Links",
       "type": "array"
     },
-    "plans": {
-      "items": {
-        "additionalProperties": true,
-        "type": "object"
-      },
-      "title": "Plans",
-      "type": "array"
-    },
     "summary": {
       "$ref": "#/$defs/TraceSummary"
     }
   },
   "required": [
-    "request_id",
-    "task_id",
+    "version",
+    "run_id",
+    "case_id",
     "seq",
     "latest_seq",
     "task_status",
+    "spans",
+    "links",
     "summary"
   ],
   "title": "TraceView",

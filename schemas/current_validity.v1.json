@@ -1,0 +1,41 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "status": {
+      "enum": [
+        "available",
+        "needs_review",
+        "withdrawn",
+        "superseded"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "reason": {
+      "default": "",
+      "title": "Reason",
+      "type": "string"
+    },
+    "updated_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Updated At"
+    }
+  },
+  "required": [
+    "status",
+    "reason",
+    "updated_at"
+  ],
+  "title": "CurrentValidity",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/current_validity.v1.json"
+}

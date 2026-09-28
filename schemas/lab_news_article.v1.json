@@ -1,0 +1,107 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "event_id": {
+      "title": "Event Id",
+      "type": "string"
+    },
+    "source_id": {
+      "title": "Source Id",
+      "type": "string"
+    },
+    "source_name": {
+      "title": "Source Name",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "url": {
+      "title": "Url",
+      "type": "string"
+    },
+    "published_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Published At"
+    },
+    "observed_at": {
+      "title": "Observed At",
+      "type": "string"
+    },
+    "text": {
+      "title": "Text",
+      "type": "string"
+    },
+    "excerpt": {
+      "default": "",
+      "title": "Excerpt",
+      "type": "string"
+    },
+    "digest": {
+      "title": "Digest",
+      "type": "string"
+    },
+    "content_digest": {
+      "default": "",
+      "title": "Content Digest",
+      "type": "string"
+    },
+    "media": {
+      "default": "text/plain",
+      "title": "Media",
+      "type": "string"
+    },
+    "original_file": {
+      "default": "",
+      "title": "Original File",
+      "type": "string"
+    },
+    "publication_source": {
+      "default": "content",
+      "title": "Publication Source",
+      "type": "string"
+    },
+    "issues": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Issues",
+      "type": "array"
+    }
+  },
+  "required": [
+    "id",
+    "event_id",
+    "source_id",
+    "source_name",
+    "title",
+    "url",
+    "published_at",
+    "observed_at",
+    "text",
+    "excerpt",
+    "digest",
+    "content_digest",
+    "media",
+    "original_file",
+    "publication_source",
+    "issues"
+  ],
+  "title": "NewsArticle",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/lab_news_article.v1.json"
+}

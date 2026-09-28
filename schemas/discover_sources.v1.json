@@ -1,0 +1,45 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "subject": {
+      "title": "Subject",
+      "type": "string"
+    },
+    "adapter": {
+      "title": "Adapter",
+      "type": "string"
+    },
+    "since": {
+      "default": "",
+      "title": "Since",
+      "type": "string"
+    },
+    "until": {
+      "default": "",
+      "title": "Until",
+      "type": "string"
+    },
+    "urls": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Urls",
+      "type": "array"
+    }
+  },
+  "required": [
+    "operation_id",
+    "subject",
+    "adapter"
+  ],
+  "title": "DiscoverSources",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/discover_sources.v1.json"
+}

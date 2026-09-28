@@ -1,0 +1,207 @@
+{
+  "$defs": {
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "parent_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Parent Id"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "kind": {
+      "title": "Kind",
+      "type": "string"
+    },
+    "executor": {
+      "default": "controller",
+      "title": "Executor",
+      "type": "string"
+    },
+    "status": {
+      "default": "running",
+      "title": "Status",
+      "type": "string"
+    },
+    "started_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Started At"
+    },
+    "ended_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Ended At"
+    },
+    "duration_ms": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Duration Ms"
+    },
+    "timing": {
+      "default": "missing",
+      "enum": [
+        "measured",
+        "observed",
+        "missing"
+      ],
+      "title": "Timing",
+      "type": "string"
+    },
+    "attempt": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Attempt"
+    },
+    "generation": {
+      "default": 0,
+      "title": "Generation",
+      "type": "integer"
+    },
+    "ordinal": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Ordinal"
+    },
+    "input_version": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Input Version"
+    },
+    "artifact_refs": {
+      "items": {
+        "$ref": "#/$defs/Ref"
+      },
+      "title": "Artifact Refs",
+      "type": "array"
+    },
+    "tool_count": {
+      "default": 0,
+      "title": "Tool Count",
+      "type": "integer"
+    },
+    "issue_count": {
+      "default": 0,
+      "title": "Issue Count",
+      "type": "integer"
+    },
+    "first_seq": {
+      "default": 0,
+      "title": "First Seq",
+      "type": "integer"
+    },
+    "last_seq": {
+      "default": 0,
+      "title": "Last Seq",
+      "type": "integer"
+    },
+    "metadata": {
+      "additionalProperties": true,
+      "title": "Metadata",
+      "type": "object"
+    }
+  },
+  "required": [
+    "id",
+    "parent_id",
+    "name",
+    "kind",
+    "executor",
+    "status",
+    "started_at",
+    "ended_at",
+    "duration_ms",
+    "timing",
+    "attempt",
+    "generation",
+    "ordinal",
+    "input_version",
+    "artifact_refs",
+    "tool_count",
+    "issue_count",
+    "first_seq",
+    "last_seq",
+    "metadata"
+  ],
+  "title": "TraceSpan",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/trace_span.v1.json"
+}

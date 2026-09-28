@@ -1,21 +1,19 @@
 # Third-party notices
 
-The research desk selectively adapts neutral palette and control-state values from the LSEG / Refinitiv Element Framework Halo theme. The project is not affiliated with or endorsed by LSEG.
+The interface design is original to PITR. Dependencies retain their respective licenses.
 
-Source: https://github.com/Refinitiv/refinitiv-ui
-Pinned revision: 7cc68865db56b7444b2d08a861e65d8e56633d81 (v7).
-Referenced files: packages/halo-theme/src/variants/light/overrides.less; packages/halo-theme/src/palettes/{secondary,typography,core}.less.
-The upstream code is Apache-2.0, subject to exceptions identified in its LICENSE.md. A copy is retained in web/public/third-party/halo-LICENSE.md. No Proxima Nova Fin or other restricted LSEG font files are distributed.
+- React, React Router, TanStack Query, Radix Primitives and cmdk: MIT, installed through npm with package licenses.
+- React Flow (`@xyflow/react`): MIT. ELK.js: EPL-2.0. Used for the restored execution and relationship graphs; notices are retained in `web/public/third-party` and the installed packages.
+- Apache ECharts and PDF.js: Apache-2.0; used for on-demand report charts and original-page reading.
+- Fontsource IBM Plex Sans / Mono and Noto Sans SC / Serif SC: supplied under their package licenses (OFL / Apache-2.0).
+- Noto Sans CJK SC 2.004: SIL Open Font License 1.1, downloaded from [notofonts/noto-cjk](https://github.com/notofonts/noto-cjk/tree/Sans2.004); the installer retains LICENSE.txt beside the font. SHA-256 is pinned in the installer.
+- LibreOffice 26.2.6: official unmodified distribution from The Document Foundation, installed project-locally with upstream license files and checksum verification. See [LibreOffice licensing](https://www.libreoffice.org/about-us/licenses/).
+- python-docx: MIT. XlsxWriter: BSD-2-Clause. pypdf: BSD-3-Clause. pdfplumber: MIT. PDFium and its bundled components retain the licenses distributed with pypdfium2.
 
-Adaptations: scoped CSS variables/neutral palette in web/src/desk/desk.css; Chinese 32px/28px density; separate model, document-diff, and chart semantics. Fonts are installed separately from Fontsource packages (IBM Plex Sans / Noto Sans SC) with their package licenses.
+## Preserved local news experiment
 
-Other runtime dependencies retain their own package licenses. PDF.js and Apache ECharts are not LSEG components. No screenshots or proprietary financial model templates are redistributed as application assets.
+- Laya SDK: Apache-2.0, pinned to `573e5b62696ba441230cd6be71d593331b5d23af`: [source](https://github.com/NandhaKishorM/laya).
+- Laya multilingual weights: Apache-2.0 per [model card](https://huggingface.co/convaiinnovations/laya), revision `1c5edc17a7acd8701df6fc341c0d179f1c62c982`.
+- Multilingual E5 small weights: MIT per [model card](https://huggingface.co/intfloat/multilingual-e5-small), revision `614241f622f53c4eeff9890bdc4f31cfecc418b3`.
 
-## Research execution visualization
-
-- React Flow (`@xyflow/react` 12.11.6): MIT. Source: https://github.com/xyflow/xyflow/tree/main/packages/react. License copy: `web/public/third-party/react-flow-LICENSE.txt`.
-- ELK.js (`elkjs` 0.12.0): used under EPL-2.0, one of the package's offered licenses. Unmodified upstream source is available at https://github.com/kieler/elkjs and in the published npm `elkjs@0.12.0` package. License copy: `web/public/third-party/elkjs-LICENSE.md`.
-- LangSmith Python SDK 0.12.4: MIT; installed as a Python dependency, not embedded in the frontend. Synchronization is disabled by default.
-- OpenTelemetry protobuf definitions (`opentelemetry-proto` 1.44.0): Apache-2.0.
-
-The workflow viewer is a read-only projection of PITR's local execution ledger. No LangSmith or Langfuse branding, proprietary UI assets, or hosted service is bundled.
+News models are downloaded only on explicit installation and are not distributed with this repository. Publisher materials retain their own ownership; synthetic benchmark material is explicitly labeled and does not impersonate real disclosures.

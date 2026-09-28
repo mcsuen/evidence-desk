@@ -1,0 +1,92 @@
+{
+  "$defs": {
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "revision": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "report": {
+      "$ref": "#/$defs/Ref"
+    },
+    "format": {
+      "const": "docx",
+      "default": "docx",
+      "title": "Format",
+      "type": "string"
+    },
+    "digest": {
+      "title": "Digest",
+      "type": "string"
+    },
+    "template_version": {
+      "title": "Template Version",
+      "type": "string"
+    },
+    "compiler_version": {
+      "title": "Compiler Version",
+      "type": "string"
+    },
+    "paper": {
+      "enum": [
+        "Letter",
+        "A4"
+      ],
+      "title": "Paper",
+      "type": "string"
+    },
+    "manifest": {
+      "additionalProperties": true,
+      "title": "Manifest",
+      "type": "object"
+    }
+  },
+  "required": [
+    "id",
+    "revision",
+    "created_at",
+    "report",
+    "format",
+    "digest",
+    "template_version",
+    "compiler_version",
+    "paper",
+    "manifest"
+  ],
+  "title": "Artifact",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/artifact.v1.json"
+}

@@ -1,0 +1,58 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Id"
+    },
+    "expected_revision": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Expected Revision",
+      "type": "integer"
+    },
+    "subject": {
+      "title": "Subject",
+      "type": "string"
+    },
+    "url": {
+      "title": "Url",
+      "type": "string"
+    },
+    "enabled": {
+      "default": true,
+      "title": "Enabled",
+      "type": "boolean"
+    },
+    "interval_hours": {
+      "default": 24,
+      "maximum": 720,
+      "minimum": 1,
+      "title": "Interval Hours",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "operation_id",
+    "subject",
+    "url"
+  ],
+  "title": "SubscriptionCommand",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/subscription_command.v1.json"
+}

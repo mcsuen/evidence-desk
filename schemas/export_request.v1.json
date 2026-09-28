@@ -1,0 +1,54 @@
+{
+  "$defs": {
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "report": {
+      "$ref": "#/$defs/Ref"
+    },
+    "paper": {
+      "default": "Letter",
+      "enum": [
+        "Letter",
+        "A4"
+      ],
+      "title": "Paper",
+      "type": "string"
+    }
+  },
+  "required": [
+    "operation_id",
+    "report"
+  ],
+  "title": "ExportRequest",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/export_request.v1.json"
+}

@@ -64,11 +64,13 @@ class WorkflowContext:
 
     def bind(self, task_id):
         with self._runtime.journal.connect(write=True) as db:
-            db.execute('INSERT OR IGNORE INTO bindings VALUES(?,?,?)', (self.adapter, task_id, self.event_id))
+            db.execute('INSERT INTO bindings VALUES(?,?,?) ON CONFLICT(adapter,task_id) DO UPDATE SET event_id=excluded.event_id', (self.adapter, task_id, self.event_id))
+            db.execute('DELETE FROM state WHERE key=?',('held_binding:'+self.adapter+':'+task_id,))
 
     def bindings(self):
         with self._runtime.journal.connect() as db:
-            return [dict(row) for row in db.execute('SELECT task_id,event_id FROM bindings WHERE adapter=?', (self.adapter,))]
+            return [dict(row) for row in db.execute("SELECT task_id,event_id FROM bindings b WHERE adapter=? AND NOT EXISTS "
+                "(SELECT 1 FROM state s WHERE s.key='held_binding:'||b.adapter||':'||b.task_id)", (self.adapter,))]
 
     def action(self, action_id, metadata, *, event_id=None):
         return self._runtime.register_action(self.adapter, event_id or self.event_id, action_id, metadata)

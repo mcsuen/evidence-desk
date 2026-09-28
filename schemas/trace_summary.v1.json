@@ -1,0 +1,104 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "active_seconds": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Active Seconds"
+    },
+    "queue_seconds": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Queue Seconds"
+    },
+    "waiting_seconds": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Waiting Seconds"
+    },
+    "tool_seconds": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Tool Seconds"
+    },
+    "measured_tools": {
+      "default": 0,
+      "title": "Measured Tools",
+      "type": "integer"
+    },
+    "tool_count": {
+      "default": 0,
+      "title": "Tool Count",
+      "type": "integer"
+    },
+    "budget_tool_count": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Budget Tool Count"
+    },
+    "tokens": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Tokens",
+      "type": "object"
+    },
+    "gaps": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Gaps",
+      "type": "array"
+    }
+  },
+  "required": [
+    "active_seconds",
+    "queue_seconds",
+    "waiting_seconds",
+    "tool_seconds",
+    "measured_tools",
+    "tool_count",
+    "budget_tool_count",
+    "tokens",
+    "gaps"
+  ],
+  "title": "TraceSummary",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/trace_summary.v1.json"
+}

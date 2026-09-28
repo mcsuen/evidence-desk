@@ -11,16 +11,6 @@ const out = resolve(here, '..', 'src', 'types')
 const check = process.argv.includes('--check')
 if (!check) mkdirSync(out, { recursive: true })
 
-// These are *read* models: the API always emits every field (Pydantic model_dump), so fields that merely have a
-// default in the schema are still present. Mark all properties required to get accurate non-optional TS types.
-function allRequired(node) {
-  if (Array.isArray(node)) return node.forEach(allRequired)
-  if (node && typeof node === 'object') {
-    if (node.type === 'object' && node.properties) node.required = Object.keys(node.properties)
-    for (const v of Object.values(node)) allRequired(v)
-  }
-}
-
 const files = readdirSync(schemas).filter((f) => f.endsWith('.json')).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}))
 const families = files.map(f => f.replace(/\.v\d+\.json$/, ''))
 if (new Set(families).size !== families.length) throw new Error('Duplicate schema family: retain exactly one version per contract')
@@ -33,7 +23,6 @@ for (const existing of readdirSync(out)) {
 for (const f of files) {
   const base = f.replace(/\.v\d+\.json$/, '')
   const schema = JSON.parse(readFileSync(join(schemas, f), 'utf8'))
-  allRequired(schema)
   const ts = await compile(schema, base, {
     bannerComment: `/* generated from schemas/${f} — do not edit */`,
     additionalProperties: false,

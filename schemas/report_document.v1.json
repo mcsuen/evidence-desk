@@ -1,0 +1,485 @@
+{
+  "$defs": {
+    "ChartBlock": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "chart",
+          "default": "chart",
+          "title": "Type",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "column",
+            "line"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "categories": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Categories",
+          "type": "array"
+        },
+        "series": {
+          "items": {
+            "$ref": "#/$defs/ChartSeries"
+          },
+          "title": "Series",
+          "type": "array"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "note": {
+          "default": "",
+          "title": "Note",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "title",
+        "kind",
+        "categories",
+        "series",
+        "unit",
+        "note"
+      ],
+      "title": "ChartBlock",
+      "type": "object"
+    },
+    "ChartSeries": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Ref"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Values",
+          "type": "array"
+        },
+        "role": {
+          "default": "actual",
+          "enum": [
+            "actual",
+            "forecast"
+          ],
+          "title": "Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "values",
+        "role"
+      ],
+      "title": "ChartSeries",
+      "type": "object"
+    },
+    "CitationSpan": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "citation",
+          "default": "citation",
+          "title": "Type",
+          "type": "string"
+        },
+        "ref": {
+          "$ref": "#/$defs/Ref"
+        }
+      },
+      "required": [
+        "type",
+        "ref"
+      ],
+      "title": "CitationSpan",
+      "type": "object"
+    },
+    "Paragraph": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "paragraph",
+          "default": "paragraph",
+          "title": "Type",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "inlines": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "citation": "#/$defs/CitationSpan",
+                "text": "#/$defs/TextSpan",
+                "value": "#/$defs/ValueSpan"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/TextSpan"
+              },
+              {
+                "$ref": "#/$defs/ValueSpan"
+              },
+              {
+                "$ref": "#/$defs/CitationSpan"
+              }
+            ]
+          },
+          "title": "Inlines",
+          "type": "array"
+        },
+        "assertions": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Assertions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "inlines",
+        "assertions"
+      ],
+      "title": "Paragraph",
+      "type": "object"
+    },
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    },
+    "Section": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "blocks": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "chart": "#/$defs/ChartBlock",
+                "paragraph": "#/$defs/Paragraph",
+                "table": "#/$defs/TableBlock"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Paragraph"
+              },
+              {
+                "$ref": "#/$defs/TableBlock"
+              },
+              {
+                "$ref": "#/$defs/ChartBlock"
+              }
+            ]
+          },
+          "title": "Blocks",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "blocks"
+      ],
+      "title": "Section",
+      "type": "object"
+    },
+    "TableBlock": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "table",
+          "default": "table",
+          "title": "Type",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "columns": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10,
+          "minItems": 1,
+          "title": "Columns",
+          "type": "array"
+        },
+        "rows": {
+          "items": {
+            "items": {
+              "items": {
+                "discriminator": {
+                  "mapping": {
+                    "citation": "#/$defs/CitationSpan",
+                    "text": "#/$defs/TextSpan",
+                    "value": "#/$defs/ValueSpan"
+                  },
+                  "propertyName": "type"
+                },
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/TextSpan"
+                  },
+                  {
+                    "$ref": "#/$defs/ValueSpan"
+                  },
+                  {
+                    "$ref": "#/$defs/CitationSpan"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "title": "Rows",
+          "type": "array"
+        },
+        "note": {
+          "default": "",
+          "title": "Note",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "title",
+        "columns",
+        "rows",
+        "note"
+      ],
+      "title": "TableBlock",
+      "type": "object"
+    },
+    "TextSpan": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "text",
+          "default": "text",
+          "title": "Type",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "text"
+      ],
+      "title": "TextSpan",
+      "type": "object"
+    },
+    "ValueSpan": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "value",
+          "default": "value",
+          "title": "Type",
+          "type": "string"
+        },
+        "ref": {
+          "$ref": "#/$defs/Ref"
+        }
+      },
+      "required": [
+        "type",
+        "ref"
+      ],
+      "title": "ValueSpan",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "revision": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "case_id": {
+      "title": "Case Id",
+      "type": "string"
+    },
+    "run_id": {
+      "title": "Run Id",
+      "type": "string"
+    },
+    "input_revision": {
+      "title": "Input Revision",
+      "type": "integer"
+    },
+    "snapshot": {
+      "$ref": "#/$defs/Ref"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "report_type": {
+      "enum": [
+        "memo",
+        "earnings",
+        "company",
+        "industry"
+      ],
+      "title": "Report Type",
+      "type": "string"
+    },
+    "summary": {
+      "items": {
+        "$ref": "#/$defs/Paragraph"
+      },
+      "title": "Summary",
+      "type": "array"
+    },
+    "sections": {
+      "items": {
+        "$ref": "#/$defs/Section"
+      },
+      "title": "Sections",
+      "type": "array"
+    },
+    "gaps": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Gaps",
+      "type": "array"
+    },
+    "next_steps": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Next Steps",
+      "type": "array"
+    },
+    "assertions": {
+      "items": {
+        "$ref": "#/$defs/Ref"
+      },
+      "title": "Assertions",
+      "type": "array"
+    },
+    "models": {
+      "items": {
+        "$ref": "#/$defs/Ref"
+      },
+      "title": "Models",
+      "type": "array"
+    },
+    "skills": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Skills",
+      "type": "array"
+    },
+    "change_reason": {
+      "default": "",
+      "title": "Change Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "revision",
+    "created_at",
+    "case_id",
+    "run_id",
+    "input_revision",
+    "snapshot",
+    "title",
+    "report_type",
+    "summary",
+    "sections",
+    "gaps",
+    "next_steps",
+    "assertions",
+    "models",
+    "skills",
+    "change_reason"
+  ],
+  "title": "ReportDocument",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/report_document.v1.json"
+}

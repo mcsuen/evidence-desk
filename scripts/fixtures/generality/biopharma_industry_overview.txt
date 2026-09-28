@@ -1,0 +1,17 @@
+SYNTHETIC SOFTWARE ACCEPTANCE FIXTURE. NOT ACTUAL INDUSTRY DATA. Written only to validate PITR's industry template research.
+
+Biopharmaceutical value chain overview (synthetic teaching material).
+
+1. Discovery and development inputs. A biopharmaceutical company depends on contract research organisations (CROs) for preclinical and clinical trials, on clinical trial sites and principal investigators, and on licensed compound libraries and platform technologies. In-licensing agreements with universities and biotech firms are a common source of pipeline assets.
+
+2. Manufacturing inputs. Commercial production depends on contract development and manufacturing organisations (CDMOs) for drug substance and drug product, on suppliers of active pharmaceutical ingredients (APIs) and key starting materials, on excipient and packaging suppliers, and on single-use bioreactor consumables and chromatography resins. Qualification of a new API supplier typically takes twelve to twenty-four months because of regulatory filing changes.
+
+3. Regulatory constraints. Marketing depends on approvals from the National Medical Products Administration (NMPA) in China, the FDA in the United States and the EMA in Europe. Good Manufacturing Practice (GMP) inspections, pharmacovigilance obligations and patent term are binding constraints. Volume-based procurement and national reimbursement drug list (NRDL) negotiations determine domestic pricing.
+
+4. Products. Output is organised by therapeutic area and molecule type: small molecules, biologics such as monoclonal antibodies, and cell or gene therapies. Each product carries its own patent estate and exclusivity period.
+
+5. Sales and distribution. Sales run through pharmaceutical distributors, hospital tenders, retail pharmacies and, for exported products, licensed overseas partners who take on registration and commercialisation in their territories. Cold-chain logistics providers are required for biologics.
+
+6. Capital and governance. Development is financed by equity raises, licensing milestone payments and government innovation funds; major shareholders and licensing partners can hold board seats.
+
+7. Competition. Competitors are other originators in the same therapeutic area and, after patent expiry, generic and biosimilar manufacturers.

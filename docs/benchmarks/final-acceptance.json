@@ -1,0 +1,542 @@
+{
+  "schema": "pitr.acceptance.1",
+  "checked_at": "2026-09-22T22:14:29.160470+00:00",
+  "base_commit": "df42754563f9eb46526e2a8a09d12eaa304607c4",
+  "branch": "codex/research-final",
+  "engineering_status": "passed",
+  "default_api": "/api/v1",
+  "default_data_dir": "data/research",
+  "source_tree_digest": "d479581b1f6581d0cd847a74cebda5681b1daa8fcf6ec621278406594b017adb",
+  "source_file_count": 320,
+  "backend": {
+    "passed": 227,
+    "failed": 0,
+    "engineering_acceptance": 60,
+    "development": 48,
+    "holdout": 12
+  },
+  "browser": {
+    "passed": 6,
+    "failed": 0,
+    "model_responses": "fixture",
+    "docx_compile_render": "real"
+  },
+  "contract_modules": 71,
+  "production_build": "passed",
+  "git_diff_check": "passed",
+  "native_research": [
+    {
+      "provider": "claude",
+      "run": "run_152584a8c6c042acb6e39fc6",
+      "generation": 2,
+      "status": "completed",
+      "report": {
+        "id": "report_4ba65595313048f186df5929",
+        "revision": 2
+      },
+      "assertions": 5,
+      "values": 90,
+      "tool_calls": 183,
+      "active_seconds": 705.1512948337477,
+      "delivery": "partial",
+      "gaps": [
+        "成本分项（履约费、带宽与服务器、支付处理费）金额未披露，无法量化各自对成本率上升的贡献",
+        "商家扶持措施的会计处理、规模与期限未披露",
+        "无 GMV、订单量、货币化率、活跃用户及分地区数据，交易服务收入停滞的量价来源不明",
+        "利润率下降的持续性仅有管理层定性表述，无量化指引",
+        "经营现金流大幅下降的营运资本分项未披露"
+      ],
+      "checks": [
+        {
+          "name": "deterministic",
+          "status": "passed",
+          "findings": 0,
+          "ref": {
+            "id": "check_682bf9d6b1354c6599fea8b7",
+            "revision": 1
+          }
+        },
+        {
+          "name": "independent",
+          "status": "passed",
+          "findings": 0,
+          "ref": {
+            "id": "check_15bc30759cb84a679eef3ee8",
+            "revision": 1
+          }
+        }
+      ]
+    },
+    {
+      "provider": "codex",
+      "run": "run_871a2d29f2e441c18c64d54f",
+      "generation": 1,
+      "status": "completed",
+      "report": {
+        "id": "report_2f71145abda84ff590892244",
+        "revision": 1
+      },
+      "assertions": 5,
+      "values": 44,
+      "tool_calls": 119,
+      "active_seconds": 343.93331654090434,
+      "delivery": "partial",
+      "gaps": [
+        "缺少平台与地域经营利润拆分，无法判断各业务对合并利润变化的贡献。",
+        "缺少交易规模、量价及变现率，无法分解收入变化的底层原因。",
+        "缺少履约、带宽服务器、支付处理费子项及商家扶持的金额、会计归属和回报。",
+        "缺少后续可比经营表现与投入期限，无法确认盈利压力的持续性和恢复时点。"
+      ],
+      "checks": [
+        {
+          "name": "deterministic",
+          "status": "passed",
+          "findings": 0,
+          "ref": {
+            "id": "check_4f7daf7f4fb3463f97063d2f",
+            "revision": 1
+          }
+        },
+        {
+          "name": "independent",
+          "status": "passed",
+          "findings": 0,
+          "ref": {
+            "id": "check_94ab10b72179469490ca5931",
+            "revision": 1
+          }
+        }
+      ]
+    }
+  ],
+  "native_boundaries": [
+    {
+      "provider": "codex",
+      "run": "run_4cf48e25c5c94089adebcd9e",
+      "cancelled_after_native_tools": true,
+      "service_restarted": true,
+      "partial_report": {
+        "id": "report_1cc4bdcadd064fc98b128df3",
+        "revision": 1
+      },
+      "partial_generation": 2,
+      "final_status": "completed",
+      "report": {
+        "id": "report_1cc4bdcadd064fc98b128df3",
+        "revision": 2
+      },
+      "checks": [
+        {
+          "name": "deterministic",
+          "status": "passed"
+        },
+        {
+          "name": "independent",
+          "status": "passed"
+        }
+      ],
+      "generation": 3
+    },
+    {
+      "provider": "claude",
+      "run": "run_c8cd14b4fa974ea4a58e4064",
+      "cancelled_after_native_tools": true,
+      "service_restarted": true,
+      "partial_report": {
+        "id": "report_a09994828aa44b05971b23da",
+        "revision": 1
+      },
+      "partial_generation": 2,
+      "final_status": "completed",
+      "report": {
+        "id": "report_a09994828aa44b05971b23da",
+        "revision": 2
+      },
+      "checks": [
+        {
+          "name": "deterministic",
+          "status": "passed"
+        },
+        {
+          "name": "independent",
+          "status": "passed"
+        }
+      ],
+      "generation": 3
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact": {
+        "id": "artifact_c0676b7916144da4bbdd07ac",
+        "revision": 1
+      },
+      "report": {
+        "id": "report_4ba65595313048f186df5929",
+        "revision": 2
+      },
+      "digest": "88066b40d96e20e28d82fb7b18a6792ff47f08125b5a3bea19e6ecfc776a4752",
+      "paper": "Letter",
+      "compiler": "docx.6",
+      "page_count": 11,
+      "pdf_text_consistency": "passed",
+      "visual_inspection": {
+        "status": "passed",
+        "inspector": "Codex agent",
+        "method": "All rendered page images viewed, including negative chart labels after correction",
+        "checked_at": "2026-09-22T22:14:29.160470+00:00",
+        "pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "human_research_blind_review": false
+      },
+      "docx": "output/acceptance/word-final/claude-Letter/report.docx",
+      "pdf": "output/acceptance/word-final/claude-Letter/report.pdf",
+      "manifest": "output/acceptance/word-final/claude-Letter/manifest.json",
+      "pdf_digest": "84ad71e8280112134a5a8c6910a4218b4acbd4bc1918be66ee6b05ab51f08fed",
+      "page_digests": [
+        "70fc544102fb07f93826114057acb00c2686561180b2c1275361a8e56dad7610",
+        "c87150a25f20e4d49d824d23ffc2899cdab90e84b0a51380515d724c2a83e555",
+        "fb7d9a11877bfd91ad7671bb3df4e4d92150f5bb05c8e75e1f9beb7f565288a9",
+        "65f71cd415f77e88a03484225a4b263f3468c5df75a0b3e24736e65a3b3beb0e",
+        "0ee8da4b9d1c9eec83648406cafc7549fe17c2fa16e2df40559cc0c4afa0a29c",
+        "f0e7beecfef1973452434a3d6919b1d5480c4e7f412c1957f397b549beb22e96",
+        "06bb075064e606ece86282daa25c34c8e57cbef5eda955b2047c424dcf448181",
+        "2058b2ac4e6ccad91118dead1164186d19ffe6745a6e66bd67c7d3285812353c",
+        "04bdabb24b2481a4ba912a3a2bbbacbd990b00da1bd29a577ed928f6b89d9eed",
+        "c2774c2271287c43ea0324be623d6ccca9444290651d4728137dbed2f40cd92d",
+        "c3ad77399570a4b2a745314bb7449f16afd4aa1792879718cf4ed4ccf57aa92d"
+      ]
+    },
+    {
+      "artifact": {
+        "id": "artifact_83bb8ef8d77143249504d61e",
+        "revision": 1
+      },
+      "report": {
+        "id": "report_4ba65595313048f186df5929",
+        "revision": 2
+      },
+      "digest": "2bb98ea8d2f4dba9bebafb269fdab8a8c44610e84ca50b680162eec42365ffd1",
+      "paper": "A4",
+      "compiler": "docx.6",
+      "page_count": 11,
+      "pdf_text_consistency": "passed",
+      "visual_inspection": {
+        "status": "passed",
+        "inspector": "Codex agent",
+        "method": "All rendered page images viewed, including negative chart labels after correction",
+        "checked_at": "2026-09-22T22:14:29.160470+00:00",
+        "pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "human_research_blind_review": false
+      },
+      "docx": "output/acceptance/word-final/claude-A4/report.docx",
+      "pdf": "output/acceptance/word-final/claude-A4/report.pdf",
+      "manifest": "output/acceptance/word-final/claude-A4/manifest.json",
+      "pdf_digest": "8e3e96829974555d6baf4bb6a3931709d88afc6c7e6d592d059d33d6a534dca5",
+      "page_digests": [
+        "7ec1c8f80a1e9f6d877814e7999c24877c0dde241fe7896141b9c4b9c2f3d271",
+        "7d188eb34f75c3017a918b0f40b2bc8c7e6ce0393924a6e26c1252ec9e4e436b",
+        "b38695d3473035eea4b6cf51d98a9a8da20a9738c40d3c6bf4816c7e1a13ea71",
+        "d579627d458df458aacadf08f834103aeef09a074e5da326d677f9660fd1cfff",
+        "8ea6415f089740a007db0b5aefb5273bab99f894e3ef3750a19838c922198737",
+        "533371c6fd739cfe17f6afcac99833039abfa907f6711dfe317d3a512ef39e1e",
+        "912b5961922d3e6662ffd3a563c9d2081b8d0124ab9d1ab6bf309bd62c3d7876",
+        "75456cbf1e70ee18b33817ba27a0fa040a95bfefa67aecc28cb060bb9ef2ed97",
+        "cff8a7295f2bc49bca035e86dc3d6c727e02c7ea3f46d5bb434ccc125e8953a4",
+        "3dd599a82afba692767ebfbd841a2230c107140b51e85cb251229d32df753103",
+        "2e4521567ab13579c3145786bedb476fe67beb9920194dd2336e83274705ba4d"
+      ]
+    },
+    {
+      "artifact": {
+        "id": "artifact_2c113ba7429d44a59f8ee230",
+        "revision": 1
+      },
+      "report": {
+        "id": "report_2f71145abda84ff590892244",
+        "revision": 1
+      },
+      "digest": "d8cd95871b36aa4627b12eb51880ee7e75e00725252868b7dc5bffed8acca99b",
+      "paper": "Letter",
+      "compiler": "docx.6",
+      "page_count": 11,
+      "pdf_text_consistency": "passed",
+      "visual_inspection": {
+        "status": "passed",
+        "inspector": "Codex agent",
+        "method": "All rendered page images viewed, including negative chart labels after correction",
+        "checked_at": "2026-09-22T22:14:29.160470+00:00",
+        "pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "human_research_blind_review": false
+      },
+      "docx": "output/acceptance/word-final/codex-Letter/report.docx",
+      "pdf": "output/acceptance/word-final/codex-Letter/report.pdf",
+      "manifest": "output/acceptance/word-final/codex-Letter/manifest.json",
+      "pdf_digest": "f0f23632b4d96dc8ef635884cbb8d0efff6368672b52ecbe228a7192260dae40",
+      "page_digests": [
+        "67baf58ebfdba574e611a7e74d0d70a03a28f4ed71ffa581dae263f1fca1c228",
+        "fd24e0de191481c86890032f2f4e61702da0cd9a544d9e905bb048a35072a91b",
+        "fed71f53e0a72e68e7afb9bba61fffcd9686242fa5f951ec8c829acd06853f80",
+        "06ec014e5e981ac5302df39e7a9d0cd8d79ddefd287a3f94622d68e84aeff1e3",
+        "09e8ddb86f1c0aa225bed339deaa1a7c4019bbc044b309946172662aad92549b",
+        "4b7a1046e4c8a0effd44535c92cc06f941ce6c1cd692d45bd198b8d64f5f4e3b",
+        "f199676d2acb97486a2f2f3521ded6660ad46499b0360d8492be169035317d6c",
+        "12f0cbdc676bcc975964e660bd4c20774fe4c1200fc5be2c47aa932ebebb7aa0",
+        "ebb1704e07473f21b1d1c9c35fb2cb44247cc656c93b93866f24737594a21119",
+        "8cdd67ba5d3635b6932f5f7f26d102df4e0a7bb4c4397b59069ca63130470db8",
+        "d8ce1bb2ed42bb412f3cfc4412f3686d6de3c87509ac63d0f1e19ae558f14bf7"
+      ]
+    },
+    {
+      "artifact": {
+        "id": "artifact_0277e49f01fd4c51abfc8f85",
+        "revision": 1
+      },
+      "report": {
+        "id": "report_2f71145abda84ff590892244",
+        "revision": 1
+      },
+      "digest": "c93becf6b7405d30f8c675d0824966368c1c82f9085318ddbd9c0efe5ccf6773",
+      "paper": "A4",
+      "compiler": "docx.6",
+      "page_count": 10,
+      "pdf_text_consistency": "passed",
+      "visual_inspection": {
+        "status": "passed",
+        "inspector": "Codex agent",
+        "method": "All rendered page images viewed, including negative chart labels after correction",
+        "checked_at": "2026-09-22T22:14:29.160470+00:00",
+        "pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "human_research_blind_review": false
+      },
+      "docx": "output/acceptance/word-final/codex-A4/report.docx",
+      "pdf": "output/acceptance/word-final/codex-A4/report.pdf",
+      "manifest": "output/acceptance/word-final/codex-A4/manifest.json",
+      "pdf_digest": "b239703b14eb11c0247eda75ce2fbea62a765a5c2a33691ab887d8ec087a6702",
+      "page_digests": [
+        "5ea3bcecc28dd649c9e53a27281fd6839bf24658aedc71ee9eab48630c9286bd",
+        "b518b29c8989e956ec7192a0caa91cae3f2b34aa55e64b709a870a3a6d8fe50a",
+        "1f377dd7b2d644f4414625f93984ddf3a091f40f91765e63b8da3b0837be0b9f",
+        "e1bd6c465c6e487de745ce7b8b2c844cb8e9a4194504300ba87759f700df1a79",
+        "75a6014bd044f29bde5fd684076a84e1d1f963580dbf8b8edfde873a82dc8e42",
+        "c28566f1a7ea7023f9981f3839682fffa3f0ca5b27b466ae40a2b629ddce01cd",
+        "39e1ea52c8fba3c89e9bb9ffcdd2f9631d7030219b1ba5cf04db01ac838c5246",
+        "050c14c61dbb8f44387926b0f1de7fb20127157e73938d513cd701c045e49eb1",
+        "0db3cb2b368e5bda09de9a7269cfd3ba55f54a923e9da51ccdc45cb64bd1525e",
+        "c0365f374663a727502e58031c9ef87da3ee7a0e5cbc7315ff7678ff4e86c009"
+      ]
+    },
+    {
+      "artifact": {
+        "id": "artifact_450ba211b33647bbbb2f65cc",
+        "revision": 1
+      },
+      "report": {
+        "id": "report_2ff8557deedc40e290aafbe4",
+        "revision": 1
+      },
+      "digest": "07a4c43fa236eb2395c8f507c531c3a969f57da34795f192ca5b6f25160f0026",
+      "paper": "Letter",
+      "compiler": "docx.6",
+      "page_count": 9,
+      "pdf_text_consistency": "passed",
+      "visual_inspection": {
+        "status": "passed",
+        "inspector": "Codex agent",
+        "method": "All rendered page images viewed, including negative chart labels after correction",
+        "checked_at": "2026-09-22T22:14:29.160470+00:00",
+        "pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "human_research_blind_review": false
+      },
+      "docx": "output/acceptance/layout-final/local-Letter/report.docx",
+      "pdf": "output/acceptance/layout-final/local-Letter/report.pdf",
+      "manifest": "output/acceptance/layout-final/local-Letter/manifest.json",
+      "pdf_digest": "79cc92d103f10c58367adb0a3035eff55393d0f9c60ee9cc0d426e2d8885a80f",
+      "page_digests": [
+        "c4cb2d7676f72c46b799c4cda6734dd57949da5eb17cac47f85ff0813dc99b55",
+        "827026ea7fbb3dc6bd7692272ceadb0cb23f5451035bc77304842adc1de79b1e",
+        "0e760cbdef48da4ded1d91be3827989a3ade4caf27e556b73136fb99d98291f0",
+        "c6087739bd593f094f9e12433b7902c7b26c5e377663a3031d7249c2d4e1452b",
+        "d16df8f6a8435541e9343d16db9a09561cc604d04ddbd6353b46dccb1941f863",
+        "5c591e1a5ec37dd214d3291edf5c5b7f4af668b36761d13a86cda1c2afbfe782",
+        "bba702cee4149ae55e265e7d9908c4893d280f63af2695faba77be648dcdf461",
+        "9f019ec0f4946fec590be54478df42f03128e6c88800a9cf48e01cb066f4b138",
+        "ee950fa21fceb72c931e14b6afab3ee0ebf2df772117b6b7105287d275bde604"
+      ]
+    },
+    {
+      "artifact": {
+        "id": "artifact_2beaf91802774406adc164ee",
+        "revision": 1
+      },
+      "report": {
+        "id": "report_2ff8557deedc40e290aafbe4",
+        "revision": 1
+      },
+      "digest": "09b7bc9d686e34252cfdbe65a59bd0ea15f9fbe6ddf8ac577ec5de4c173352fa",
+      "paper": "A4",
+      "compiler": "docx.6",
+      "page_count": 9,
+      "pdf_text_consistency": "passed",
+      "visual_inspection": {
+        "status": "passed",
+        "inspector": "Codex agent",
+        "method": "All rendered page images viewed, including negative chart labels after correction",
+        "checked_at": "2026-09-22T22:14:29.160470+00:00",
+        "pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "human_research_blind_review": false
+      },
+      "docx": "output/acceptance/layout-final/local-A4/report.docx",
+      "pdf": "output/acceptance/layout-final/local-A4/report.pdf",
+      "manifest": "output/acceptance/layout-final/local-A4/manifest.json",
+      "pdf_digest": "f4576bd714cfe3592b4f96be2caeb74a62f6eb32379cad58e97a3134213f8de4",
+      "page_digests": [
+        "2db49edc744a901ba776699423048e992d7c10cd2219bf7d9860763aaa929d19",
+        "de4125b3687438c1c89a4ece808db34970a097d805d0ab38e75350c7c83eb2bd",
+        "af47c5ac8c8ee287838870cdceb340b783202c8dff9f0604236079c533e11425",
+        "c2478050dce9cf684072854a3003dfcddc54a475a9d78c4161394d3f8949c573",
+        "5b6882b45c2c503d73141a094a213bae9fb6c1eeecb4340e665e1b7a11e741a4",
+        "d5a3231dc8fcc3c3630c5182e0e73633dafbb50ebb8827de2063dfeef6c1ad2e",
+        "3c2b0c8371822efd02120c7ec525fb3c37547998558cb4ac3691d95b2f9df8bd",
+        "dbbd5bcd7ece10d0a7f54bec8a947d89fdbb06a9a6f102924c35d907a60e4036",
+        "7d0790986b16b650520e84d13a5da9ae9d158e3e1f94910055bd9c2a35be627e"
+      ]
+    }
+  ],
+  "rendered_pages_inspected": 61,
+  "fresh_install": {
+    "project": "/var/folders/b0/t7_tg7s53cd3w0rm21xgdlwc0000gn/T/pitr-fresh-acceptance-l1506pmu/project",
+    "empty_install": "passed",
+    "empty_start": "passed",
+    "doctor": {
+      "word_compiler": true,
+      "renderer": {
+        "available": true,
+        "path": "/private/var/folders/b0/t7_tg7s53cd3w0rm21xgdlwc0000gn/T/pitr-fresh-acceptance-l1506pmu/project/.tools/libreoffice/LibreOffice.app/Contents/MacOS/soffice"
+      },
+      "font": {
+        "available": true,
+        "family": "Noto Sans CJK SC"
+      },
+      "setup": "python scripts/setup_documents.py"
+    },
+    "restore": "passed",
+    "history_download": "passed",
+    "artifacts_verified": 8,
+    "reports_verified": 3,
+    "restored": "/var/folders/b0/t7_tg7s53cd3w0rm21xgdlwc0000gn/T/pitr-fresh-acceptance-l1506pmu/restored-data",
+    "backup_sha256": "e92646dd2480a4c510b4eba7d43cc65b29409da31bf85306dfc50af789fd71e0",
+    "model_reexecution": false,
+    "external_redelivery": false,
+    "final_code_recheck": {
+      "status": "passed",
+      "checked_at": "2026-09-22T22:13:44.250242+00:00",
+      "restored": "/var/folders/b0/t7_tg7s53cd3w0rm21xgdlwc0000gn/T/pitr-fresh-acceptance-l1506pmu/restored-final-data",
+      "artifacts_verified": 13,
+      "backup_sha256": "055233b7d1783fb2f16b004478ed188429ef054d11ac6a1e54c8b767b90c5776",
+      "model_reexecution": false,
+      "schema": "research.1",
+      "frontend_assets": "passed"
+    }
+  },
+  "logs": {
+    "backend": {
+      "path": "output/acceptance/backend-final-full.log",
+      "sha256": "14a7bf9444912b3bed650aaf1b1c5e32fb4276e546b595668617334b108176e9"
+    },
+    "browser": {
+      "path": "output/acceptance/browser-final.log",
+      "sha256": "ea2b82c5247f851585d4b01aae39833b41a77124a285614c76c385dd23a0f7c4"
+    },
+    "build": {
+      "path": "output/acceptance/build-final.log",
+      "sha256": "0d776083e03f7613d30457d5f959aa5eb2c1d41dd8c7c755e73447bd2f28992e"
+    },
+    "schema": {
+      "path": "output/acceptance/schemas-final.log",
+      "sha256": "8bf9e8850ed50c24fab9aa83e6bc277d68c78271d7bb8e960eb3f65c88827c63"
+    }
+  },
+  "research_quality": {
+    "research_cases_prepared": 60,
+    "development_cases": 48,
+    "holdout_cases": 12,
+    "all_60_native_cases": "not_run",
+    "human_blind_review": "not_performed",
+    "80_percent_light_edit_target": "not_evaluated",
+    "budget_statistical_calibration": "insufficient_samples"
+  },
+  "limitations": [
+    "macOS ARM64 actually tested; Intel implementation not hardware tested; native Agent isolation is macOS only",
+    "Slack integration offline tested; no messages sent to a real workspace",
+    "Word native OOXML and workbook verified, rendered with LibreOffice; no manual Microsoft Word/WPS editing session",
+    "No text-layer invention for image-only PDF; Word external edits are not imported",
+    "Nonblocking toolchain deprecation/lint and lazy chart chunk-size warnings remain"
+  ]
+}

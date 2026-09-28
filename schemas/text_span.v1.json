@@ -1,0 +1,23 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "const": "text",
+      "default": "text",
+      "title": "Type",
+      "type": "string"
+    },
+    "text": {
+      "title": "Text",
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "text"
+  ],
+  "title": "TextSpan",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/text_span.v1.json"
+}

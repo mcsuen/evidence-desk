@@ -82,7 +82,7 @@ def connection(provider, environ=None):
         # Explicit environment variables take precedence over user settings.
         env.update({k: source[k] for k in BASE_ENV | keys if k in source})
         config = {k: v for k, v in raw.items() if k in CLAUDE_KEYS}
-    env['PITR_CAPTURE_ORIGIN'] = 'pitr-wiki'
+    env['PITR_CAPTURE_ORIGIN'] = 'pitr-research'
     env['PYTHONDONTWRITEBYTECODE'] = '1'
     return env, config, config_home
 
@@ -102,7 +102,7 @@ def toml(value):
     return json.dumps(value, ensure_ascii=False)
 
 
-def codex_command(binary, config):
+def codex_command(binary, config, *, shell=False):
     # app-server does not accept exec's --ignore-user-config/--ignore-rules.
     # Seatbelt hides those files while preserving the native credential store.
     cmd = [binary, 'app-server', '--stdio']
@@ -110,11 +110,12 @@ def codex_command(binary, config):
         cmd += ['-c', k + '=' + toml(v)]
     DISABLED=['shell_tool','apps','plugins','browser_use','browser_use_external','computer_use','multi_agent','hooks','view_image','image_generation','workspace_dependencies','goals','memories','shell_snapshot','skill_search','sleep_tool','request_permissions_tool','code_mode','code_mode_host','remote_plugin','skill_mcp_dependency_install']
     for feature in DISABLED:
-        if feature=='code_mode_host':continue  # app-server's MCP transport uses this host
+        if shell and feature in ('shell_tool','view_image','code_mode_host'):continue
         cmd += ['--disable', feature]
     cmd += ['-c', 'features.skip_host_skill_discovery=true', '-c', 'project_doc_max_bytes=0',
             '-c', 'analytics.enabled=false', '-c', 'approval_policy="never"',
-            '-c', 'sandbox_mode="read-only"']
+            '-c', 'sandbox_mode='+toml('danger-full-access' if shell else 'read-only')]
+    if shell:cmd += ['--enable','shell_tool','--enable','view_image','--enable','code_mode_host']
     return cmd
 
 

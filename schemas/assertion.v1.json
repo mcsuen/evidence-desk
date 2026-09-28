@@ -1,0 +1,139 @@
+{
+  "$defs": {
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "revision": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "statement": {
+      "title": "Statement",
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "source_statement",
+        "fact",
+        "interpretation",
+        "forecast",
+        "relationship"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "subjects": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Subjects",
+      "type": "array"
+    },
+    "support": {
+      "items": {
+        "$ref": "#/$defs/Ref"
+      },
+      "title": "Support",
+      "type": "array"
+    },
+    "counterevidence": {
+      "items": {
+        "$ref": "#/$defs/Ref"
+      },
+      "title": "Counterevidence",
+      "type": "array"
+    },
+    "values": {
+      "items": {
+        "$ref": "#/$defs/Ref"
+      },
+      "title": "Values",
+      "type": "array"
+    },
+    "depends_on": {
+      "items": {
+        "$ref": "#/$defs/Ref"
+      },
+      "title": "Depends On",
+      "type": "array"
+    },
+    "alternative": {
+      "default": "",
+      "title": "Alternative",
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "next_check": {
+      "default": "",
+      "title": "Next Check",
+      "type": "string"
+    },
+    "relation": {
+      "additionalProperties": true,
+      "title": "Relation",
+      "type": "object"
+    }
+  },
+  "required": [
+    "id",
+    "revision",
+    "created_at",
+    "title",
+    "statement",
+    "kind",
+    "subjects",
+    "support",
+    "counterevidence",
+    "values",
+    "depends_on",
+    "alternative",
+    "limitations",
+    "next_check",
+    "relation"
+  ],
+  "title": "Assertion",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/assertion.v1.json"
+}

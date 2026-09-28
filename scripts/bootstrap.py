@@ -61,6 +61,8 @@ def main():
             print('正在安装界面依赖…',flush=True)
             subprocess.run([str(node/'bin/npm'),'ci','--no-audit','--no-fund'],cwd=REPO/'web',env=env,check=True)
             installed['npm']=npm
+        print('检查 Word 渲染器与中文字体…',flush=True)
+        subprocess.run([str(PRIVATE/'venv/bin/python'),str(REPO/'scripts/setup_documents.py')],cwd=REPO,env=env,check=True)
         def inputs():
             paths=[p for folder in ('src','public','scripts') for p in (REPO/'web'/folder).rglob('*') if p.is_file() and 'src/types' not in str(p.relative_to(REPO/'web'))]
             return paths+list((REPO/'schemas').glob('*.json'))+[p for p in (REPO/'web').iterdir() if p.is_file() and p.suffix in ('.json','.ts','.html')]

@@ -1,32 +1,26 @@
-"""Current Pydantic contracts are the sole source for schemas and frontend types."""
+"""Pydantic request and response schemas; no UI-specific required-field rewriting."""
 import argparse
 import json
 import re
 from pathlib import Path
 from pitr.config import settings
-from pitr.desk.contracts import DeskView
-from pitr.desk.company_model import ModelView
-from pitr.desk.research.contracts import ResearchRequest, ResearchOutcome, ResearchInterpretation, ResearchSubject, ResearchMessage
-from pitr.desk.research.trace.contracts import TraceView
-from pitr.wiki import contracts as wiki_contracts
+from pitr.domain.common import Command, Contract
+from pitr.domain import contracts, views
+from pitr.adapters import api
+from pitr.lab.news import contracts as news_contracts
+from pitr.application import evaluation
 
-EXPORTS={
-    'desk_view.v1.json':DeskView,
-    'operating_model.v1.json':ModelView,
-    'trace_view.v1.json':TraceView,
-    'research_request.v3.json':ResearchRequest,
-    'research_outcome.v3.json':ResearchOutcome,
-    'research_interpretation.v3.json':ResearchInterpretation,
-    'research_subject.v3.json':ResearchSubject,
-    'research_message.v3.json':ResearchMessage,
-}
-for name in ('CaptureEnvelope','KnowledgeRevision','WikiPageRevision','PolicyRevision','KnowledgeEvent',
-             'DecisionRecord','KnowledgeIssue','InspectionRun','ProposalInput','QueryInput','AnswerInput',
-             'WikiJobRequest','WikiJobResult','WikiUpdateSchedule','CompanyRegistration'):
-    EXPORTS['wiki_'+re.sub(r'(?<!^)(?=[A-Z])','_',name).lower()+'.v1.json']=getattr(wiki_contracts,name)
+EXPORTS = {}
+for module, prefix in ((contracts,''),(views,''),(api,''),(news_contracts,'lab_'),(evaluation,'')):
+    for name, model in vars(module).items():
+        if isinstance(model,type) and issubclass(model,Contract) and model.__module__ == module.__name__:
+            filename = prefix+re.sub(r'(?<!^)(?=[A-Z])','_',name).lower()+'.v1.json'
+            EXPORTS[filename] = model
 
 def build_schema(name):
-    return {**EXPORTS[name].model_json_schema(),'$schema':'https://json-schema.org/draft/2020-12/schema','$id':f'pitr/{name}'}
+    model=EXPORTS[name]
+    mode='validation' if issubclass(model,Command) else 'serialization'
+    return {**model.model_json_schema(mode=mode),'$schema':'https://json-schema.org/draft/2020-12/schema','$id':f'pitr/{name}'}
 
 def export_schemas(out_dir=None,*,check=False):
     out_dir=Path(out_dir or settings.schemas_dir)

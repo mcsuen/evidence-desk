@@ -21,6 +21,8 @@ from pitr.integrations.slack.files import MAX_FILE_BYTES
 TEAM, USER, BOT, DM, CHANNEL = 'T1234567', 'U1234567', 'U7654321', 'D1234567', 'C1234567'
 
 
+
+
 class Echo:
     name = 'echo'
     commands = ('echo', 'help')
@@ -378,27 +380,6 @@ def test_start_stop_reconnect_and_installation_lock(tmp_path, config):
         runtime.stop()
 
 
-def test_settings_api_manifest_attachment_and_live_gate(tmp_path, config):
-    from pitr.desk.api import create_app
-    app = create_app(tmp_path, worker=False)
-    with TestClient(app) as client:
-        result = client.post('/api/desk/settings', json=config)
-        assert result.status_code == 200
-        assert 'xoxb-offline' not in result.text and 'xapp-offline' not in result.text
-        assert (tmp_path/'private/settings.json').stat().st_mode & 0o777 == 0o600
-        assert client.post('/api/desk/settings', json={'slack_channel_ids':['bad']}).status_code == 422
-        assert client.get('/api/desk/slack-manifest').text == MANIFEST
-        assert Path('slack-app-manifest.yaml').read_text() == MANIFEST
-        assert client.get('/api/desk/slack/deliveries').json() == []
-        assert client.get('/api/desk/slack/attachments').json() == []
-        assert client.get('/api/desk/slack/attachments/unknown/file').status_code == 404
-        assert client.post('/api/desk/slack/live-checks', json={'check':'dm','evidence':'not actually tested'}).status_code == 422
-        assert client.post('/api/desk/slack/test', json={}).status_code == 422
-        result = client.post('/api/desk/settings', json={'slack_channel_ids': []})
-        assert result.json()['slack_bot_token'] is True
-        assert result.json()['slack_channel_ids'] == []
-
-
 def test_binary_result_files_preserve_bytes_and_thread(runtime):
     runtime.receive(event())
     binary = b'PK\x03\x04\x00\xff\xfe workbook test'
@@ -473,63 +454,6 @@ def test_expired_interactions_get_a_reopen_message(runtime):
     assert '重新点击' in runtime.client.messages[0]['text']
 
 
-def test_application_restarts_enabled_transport_without_disabling_it(tmp_path,config,monkeypatch):
-    from pitr.desk.api import create_app
-    from pitr.desk.slack import Slack
-    from pitr.desk.tasks import Queue
-    from pitr.desk.integrations import Monitor
-    calls=[]
-    monkeypatch.setattr(Queue,'start',lambda self:None)
-    monkeypatch.setattr(Monitor,'start',lambda self:None)
-    monkeypatch.setattr(Slack,'start',lambda self,enable=True:calls.append(enable))
-    settings=SettingsFile(tmp_path/'private/settings.json');settings.save({**config,'slack_enabled':True})
-    with TestClient(create_app(tmp_path)) as client:
-        assert calls==[False]
-        assert client.get('/api/desk/settings').json()['slack_enabled'] is True
-    assert settings.read()['slack_enabled'] is True
-
-
-def test_desk_enqueue_crash_replay_uses_original_request_and_returns_result(tmp_path,config,monkeypatch):
-    from pitr.desk.service import Desk
-    from pitr.desk.tasks import Queue
-    from pitr.desk.slack import Slack
-    desk=Desk(tmp_path/'desk');queue=Queue(desk)
-    desk.ingest(b'PDD original source','text/plain','https://example.com/source','PDD','Offline source')
-    runtime=Slack(desk,queue,lambda:config,client=Client())
-    runtime.receive(event('event-crash-test',text='研究 PDD 问题'))
-    class ProcessCrash(BaseException):pass
-    original=WorkflowContext.bind
-    monkeypatch.setattr(WorkflowContext,'bind',lambda *args:(_ for _ in ()).throw(ProcessCrash()))
-    with pytest.raises(ProcessCrash):runtime.process_one()
-    with desk.store.connect() as db:
-        tasks=list(db.execute('SELECT body FROM tasks'))
-    assert len(tasks)==1
-    first=json.loads(tasks[0]['body'])
-    assert 'slack_channel' not in first['request']['parameters']
-    desk.ingest(b'New source after interruption','text/plain','https://example.com/new','PDD','New source')
-    with runtime.journal.connect(write=True) as db:db.execute('UPDATE inbox SET lease=0')
-    monkeypatch.setattr(WorkflowContext,'bind',original)
-    runtime.process_one()
-    with desk.store.connect() as db:assert db.execute('SELECT COUNT(*) FROM tasks').fetchone()[0]==1
-    from pitr.desk.research.intake import IntakeWorker
-    from pitr.desk.research.contracts import ResearchInterpretation,ResearchSubject
-    resolved=ResearchInterpretation(title='Offline result',subjects=[ResearchSubject(company_id='PDD',name='PDD',verified=True)],questions=[]).model_dump()
-    IntakeWorker(desk,resolver=lambda *a:resolved).run_one()
-    def complete(desk,task,owner,checkpoint):
-        from pitr.desk.research.tools import ToolPlane
-        from pitr.desk.research.verify import validate
-        from pitr.desk.storage import canonical
-        plane=ToolPlane(desk,task,owner,checkpoint);plane.prepare()
-        report=validate({'title':'Offline result','claims':[]},plane)
-        with desk.store.connect(write=True) as db:db.execute('INSERT INTO research_artifacts VALUES(?,?,?)',(task['id'],1,canonical({'raw':{},'validated':report})))
-        return report
-    monkeypatch.setattr('pitr.desk.research.native.run',complete)
-    queue.run_one();runtime.pump();drain(runtime)
-    assert any('已完成' in message['text'] for message in runtime.client.messages)
-    assert any('Offline result' in f.get('content','') for f in runtime.client.files)
-    assert all(message.get('thread_ts')=='100.1' for message in runtime.client.messages)
-
-
 def test_only_previously_directed_messages_can_be_edited_or_deleted(runtime):
     socket=Socket()
     runtime.handle_socket_request(socket,request(text='PDD revenue margin discussion'))
@@ -548,43 +472,3 @@ def test_only_previously_directed_messages_can_be_edited_or_deleted(runtime):
     assert runtime.normalize(deleted)[1].kind=='deleted'
     edited.payload['event']['message']['user']='UOTHER12'
     assert runtime.normalize(edited) is None
-
-
-def test_native_research_slack_uses_same_control_plane_and_bound_clarification(tmp_path,config):
-    from pitr.desk.service import Desk
-    from pitr.desk.tasks import Queue
-    from pitr.desk.slack import Slack
-    from pitr.desk.research.service import Research
-    desk=Desk(tmp_path/'desk');queue=Queue(desk);runtime=Slack(desk,queue,lambda:config,client=Client())
-    runtime.receive(event('native-request-event',text='分析一下新财报'))
-    runtime.process_one();runtime.pump()
-    requests=Research(desk).list();assert len(requests)==1
-    request=requests[0];assert request['task']['status']=='waiting_user' and queue.claim() is None
-    with runtime.journal.connect() as db:
-        assert db.execute('SELECT COUNT(*) FROM actions').fetchone()[0]>=1
-        binding=db.execute('SELECT * FROM bindings').fetchone()
-        assert binding['task_id']==request['task_id']
-    # Duplicate event and repeat poll do not enqueue additional research.
-    runtime.receive(event('native-request-event',text='分析一下新财报'));runtime.process_one();runtime.pump()
-    assert len(Research(desk).list())==1
-    from pitr.desk.research.contracts import ResearchMessage
-    resumed=Research(desk).message(request['id'],ResearchMessage(operation_id='native-answer-slack',text='PDD，先复核利润变化',company='PDD',intent='earnings',expected_input_version=request['input_version']))
-    assert resumed['task_id']==request['task_id'] and resumed['interpretation_status']=='pending'
-    from pitr.desk.research.intake import IntakeWorker
-    from pitr.desk.research.contracts import ResearchInterpretation,ResearchSubject
-    IntakeWorker(desk,resolver=lambda *a:ResearchInterpretation(title='利润变化',intent='earnings',subjects=[ResearchSubject(company_id='PDD',name='拼多多',verified=True)],questions=['利润变化的原因']).model_dump()).run_one()
-    assert Research(desk).get(request['id'])['task']['status']=='queued'
-
-
-def test_native_explicit_analysis_does_not_auto_collect_into_wiki(tmp_path,config):
-    from pitr.desk.service import Desk
-    from pitr.desk.tasks import Queue
-    from pitr.desk.slack import Slack
-    from pitr.desk.research.service import Research
-    d=Desk(tmp_path/'desk');s=Slack(d,Queue(d),lambda:config,client=Client())
-    s.receive(event('native-analysis-routing',text='分析一下 PDD 本次财报'));s.process_one()
-    r=Research(d).list()[0]
-    assert r['input']['company']=='' and r['input']['workflow_version']==3
-    assert r['interpretation_status']=='pending' and r['input']['question']=='分析一下 PDD 本次财报'
-    assert r['task']['request']['workflow']=='research'
-    assert not [p for p in d.wiki.list('PDD') if p.get('company')=='PDD']

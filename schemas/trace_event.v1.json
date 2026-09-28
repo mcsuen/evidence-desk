@@ -1,0 +1,32 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "seq": {
+      "title": "Seq",
+      "type": "integer"
+    },
+    "at": {
+      "title": "At",
+      "type": "string"
+    },
+    "kind": {
+      "title": "Kind",
+      "type": "string"
+    },
+    "data": {
+      "additionalProperties": true,
+      "title": "Data",
+      "type": "object"
+    }
+  },
+  "required": [
+    "seq",
+    "at",
+    "kind",
+    "data"
+  ],
+  "title": "TraceEvent",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/trace_event.v1.json"
+}

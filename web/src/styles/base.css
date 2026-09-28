@@ -1,0 +1,24 @@
+/* Base: reset, typography, focus. Loads after tokens.css and after any legacy stylesheet. */
+*,*::before,*::after{box-sizing:border-box}
+html,body,#root{height:100%}
+:root{font-family:var(--font-ui);font-size:14px;line-height:1.6;color:var(--ink);background:var(--bg);font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink)}
+h1,h2,h3,h4,p,figure{margin:0}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+img,svg{max-width:100%}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:var(--r-sm)}
+::selection{background:var(--accent-soft)}
+code,kbd,pre{font-family:var(--font-mono)}
+table{border-collapse:collapse}
+.display{font-family:var(--font-display);font-weight:600;letter-spacing:.01em;text-wrap:balance}
+.mono{font-family:var(--font-mono)}
+.kicker{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.muted{color:var(--ink-3)}.sub{color:var(--ink-2)}
+.num-col{text-align:right;font-variant-numeric:tabular-nums}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+/* Legacy pages (pre-redesign) mount inside the new shell until they are rewritten. */
+.legacy-page.legacy-page{display:block;grid-template-columns:none;min-height:0;color:var(--ink);background:transparent}
+.legacy-page.d-app{display:block;grid-template-columns:none;min-height:0}

@@ -1,0 +1,206 @@
+{
+  "$defs": {
+    "Budget": {
+      "additionalProperties": false,
+      "properties": {
+        "policy_version": {
+          "default": "budget.1",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "active_seconds": {
+          "minimum": 1,
+          "title": "Active Seconds",
+          "type": "number"
+        },
+        "tool_calls": {
+          "minimum": 1,
+          "title": "Tool Calls",
+          "type": "integer"
+        },
+        "reserve_fraction": {
+          "default": 0.1,
+          "exclusiveMaximum": 0.5,
+          "exclusiveMinimum": 0,
+          "title": "Reserve Fraction",
+          "type": "number"
+        },
+        "calibration": {
+          "default": "provisional",
+          "title": "Calibration",
+          "type": "string"
+        }
+      },
+      "required": [
+        "policy_version",
+        "active_seconds",
+        "tool_calls",
+        "reserve_fraction",
+        "calibration"
+      ],
+      "title": "Budget",
+      "type": "object"
+    },
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "case_id": {
+      "title": "Case Id",
+      "type": "string"
+    },
+    "input_revision": {
+      "title": "Input Revision",
+      "type": "integer"
+    },
+    "snapshot": {
+      "$ref": "#/$defs/Ref"
+    },
+    "status": {
+      "enum": [
+        "queued",
+        "running",
+        "waiting_user",
+        "budget_exhausted",
+        "completed",
+        "cancelled",
+        "failed"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "stage": {
+      "title": "Stage",
+      "type": "string"
+    },
+    "generation": {
+      "default": 0,
+      "title": "Generation",
+      "type": "integer"
+    },
+    "agent": {
+      "additionalProperties": true,
+      "title": "Agent",
+      "type": "object"
+    },
+    "lane": {
+      "enum": [
+        "codex",
+        "claude",
+        "local"
+      ],
+      "title": "Lane",
+      "type": "string"
+    },
+    "budget": {
+      "$ref": "#/$defs/Budget"
+    },
+    "active_seconds": {
+      "default": 0,
+      "title": "Active Seconds",
+      "type": "number"
+    },
+    "tool_calls": {
+      "default": 0,
+      "title": "Tool Calls",
+      "type": "integer"
+    },
+    "cost": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Cost"
+    },
+    "checkpoint": {
+      "additionalProperties": true,
+      "title": "Checkpoint",
+      "type": "object"
+    },
+    "report": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Ref"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "error": {
+      "default": "",
+      "title": "Error",
+      "type": "string"
+    },
+    "questions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Questions",
+      "type": "array"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "updated_at": {
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "case_id",
+    "input_revision",
+    "snapshot",
+    "status",
+    "stage",
+    "generation",
+    "agent",
+    "lane",
+    "budget",
+    "active_seconds",
+    "tool_calls",
+    "cost",
+    "checkpoint",
+    "report",
+    "error",
+    "questions",
+    "created_at",
+    "updated_at"
+  ],
+  "title": "Run",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/run.v1.json"
+}

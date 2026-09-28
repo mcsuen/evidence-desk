@@ -1,0 +1,238 @@
+{
+  "$defs": {
+    "CurrentValidity": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "available",
+            "needs_review",
+            "withdrawn",
+            "superseded"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "reason": {
+          "default": "",
+          "title": "Reason",
+          "type": "string"
+        },
+        "updated_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Updated At"
+        }
+      },
+      "required": [
+        "status",
+        "reason",
+        "updated_at"
+      ],
+      "title": "CurrentValidity",
+      "type": "object"
+    },
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    },
+    "Value": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "observed",
+            "assumption",
+            "derived"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "metric": {
+          "title": "Metric",
+          "type": "string"
+        },
+        "amount": {
+          "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+          "title": "Amount",
+          "type": "string"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "subject": {
+          "title": "Subject",
+          "type": "string"
+        },
+        "period": {
+          "title": "Period",
+          "type": "string"
+        },
+        "basis": {
+          "title": "Basis",
+          "type": "string"
+        },
+        "frequency": {
+          "enum": [
+            "quarter",
+            "annual",
+            "ytd",
+            "point"
+          ],
+          "title": "Frequency",
+          "type": "string"
+        },
+        "currency": {
+          "default": "",
+          "title": "Currency",
+          "type": "string"
+        },
+        "share_basis": {
+          "default": "",
+          "title": "Share Basis",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "actual",
+            "guidance",
+            "broker_forecast",
+            "consensus",
+            "assumption",
+            "derived"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "precision": {
+          "default": 3,
+          "maximum": 8,
+          "minimum": 0,
+          "title": "Precision",
+          "type": "integer"
+        },
+        "observation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Ref"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "calculation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Ref"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "dependencies": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Dependencies",
+          "type": "array"
+        },
+        "reason": {
+          "default": "",
+          "title": "Reason",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "created_at",
+        "kind",
+        "metric",
+        "amount",
+        "unit",
+        "subject",
+        "period",
+        "basis",
+        "frequency",
+        "currency",
+        "share_basis",
+        "role",
+        "precision",
+        "observation",
+        "calculation",
+        "dependencies",
+        "reason",
+        "limitations"
+      ],
+      "title": "Value",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "object": {
+      "$ref": "#/$defs/Value"
+    },
+    "current_validity": {
+      "$ref": "#/$defs/CurrentValidity"
+    }
+  },
+  "required": [
+    "object",
+    "current_validity"
+  ],
+  "title": "CompanyValue",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/company_value.v1.json"
+}

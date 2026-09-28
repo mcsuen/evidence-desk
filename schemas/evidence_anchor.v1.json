@@ -1,0 +1,98 @@
+{
+  "$defs": {
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "revision": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "source": {
+      "$ref": "#/$defs/Ref"
+    },
+    "block_id": {
+      "title": "Block Id",
+      "type": "string"
+    },
+    "start": {
+      "minimum": 0,
+      "title": "Start",
+      "type": "integer"
+    },
+    "end": {
+      "minimum": 1,
+      "title": "End",
+      "type": "integer"
+    },
+    "quote": {
+      "title": "Quote",
+      "type": "string"
+    },
+    "page": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Page"
+    },
+    "bbox": {
+      "items": {
+        "type": "number"
+      },
+      "title": "Bbox",
+      "type": "array"
+    }
+  },
+  "required": [
+    "id",
+    "revision",
+    "created_at",
+    "source",
+    "block_id",
+    "start",
+    "end",
+    "quote",
+    "page",
+    "bbox"
+  ],
+  "title": "EvidenceAnchor",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/evidence_anchor.v1.json"
+}

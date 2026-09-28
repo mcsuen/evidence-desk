@@ -64,9 +64,9 @@ class Instance:
         os.close(self.fd)
 
 
-def serve(root='data/desk_control',port=8765,*,no_open=False,web_dist=None):
+def serve(root='data/research',port=8765,*,no_open=False,web_dist=None):
     import uvicorn
-    from pitr.desk.api import create_app
+    from pitr.adapters.api import create_app
     if not 1024<=port<=65535:raise ValueError('端口需在 1024–65535 之间')
     instance=Instance(root);listener=None
     try:
@@ -78,7 +78,7 @@ def serve(root='data/desk_control',port=8765,*,no_open=False,web_dist=None):
         listener=socket.socket();listener.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
         try:listener.bind(('127.0.0.1',port));listener.listen(128)
         except OSError:raise RuntimeError(f'端口 {port} 已被其他程序使用。请用 ./start --port <其他端口>；未停止其他程序。') from None
-        auth=LocalAuth(port);app=create_app(root,web_dist=web_dist)
+        auth=LocalAuth(port);app=create_app(root,web_dir=web_dist)
         config=uvicorn.Config(auth.middleware(app),host='127.0.0.1',port=port,log_level='warning',
                               access_log=False,timeout_graceful_shutdown=3)
         server=uvicorn.Server(config)
@@ -100,7 +100,7 @@ def serve(root='data/desk_control',port=8765,*,no_open=False,web_dist=None):
 
 def main():
     parser=argparse.ArgumentParser(description='PITR 本机工作台')
-    parser.add_argument('--data-dir',default='data/desk_control')
+    parser.add_argument('--data-dir',default='data/research')
     parser.add_argument('--port',type=int,default=8765)
     parser.add_argument('--no-open',action='store_true')
     args=parser.parse_args()

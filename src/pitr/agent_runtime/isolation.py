@@ -7,30 +7,28 @@ import shutil
 import tempfile
 
 
-def profile(run,desk,port=0):
+def claude_scratch():
+    import os
+    return Path('/tmp').resolve()/f'claude-{os.getuid()}'
+
+
+def profile(run,desk):
     home=Path.home().resolve();run=Path(run).resolve()
     denied={home,desk.root.resolve(),Path(__file__).resolve().parents[4]}
     text='(version 1)\n(allow default)\n(deny file-read* file-write* '+ ' '.join('(subpath '+json.dumps(str(p))+')' for p in denied)+')\n'
     text+='(allow file-read* (subpath '+json.dumps(str(Path(sys.base_prefix).resolve()))+'))\n'
     text+='(allow file-read* file-write* (subpath '+json.dumps(str(run))+'))\n(allow file-read-metadata)\n'
-    text+='(deny network-outbound (remote ip "localhost:*"))\n'
-    from urllib.request import getproxies
-    from urllib.parse import urlparse
-    for url in getproxies().values():
-        parsed=urlparse(url)
-        if parsed.hostname in ('127.0.0.1','localhost') and parsed.port:
-            text+='(allow network-outbound (remote ip \"localhost:'+str(parsed.port)+'\"))\n'
-    if port:text+='(allow network-outbound (remote ip "localhost:'+str(port)+'"))\n'
+    text+='(deny network-outbound (remote ip "*:*"))\n'
     return text
 
 
-def prepare(desk, root, binary, config_home, env, port=0):
-    from pitr.desk.research.native import runtime_root
+def prepare(desk, root, binary, config_home, env, *, workspace=None, authority=None):
+    from pitr.adapters.runtime_context import runtime_root
     if sys.platform != 'darwin' or not Path('/usr/bin/sandbox-exec').exists():
         raise RuntimeError('本机 Agent 桥接目前需要 macOS')
     root = Path(root)
     root.mkdir(parents=True, exist_ok=True, mode=0o700)
-    text = profile(root, desk, port)
+    text = profile(root, desk)
     # Limit reads as well as writes outside HOME, including unrelated desks
     # placed in /tmp or on mounted volumes. Native loaders need the root
     # directory itself, but that does not grant access to its descendants.
@@ -43,13 +41,29 @@ def prepare(desk, root, binary, config_home, env, port=0):
     text = text.replace('(allow default)', '(allow default)\n' + files, 1)
     temporary = root / 'tmp'; temporary.mkdir(exist_ok=True, mode=0o700)
     env['TMPDIR'] = str(temporary.resolve()) + '/'
+    env['TMPPREFIX'] = str(temporary.resolve() / 'zsh')
     # Claude uses /tmp on macOS even when TMPDIR is set.
     env['CLAUDE_CODE_TMPDIR'] = str(temporary.resolve())
     text+='(deny file-read* file-write* (subpath '+json.dumps(str(runtime_root(desk).resolve()))+'))\n'
     text+='(allow file-read* file-write* (subpath '+json.dumps(str(root.resolve()))+'))\n'
+    # Claude's WebSearch writes to /tmp/claude-<uid> regardless of CLAUDE_CODE_TMPDIR; without this
+    # the live-search subcall dies with EPERM. Only that per-user scratch directory is opened.
+    text+='(allow file-read* file-write* (subpath '+json.dumps(str(claude_scratch()))+'))\n'
+    if workspace:
+        workspace = Path(workspace).resolve()
+        if workspace == desk.root.resolve() or desk.root.resolve() in workspace.parents:
+            raise RuntimeError('Agent 工作区必须与主库隔离')
+        text += '(allow file-read* file-write* (subpath ' + json.dumps(str(workspace)) + '))\n'
+        # The package and interpreter environment are readable but immutable.
+        for runtime_path in (Path(__file__).resolve().parents[2], Path(sys.prefix), Path(sys.executable).parent):
+            text += '(allow file-read* (subpath ' + json.dumps(str(runtime_path)) + '))\n'
+            text += '(deny file-write* (subpath ' + json.dumps(str(runtime_path)) + '))\n'
+        if authority:
+            text += '(allow file-read* (literal ' + json.dumps(str(Path(authority).resolve())) + '))\n'
+            text += '(deny file-write* (literal ' + json.dumps(str(Path(authority).resolve())) + '))\n'
     # Native credentials are read/refreshed by the original binary. We do not
     # copy OAuth tokens into run directories. Personal extensions are disabled
-    # separately by the CLI launch policy; no generic file or shell tool exists.
+    # separately by the CLI launch policy. The OS policy also applies to shell children.
     native_paths = [config_home]
     if config_home.name == '.claude' or env.get('CLAUDE_CONFIG_DIR'):
         native_paths += [Path(env.get('HOME', str(Path.home()))) / '.claude.json',
@@ -87,8 +101,10 @@ def prepare(desk, root, binary, config_home, env, port=0):
         selector = 'subpath' if path.is_dir() else 'literal'
         text += '(allow file-read* (' + selector + ' ' + json.dumps(str(path)) + '))\n'
     from urllib.parse import urlsplit
-    endpoints=[env.get(key,'') for key in ('HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY', 'http_proxy', 'https_proxy', 'all_proxy', 'OPENAI_BASE_URL', 'ANTHROPIC_BASE_URL')]
-    endpoints+=json.loads(env.get('PITR_AGENT_ENDPOINTS','[]'))
+    endpoints=[]
+    if env.get('PITR_MODEL_GATEWAY_PORT'):
+        endpoints.append('http://127.0.0.1:'+env['PITR_MODEL_GATEWAY_PORT'])
+    if env.get('PITR_TOOL_URL'): endpoints.append(env['PITR_TOOL_URL'])
     for url in endpoints:
         endpoint = urlsplit(url)
         if endpoint.hostname in ('localhost', '127.0.0.1', '::1') and endpoint.port:
@@ -104,7 +120,7 @@ def prepare(desk, root, binary, config_home, env, port=0):
     # tree. Probe writes with O_EXCL and no data; never modify a database.
     with tempfile.TemporaryDirectory(prefix='pitr-isolation-check-') as outside:
         outsider = Path(outside) / 'private'; outsider.write_text('canary')
-        code = '''import os,json
+        code = '''import os,json,socket
 out={}
 for label,path in %r:
  try:
@@ -113,13 +129,18 @@ for label,path in %r:
 try:
  fd=os.open(%r,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600);os.close(fd);out['private_write']='allowed'
 except PermissionError:out['private_write']='denied'
+try:
+ sock=socket.socket();sock.settimeout(1);sock.connect(('192.0.2.1',443));out['direct_network']='allowed'
+except PermissionError:out['direct_network']='denied'
+except OSError:out['direct_network']='not_denied'
+finally:sock.close()
 print(json.dumps(out))
 ''' % ([('production', str(desk.store.path.resolve())), ('other_run', str(private)), ('outside_workspace', str(outsider)), ('input', str(visible))], str(probes / ('write-' + root.name)))
         check = subprocess.run(['/usr/bin/sandbox-exec', '-f', str(policy), str(Path(sys.executable).resolve()), '-c', code],
                                cwd=root, capture_output=True, text=True, timeout=10)
     observed = json.loads(check.stdout) if check.returncode == 0 else {}
     result = {'mechanism': 'macOS Seatbelt + PITR capability', 'observed': observed,
-              'passed': observed == {'production': 'denied', 'other_run': 'denied', 'outside_workspace': 'denied', 'input': 'readable', 'private_write': 'denied'}}
+              'passed': observed == {'production': 'denied', 'other_run': 'denied', 'outside_workspace': 'denied', 'input': 'readable', 'private_write': 'denied', 'direct_network':'denied'}}
     (root / 'isolation.json').write_text(json.dumps(result))
     if not result['passed']:
         raise RuntimeError('本机 Agent 隔离自检失败，未启动研究')

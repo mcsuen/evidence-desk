@@ -1,0 +1,421 @@
+{
+  "$defs": {
+    "NewsArticle": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "event_id": {
+          "title": "Event Id",
+          "type": "string"
+        },
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "source_name": {
+          "title": "Source Name",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        },
+        "published_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Published At"
+        },
+        "observed_at": {
+          "title": "Observed At",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "excerpt": {
+          "default": "",
+          "title": "Excerpt",
+          "type": "string"
+        },
+        "digest": {
+          "title": "Digest",
+          "type": "string"
+        },
+        "content_digest": {
+          "default": "",
+          "title": "Content Digest",
+          "type": "string"
+        },
+        "media": {
+          "default": "text/plain",
+          "title": "Media",
+          "type": "string"
+        },
+        "original_file": {
+          "default": "",
+          "title": "Original File",
+          "type": "string"
+        },
+        "publication_source": {
+          "default": "content",
+          "title": "Publication Source",
+          "type": "string"
+        },
+        "issues": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Issues",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "event_id",
+        "source_id",
+        "source_name",
+        "title",
+        "url",
+        "published_at",
+        "observed_at",
+        "text",
+        "excerpt",
+        "digest",
+        "content_digest",
+        "media",
+        "original_file",
+        "publication_source",
+        "issues"
+      ],
+      "title": "NewsArticle",
+      "type": "object"
+    },
+    "NewsEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "first_seen": {
+          "title": "First Seen",
+          "type": "string"
+        },
+        "updated_at": {
+          "title": "Updated At",
+          "type": "string"
+        },
+        "article_count": {
+          "title": "Article Count",
+          "type": "integer"
+        },
+        "score": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NewsScore"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "companies": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Companies",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "first_seen",
+        "updated_at",
+        "article_count",
+        "score",
+        "companies"
+      ],
+      "title": "NewsEvent",
+      "type": "object"
+    },
+    "NewsProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "company": {
+          "title": "Company",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "aliases": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Aliases",
+          "type": "array"
+        },
+        "items": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "identity_version": {
+          "title": "Identity Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "company",
+        "name",
+        "aliases",
+        "items",
+        "identity_version"
+      ],
+      "title": "NewsProfile",
+      "type": "object"
+    },
+    "NewsScore": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "event_id": {
+          "title": "Event Id",
+          "type": "string"
+        },
+        "article_id": {
+          "title": "Article Id",
+          "type": "string"
+        },
+        "company": {
+          "title": "Company",
+          "type": "string"
+        },
+        "profile_id": {
+          "title": "Profile Id",
+          "type": "string"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "signature": {
+          "title": "Signature",
+          "type": "string"
+        },
+        "priority": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Priority"
+        },
+        "dimensions": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Dimensions",
+          "type": "object"
+        },
+        "confidence": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Confidence",
+          "type": "object"
+        },
+        "queue": {
+          "default": "uncertain",
+          "enum": [
+            "selected",
+            "uncertain",
+            "all"
+          ],
+          "title": "Queue",
+          "type": "string"
+        },
+        "reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "references": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "References",
+          "type": "array"
+        },
+        "inputs": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Inputs",
+          "type": "array"
+        },
+        "raw": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Raw",
+          "type": "array"
+        },
+        "model": {
+          "additionalProperties": true,
+          "title": "Model",
+          "type": "object"
+        },
+        "policy_version": {
+          "default": "news-priority.1",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "calibration": {
+          "default": "未校准",
+          "title": "Calibration",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "event_id",
+        "article_id",
+        "company",
+        "profile_id",
+        "created_at",
+        "signature",
+        "priority",
+        "dimensions",
+        "confidence",
+        "queue",
+        "reasons",
+        "references",
+        "inputs",
+        "raw",
+        "model",
+        "policy_version",
+        "calibration"
+      ],
+      "title": "NewsScore",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "event": {
+      "$ref": "#/$defs/NewsEvent"
+    },
+    "articles": {
+      "items": {
+        "$ref": "#/$defs/NewsArticle"
+      },
+      "title": "Articles",
+      "type": "array"
+    },
+    "scores": {
+      "items": {
+        "$ref": "#/$defs/NewsScore"
+      },
+      "title": "Scores",
+      "type": "array"
+    },
+    "selected": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/NewsScore"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "latest_score_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Latest Score Id"
+    },
+    "profile": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/NewsProfile"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "feedback": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Feedback",
+      "type": "array"
+    }
+  },
+  "required": [
+    "event",
+    "articles",
+    "scores",
+    "selected",
+    "latest_score_id",
+    "profile",
+    "feedback"
+  ],
+  "title": "NewsDetail",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/lab_news_detail.v1.json"
+}

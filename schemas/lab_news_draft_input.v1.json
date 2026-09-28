@@ -1,0 +1,31 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "score_id": {
+      "title": "Score Id",
+      "type": "string"
+    },
+    "article_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 10,
+      "title": "Article Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "operation_id",
+    "score_id"
+  ],
+  "title": "NewsDraftInput",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/lab_news_draft_input.v1.json"
+}

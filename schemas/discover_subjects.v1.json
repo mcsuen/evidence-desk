@@ -1,0 +1,41 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "market": {
+      "enum": [
+        "SEC",
+        "HKEX",
+        "SSE",
+        "SZSE",
+        "BSE",
+        "CNINFO"
+      ],
+      "title": "Market",
+      "type": "string"
+    },
+    "code": {
+      "default": "",
+      "title": "Code",
+      "type": "string"
+    }
+  },
+  "required": [
+    "operation_id",
+    "name",
+    "market"
+  ],
+  "title": "DiscoverSubjects",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/discover_subjects.v1.json"
+}

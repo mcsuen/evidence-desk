@@ -1,0 +1,42 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "text": {
+      "title": "Text",
+      "type": "string"
+    },
+    "page": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Page"
+    },
+    "bbox": {
+      "items": {
+        "type": "number"
+      },
+      "title": "Bbox",
+      "type": "array"
+    }
+  },
+  "required": [
+    "id",
+    "text",
+    "page",
+    "bbox"
+  ],
+  "title": "SourceBlock",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/source_block.v1.json"
+}

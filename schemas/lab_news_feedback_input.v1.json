@@ -1,0 +1,42 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "score_id": {
+      "title": "Score Id",
+      "type": "string"
+    },
+    "verdict": {
+      "enum": [
+        "useful",
+        "irrelevant",
+        "duplicate",
+        "raise",
+        "important",
+        "not_important"
+      ],
+      "title": "Verdict",
+      "type": "string"
+    },
+    "note": {
+      "default": "",
+      "maxLength": 2000,
+      "title": "Note",
+      "type": "string"
+    }
+  },
+  "required": [
+    "operation_id",
+    "score_id",
+    "verdict"
+  ],
+  "title": "NewsFeedbackInput",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/lab_news_feedback_input.v1.json"
+}

@@ -1,2 +1,2 @@
-import Desk from './desk/Desk'
-export default Desk
+import {AppRoutes} from './app/router'
+export default function App(){return <AppRoutes/>}

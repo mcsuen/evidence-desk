@@ -1,0 +1,44 @@
+{
+  "kind": "synthetic-capacity-real-inference",
+  "input_articles": 1000,
+  "acquired": 1000,
+  "unchanged": 0,
+  "errors": 0,
+  "scored": 2500,
+  "seconds": 796.0409208750352,
+  "articles_per_hour": 4522.380578177762,
+  "peak_process_rss_bytes": 2481946624,
+  "concurrent_company_read_p95_seconds": 0.003467082977294922,
+  "concurrent_research_intake": [
+    {
+      "seconds": 0.012489583110436797,
+      "stage": "queued",
+      "interpretation": "explicit offline fixture; no external Agent call"
+    }
+  ],
+  "company_profiles": 7,
+  "context_items": 4,
+  "runtime": {
+    "device": "mps",
+    "model": "1c5edc17a7acd8701df6fc341c0d179f1c62c982",
+    "sdk": "573e5b62696ba441230cd6be71d593331b5d23af",
+    "peak_mps_driver_bytes": 2535243776
+  },
+  "quality_labels": 0,
+  "note": "Synthetic replay, real MPS/CPU inference. Network latency excluded. Human usefulness is not evaluated.",
+  "pending_review_pairs": 1500,
+  "unprocessed_articles": 0,
+  "numeric_score_records": 1000,
+  "hardware": {
+    "chip": "Apple M4",
+    "memory_bytes": 17179869184
+  },
+  "date": "2026-09-23",
+  "method_notes": [
+    "Synthetic articles with real local inference and frozen existing company contexts.",
+    "The original unscored_pairs counter counts explicit pending review records, not unprocessed articles; this report names it pending_review_pairs.",
+    "RSS and MPS driver allocations overlap on unified memory and must not be summed.",
+    "Network latency and external research Agent execution are not measured.",
+    "Some of the run overlaps browser regression tests and the live news collector."
+  ]
+}

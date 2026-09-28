@@ -1,0 +1,1273 @@
+{
+  "$defs": {
+    "Assertion": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "statement": {
+          "title": "Statement",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "source_statement",
+            "fact",
+            "interpretation",
+            "forecast",
+            "relationship"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "subjects": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Subjects",
+          "type": "array"
+        },
+        "support": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Support",
+          "type": "array"
+        },
+        "counterevidence": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Counterevidence",
+          "type": "array"
+        },
+        "values": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Values",
+          "type": "array"
+        },
+        "depends_on": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Depends On",
+          "type": "array"
+        },
+        "alternative": {
+          "default": "",
+          "title": "Alternative",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "next_check": {
+          "default": "",
+          "title": "Next Check",
+          "type": "string"
+        },
+        "relation": {
+          "additionalProperties": true,
+          "title": "Relation",
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "created_at",
+        "title",
+        "statement",
+        "kind",
+        "subjects",
+        "support",
+        "counterevidence",
+        "values",
+        "depends_on",
+        "alternative",
+        "limitations",
+        "next_check",
+        "relation"
+      ],
+      "title": "Assertion",
+      "type": "object"
+    },
+    "ChartBlock": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "chart",
+          "default": "chart",
+          "title": "Type",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "column",
+            "line"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "categories": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Categories",
+          "type": "array"
+        },
+        "series": {
+          "items": {
+            "$ref": "#/$defs/ChartSeries"
+          },
+          "title": "Series",
+          "type": "array"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "note": {
+          "default": "",
+          "title": "Note",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "title",
+        "kind",
+        "categories",
+        "series",
+        "unit",
+        "note"
+      ],
+      "title": "ChartBlock",
+      "type": "object"
+    },
+    "ChartSeries": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Ref"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Values",
+          "type": "array"
+        },
+        "role": {
+          "default": "actual",
+          "enum": [
+            "actual",
+            "forecast"
+          ],
+          "title": "Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "values",
+        "role"
+      ],
+      "title": "ChartSeries",
+      "type": "object"
+    },
+    "CheckResult": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "target": {
+          "$ref": "#/$defs/Ref"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "not_run",
+            "passed",
+            "failed",
+            "unavailable",
+            "skipped",
+            "error",
+            "not_applicable"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "coverage": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Coverage",
+          "type": "array"
+        },
+        "findings": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Findings",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "policy_version": {
+          "title": "Policy Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "created_at",
+        "target",
+        "name",
+        "status",
+        "coverage",
+        "findings",
+        "limitations",
+        "policy_version"
+      ],
+      "title": "CheckResult",
+      "type": "object"
+    },
+    "CitationSpan": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "citation",
+          "default": "citation",
+          "title": "Type",
+          "type": "string"
+        },
+        "ref": {
+          "$ref": "#/$defs/Ref"
+        }
+      },
+      "required": [
+        "type",
+        "ref"
+      ],
+      "title": "CitationSpan",
+      "type": "object"
+    },
+    "EvidenceAnchor": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Ref"
+        },
+        "block_id": {
+          "title": "Block Id",
+          "type": "string"
+        },
+        "start": {
+          "minimum": 0,
+          "title": "Start",
+          "type": "integer"
+        },
+        "end": {
+          "minimum": 1,
+          "title": "End",
+          "type": "integer"
+        },
+        "quote": {
+          "title": "Quote",
+          "type": "string"
+        },
+        "page": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Page"
+        },
+        "bbox": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Bbox",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "created_at",
+        "source",
+        "block_id",
+        "start",
+        "end",
+        "quote",
+        "page",
+        "bbox"
+      ],
+      "title": "EvidenceAnchor",
+      "type": "object"
+    },
+    "ExportJob": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "report": {
+          "$ref": "#/$defs/Ref"
+        },
+        "signature": {
+          "title": "Signature",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "queued",
+            "running",
+            "completed",
+            "failed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "paper": {
+          "enum": [
+            "Letter",
+            "A4"
+          ],
+          "title": "Paper",
+          "type": "string"
+        },
+        "template_version": {
+          "title": "Template Version",
+          "type": "string"
+        },
+        "check_refs": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Check Refs",
+          "type": "array"
+        },
+        "delivery_at_request": {
+          "default": "draft",
+          "enum": [
+            "ready",
+            "partial",
+            "draft"
+          ],
+          "title": "Delivery At Request",
+          "type": "string"
+        },
+        "artifact": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Ref"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "error": {
+          "default": "",
+          "title": "Error",
+          "type": "string"
+        },
+        "attempts": {
+          "default": 0,
+          "title": "Attempts",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "updated_at": {
+          "title": "Updated At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "report",
+        "signature",
+        "status",
+        "paper",
+        "template_version",
+        "check_refs",
+        "delivery_at_request",
+        "artifact",
+        "error",
+        "attempts",
+        "created_at",
+        "updated_at"
+      ],
+      "title": "ExportJob",
+      "type": "object"
+    },
+    "Paragraph": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "paragraph",
+          "default": "paragraph",
+          "title": "Type",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "inlines": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "citation": "#/$defs/CitationSpan",
+                "text": "#/$defs/TextSpan",
+                "value": "#/$defs/ValueSpan"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/TextSpan"
+              },
+              {
+                "$ref": "#/$defs/ValueSpan"
+              },
+              {
+                "$ref": "#/$defs/CitationSpan"
+              }
+            ]
+          },
+          "title": "Inlines",
+          "type": "array"
+        },
+        "assertions": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Assertions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "inlines",
+        "assertions"
+      ],
+      "title": "Paragraph",
+      "type": "object"
+    },
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    },
+    "ReportDocument": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "case_id": {
+          "title": "Case Id",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "input_revision": {
+          "title": "Input Revision",
+          "type": "integer"
+        },
+        "snapshot": {
+          "$ref": "#/$defs/Ref"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "report_type": {
+          "enum": [
+            "memo",
+            "earnings",
+            "company",
+            "industry"
+          ],
+          "title": "Report Type",
+          "type": "string"
+        },
+        "summary": {
+          "items": {
+            "$ref": "#/$defs/Paragraph"
+          },
+          "title": "Summary",
+          "type": "array"
+        },
+        "sections": {
+          "items": {
+            "$ref": "#/$defs/Section"
+          },
+          "title": "Sections",
+          "type": "array"
+        },
+        "gaps": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Gaps",
+          "type": "array"
+        },
+        "next_steps": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Next Steps",
+          "type": "array"
+        },
+        "assertions": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Assertions",
+          "type": "array"
+        },
+        "models": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Models",
+          "type": "array"
+        },
+        "skills": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Skills",
+          "type": "array"
+        },
+        "change_reason": {
+          "default": "",
+          "title": "Change Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "created_at",
+        "case_id",
+        "run_id",
+        "input_revision",
+        "snapshot",
+        "title",
+        "report_type",
+        "summary",
+        "sections",
+        "gaps",
+        "next_steps",
+        "assertions",
+        "models",
+        "skills",
+        "change_reason"
+      ],
+      "title": "ReportDocument",
+      "type": "object"
+    },
+    "Section": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "blocks": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "chart": "#/$defs/ChartBlock",
+                "paragraph": "#/$defs/Paragraph",
+                "table": "#/$defs/TableBlock"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Paragraph"
+              },
+              {
+                "$ref": "#/$defs/TableBlock"
+              },
+              {
+                "$ref": "#/$defs/ChartBlock"
+              }
+            ]
+          },
+          "title": "Blocks",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "blocks"
+      ],
+      "title": "Section",
+      "type": "object"
+    },
+    "SourceBlock": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "page": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Page"
+        },
+        "bbox": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Bbox",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "text",
+        "page",
+        "bbox"
+      ],
+      "title": "SourceBlock",
+      "type": "object"
+    },
+    "SourceVersion": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        },
+        "media_type": {
+          "title": "Media Type",
+          "type": "string"
+        },
+        "digest": {
+          "title": "Digest",
+          "type": "string"
+        },
+        "byte_count": {
+          "title": "Byte Count",
+          "type": "integer"
+        },
+        "subjects": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Subjects",
+          "type": "array"
+        },
+        "blocks": {
+          "items": {
+            "$ref": "#/$defs/SourceBlock"
+          },
+          "title": "Blocks",
+          "type": "array"
+        },
+        "page_count": {
+          "default": 0,
+          "title": "Page Count",
+          "type": "integer"
+        },
+        "published_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Published At"
+        },
+        "available_at": {
+          "title": "Available At",
+          "type": "string"
+        },
+        "observed_at": {
+          "title": "Observed At",
+          "type": "string"
+        },
+        "availability_basis": {
+          "default": "acquired",
+          "enum": [
+            "acquired",
+            "authoritative",
+            "archive",
+            "declared"
+          ],
+          "title": "Availability Basis",
+          "type": "string"
+        },
+        "availability_evidence": {
+          "default": "",
+          "title": "Availability Evidence",
+          "type": "string"
+        },
+        "origin_group": {
+          "default": "",
+          "title": "Origin Group",
+          "type": "string"
+        },
+        "source_role": {
+          "default": "upload",
+          "enum": [
+            "official",
+            "third_party",
+            "upload"
+          ],
+          "title": "Source Role",
+          "type": "string"
+        },
+        "issues": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Issues",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "created_at",
+        "title",
+        "url",
+        "media_type",
+        "digest",
+        "byte_count",
+        "subjects",
+        "blocks",
+        "page_count",
+        "published_at",
+        "available_at",
+        "observed_at",
+        "availability_basis",
+        "availability_evidence",
+        "origin_group",
+        "source_role",
+        "issues"
+      ],
+      "title": "SourceVersion",
+      "type": "object"
+    },
+    "TableBlock": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "table",
+          "default": "table",
+          "title": "Type",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "columns": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10,
+          "minItems": 1,
+          "title": "Columns",
+          "type": "array"
+        },
+        "rows": {
+          "items": {
+            "items": {
+              "items": {
+                "discriminator": {
+                  "mapping": {
+                    "citation": "#/$defs/CitationSpan",
+                    "text": "#/$defs/TextSpan",
+                    "value": "#/$defs/ValueSpan"
+                  },
+                  "propertyName": "type"
+                },
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/TextSpan"
+                  },
+                  {
+                    "$ref": "#/$defs/ValueSpan"
+                  },
+                  {
+                    "$ref": "#/$defs/CitationSpan"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "title": "Rows",
+          "type": "array"
+        },
+        "note": {
+          "default": "",
+          "title": "Note",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "title",
+        "columns",
+        "rows",
+        "note"
+      ],
+      "title": "TableBlock",
+      "type": "object"
+    },
+    "TextSpan": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "text",
+          "default": "text",
+          "title": "Type",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "text"
+      ],
+      "title": "TextSpan",
+      "type": "object"
+    },
+    "Value": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "observed",
+            "assumption",
+            "derived"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "metric": {
+          "title": "Metric",
+          "type": "string"
+        },
+        "amount": {
+          "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+          "title": "Amount",
+          "type": "string"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "subject": {
+          "title": "Subject",
+          "type": "string"
+        },
+        "period": {
+          "title": "Period",
+          "type": "string"
+        },
+        "basis": {
+          "title": "Basis",
+          "type": "string"
+        },
+        "frequency": {
+          "enum": [
+            "quarter",
+            "annual",
+            "ytd",
+            "point"
+          ],
+          "title": "Frequency",
+          "type": "string"
+        },
+        "currency": {
+          "default": "",
+          "title": "Currency",
+          "type": "string"
+        },
+        "share_basis": {
+          "default": "",
+          "title": "Share Basis",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "actual",
+            "guidance",
+            "broker_forecast",
+            "consensus",
+            "assumption",
+            "derived"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "precision": {
+          "default": 3,
+          "maximum": 8,
+          "minimum": 0,
+          "title": "Precision",
+          "type": "integer"
+        },
+        "observation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Ref"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "calculation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Ref"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "dependencies": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Dependencies",
+          "type": "array"
+        },
+        "reason": {
+          "default": "",
+          "title": "Reason",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "created_at",
+        "kind",
+        "metric",
+        "amount",
+        "unit",
+        "subject",
+        "period",
+        "basis",
+        "frequency",
+        "currency",
+        "share_basis",
+        "role",
+        "precision",
+        "observation",
+        "calculation",
+        "dependencies",
+        "reason",
+        "limitations"
+      ],
+      "title": "Value",
+      "type": "object"
+    },
+    "ValueSpan": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "value",
+          "default": "value",
+          "title": "Type",
+          "type": "string"
+        },
+        "ref": {
+          "$ref": "#/$defs/Ref"
+        }
+      },
+      "required": [
+        "type",
+        "ref"
+      ],
+      "title": "ValueSpan",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "document": {
+      "$ref": "#/$defs/ReportDocument"
+    },
+    "delivery": {
+      "enum": [
+        "draft",
+        "partial",
+        "ready"
+      ],
+      "title": "Delivery",
+      "type": "string"
+    },
+    "checks": {
+      "items": {
+        "$ref": "#/$defs/CheckResult"
+      },
+      "title": "Checks",
+      "type": "array"
+    },
+    "current_validity": {
+      "additionalProperties": true,
+      "title": "Current Validity",
+      "type": "object"
+    },
+    "values": {
+      "items": {
+        "$ref": "#/$defs/Value"
+      },
+      "title": "Values",
+      "type": "array"
+    },
+    "value_labels": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Value Labels",
+      "type": "object"
+    },
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/EvidenceAnchor"
+      },
+      "title": "Evidence",
+      "type": "array"
+    },
+    "sources": {
+      "items": {
+        "$ref": "#/$defs/SourceVersion"
+      },
+      "title": "Sources",
+      "type": "array"
+    },
+    "assertions": {
+      "items": {
+        "$ref": "#/$defs/Assertion"
+      },
+      "title": "Assertions",
+      "type": "array"
+    },
+    "exports": {
+      "items": {
+        "$ref": "#/$defs/ExportJob"
+      },
+      "title": "Exports",
+      "type": "array"
+    }
+  },
+  "required": [
+    "document",
+    "delivery",
+    "checks",
+    "current_validity",
+    "values",
+    "value_labels",
+    "evidence",
+    "sources",
+    "assertions",
+    "exports"
+  ],
+  "title": "ReportView",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/report_view.v1.json"
+}

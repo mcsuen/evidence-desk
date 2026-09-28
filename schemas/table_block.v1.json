@@ -1,0 +1,160 @@
+{
+  "$defs": {
+    "CitationSpan": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "citation",
+          "default": "citation",
+          "title": "Type",
+          "type": "string"
+        },
+        "ref": {
+          "$ref": "#/$defs/Ref"
+        }
+      },
+      "required": [
+        "type",
+        "ref"
+      ],
+      "title": "CitationSpan",
+      "type": "object"
+    },
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    },
+    "TextSpan": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "text",
+          "default": "text",
+          "title": "Type",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "text"
+      ],
+      "title": "TextSpan",
+      "type": "object"
+    },
+    "ValueSpan": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "value",
+          "default": "value",
+          "title": "Type",
+          "type": "string"
+        },
+        "ref": {
+          "$ref": "#/$defs/Ref"
+        }
+      },
+      "required": [
+        "type",
+        "ref"
+      ],
+      "title": "ValueSpan",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "const": "table",
+      "default": "table",
+      "title": "Type",
+      "type": "string"
+    },
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "columns": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 10,
+      "minItems": 1,
+      "title": "Columns",
+      "type": "array"
+    },
+    "rows": {
+      "items": {
+        "items": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "citation": "#/$defs/CitationSpan",
+                "text": "#/$defs/TextSpan",
+                "value": "#/$defs/ValueSpan"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/TextSpan"
+              },
+              {
+                "$ref": "#/$defs/ValueSpan"
+              },
+              {
+                "$ref": "#/$defs/CitationSpan"
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "type": "array"
+      },
+      "title": "Rows",
+      "type": "array"
+    },
+    "note": {
+      "default": "",
+      "title": "Note",
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "id",
+    "title",
+    "columns",
+    "rows",
+    "note"
+  ],
+  "title": "TableBlock",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/table_block.v1.json"
+}

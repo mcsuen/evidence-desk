@@ -1,0 +1,1037 @@
+{
+  "$defs": {
+    "Assertion": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "statement": {
+          "title": "Statement",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "source_statement",
+            "fact",
+            "interpretation",
+            "forecast",
+            "relationship"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "subjects": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Subjects",
+          "type": "array"
+        },
+        "support": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Support",
+          "type": "array"
+        },
+        "counterevidence": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Counterevidence",
+          "type": "array"
+        },
+        "values": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Values",
+          "type": "array"
+        },
+        "depends_on": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Depends On",
+          "type": "array"
+        },
+        "alternative": {
+          "default": "",
+          "title": "Alternative",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "next_check": {
+          "default": "",
+          "title": "Next Check",
+          "type": "string"
+        },
+        "relation": {
+          "additionalProperties": true,
+          "title": "Relation",
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "created_at",
+        "title",
+        "statement",
+        "kind",
+        "subjects",
+        "support",
+        "counterevidence",
+        "values",
+        "depends_on",
+        "alternative",
+        "limitations",
+        "next_check",
+        "relation"
+      ],
+      "title": "Assertion",
+      "type": "object"
+    },
+    "CompanyHistory": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "source",
+            "report",
+            "decision"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "ref": {
+          "$ref": "#/$defs/Ref"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "at": {
+          "title": "At",
+          "type": "string"
+        },
+        "case_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Case Id"
+        },
+        "run_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Run Id"
+        },
+        "action": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action"
+        },
+        "current_validity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CurrentValidity"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "kind",
+        "ref",
+        "title",
+        "at",
+        "case_id",
+        "run_id",
+        "action",
+        "current_validity"
+      ],
+      "title": "CompanyHistory",
+      "type": "object"
+    },
+    "CompanySource": {
+      "additionalProperties": false,
+      "properties": {
+        "object": {
+          "$ref": "#/$defs/SourceSummary"
+        },
+        "current_validity": {
+          "$ref": "#/$defs/CurrentValidity"
+        }
+      },
+      "required": [
+        "object",
+        "current_validity"
+      ],
+      "title": "CompanySource",
+      "type": "object"
+    },
+    "CompanyValue": {
+      "additionalProperties": false,
+      "properties": {
+        "object": {
+          "$ref": "#/$defs/Value"
+        },
+        "current_validity": {
+          "$ref": "#/$defs/CurrentValidity"
+        }
+      },
+      "required": [
+        "object",
+        "current_validity"
+      ],
+      "title": "CompanyValue",
+      "type": "object"
+    },
+    "CurrentValidity": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "available",
+            "needs_review",
+            "withdrawn",
+            "superseded"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "reason": {
+          "default": "",
+          "title": "Reason",
+          "type": "string"
+        },
+        "updated_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Updated At"
+        }
+      },
+      "required": [
+        "status",
+        "reason",
+        "updated_at"
+      ],
+      "title": "CurrentValidity",
+      "type": "object"
+    },
+    "KnowledgeItem": {
+      "additionalProperties": false,
+      "properties": {
+        "object": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Assertion"
+            },
+            {
+              "$ref": "#/$defs/ModelRevision"
+            }
+          ],
+          "title": "Object"
+        },
+        "current_validity": {
+          "$ref": "#/$defs/CurrentValidity"
+        }
+      },
+      "required": [
+        "object",
+        "current_validity"
+      ],
+      "title": "KnowledgeItem",
+      "type": "object"
+    },
+    "ModelRevision": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "subjects": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Subjects",
+          "type": "array"
+        },
+        "assumptions": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "outputs": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Outputs",
+          "type": "array"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "created_at",
+        "title",
+        "subjects",
+        "assumptions",
+        "outputs",
+        "rationale"
+      ],
+      "title": "ModelRevision",
+      "type": "object"
+    },
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    },
+    "ReportSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "case_id": {
+          "title": "Case Id",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "input_revision": {
+          "title": "Input Revision",
+          "type": "integer"
+        },
+        "change_reason": {
+          "title": "Change Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "created_at",
+        "title",
+        "case_id",
+        "run_id",
+        "input_revision",
+        "change_reason"
+      ],
+      "title": "ReportSummary",
+      "type": "object"
+    },
+    "ResearchCase": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "input": {
+          "$ref": "#/$defs/ResearchInput"
+        },
+        "parent_case_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent Case Id"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "updated_at": {
+          "title": "Updated At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "input",
+        "parent_case_id",
+        "created_at",
+        "updated_at"
+      ],
+      "title": "ResearchCase",
+      "type": "object"
+    },
+    "ResearchInput": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "question": {
+          "maxLength": 16000,
+          "minLength": 1,
+          "title": "Question",
+          "type": "string"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "maxItems": 40,
+          "title": "Sources",
+          "type": "array"
+        },
+        "knowledge": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Knowledge",
+          "type": "array"
+        },
+        "depth": {
+          "default": "standard",
+          "enum": [
+            "interactive",
+            "standard",
+            "deep"
+          ],
+          "title": "Depth",
+          "type": "string"
+        },
+        "report_type": {
+          "default": "memo",
+          "enum": [
+            "memo",
+            "earnings",
+            "company",
+            "industry"
+          ],
+          "title": "Report Type",
+          "type": "string"
+        },
+        "agent_provider": {
+          "anyOf": [
+            {
+              "enum": [
+                "codex",
+                "claude"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Agent Provider"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model"
+        },
+        "reasoning": {
+          "default": "medium",
+          "title": "Reasoning",
+          "type": "string"
+        },
+        "context": {
+          "additionalProperties": true,
+          "title": "Context",
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "created_at",
+        "question",
+        "scope",
+        "sources",
+        "knowledge",
+        "depth",
+        "report_type",
+        "agent_provider",
+        "model",
+        "reasoning",
+        "context"
+      ],
+      "title": "ResearchInput",
+      "type": "object"
+    },
+    "Scope": {
+      "additionalProperties": false,
+      "properties": {
+        "subjects": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Subjects",
+          "type": "array"
+        },
+        "period": {
+          "default": "",
+          "title": "Period",
+          "type": "string"
+        },
+        "mode": {
+          "default": "live",
+          "enum": [
+            "live",
+            "historical"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "as_of": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "As Of"
+        },
+        "allow_public_search": {
+          "default": true,
+          "title": "Allow Public Search",
+          "type": "boolean"
+        },
+        "proof_level": {
+          "default": "proven",
+          "enum": [
+            "proven",
+            "declared"
+          ],
+          "title": "Proof Level",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subjects",
+        "period",
+        "mode",
+        "as_of",
+        "allow_public_search",
+        "proof_level"
+      ],
+      "title": "Scope",
+      "type": "object"
+    },
+    "SourceSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        },
+        "media_type": {
+          "title": "Media Type",
+          "type": "string"
+        },
+        "subjects": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Subjects",
+          "type": "array"
+        },
+        "source_role": {
+          "enum": [
+            "official",
+            "third_party",
+            "upload"
+          ],
+          "title": "Source Role",
+          "type": "string"
+        },
+        "available_at": {
+          "title": "Available At",
+          "type": "string"
+        },
+        "published_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Published At"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "created_at",
+        "title",
+        "url",
+        "media_type",
+        "subjects",
+        "source_role",
+        "available_at",
+        "published_at"
+      ],
+      "title": "SourceSummary",
+      "type": "object"
+    },
+    "Subject": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "aliases": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Aliases",
+          "type": "array"
+        },
+        "identifiers": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Identifiers",
+          "type": "object"
+        },
+        "official_domains": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Official Domains",
+          "type": "array"
+        },
+        "status": {
+          "default": "unverified",
+          "enum": [
+            "unverified",
+            "manual",
+            "verified"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Evidence",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "created_at",
+        "name",
+        "aliases",
+        "identifiers",
+        "official_domains",
+        "status",
+        "evidence"
+      ],
+      "title": "Subject",
+      "type": "object"
+    },
+    "Value": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "observed",
+            "assumption",
+            "derived"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "metric": {
+          "title": "Metric",
+          "type": "string"
+        },
+        "amount": {
+          "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+          "title": "Amount",
+          "type": "string"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "subject": {
+          "title": "Subject",
+          "type": "string"
+        },
+        "period": {
+          "title": "Period",
+          "type": "string"
+        },
+        "basis": {
+          "title": "Basis",
+          "type": "string"
+        },
+        "frequency": {
+          "enum": [
+            "quarter",
+            "annual",
+            "ytd",
+            "point"
+          ],
+          "title": "Frequency",
+          "type": "string"
+        },
+        "currency": {
+          "default": "",
+          "title": "Currency",
+          "type": "string"
+        },
+        "share_basis": {
+          "default": "",
+          "title": "Share Basis",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "actual",
+            "guidance",
+            "broker_forecast",
+            "consensus",
+            "assumption",
+            "derived"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "precision": {
+          "default": 3,
+          "maximum": 8,
+          "minimum": 0,
+          "title": "Precision",
+          "type": "integer"
+        },
+        "observation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Ref"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "calculation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Ref"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "dependencies": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Dependencies",
+          "type": "array"
+        },
+        "reason": {
+          "default": "",
+          "title": "Reason",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "created_at",
+        "kind",
+        "metric",
+        "amount",
+        "unit",
+        "subject",
+        "period",
+        "basis",
+        "frequency",
+        "currency",
+        "share_basis",
+        "role",
+        "precision",
+        "observation",
+        "calculation",
+        "dependencies",
+        "reason",
+        "limitations"
+      ],
+      "title": "Value",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "subject": {
+      "$ref": "#/$defs/Subject"
+    },
+    "subject_at_time": {
+      "default": true,
+      "title": "Subject At Time",
+      "type": "boolean"
+    },
+    "scope": {
+      "$ref": "#/$defs/Scope"
+    },
+    "knowledge": {
+      "items": {
+        "$ref": "#/$defs/KnowledgeItem"
+      },
+      "title": "Knowledge",
+      "type": "array"
+    },
+    "sources": {
+      "items": {
+        "$ref": "#/$defs/CompanySource"
+      },
+      "title": "Sources",
+      "type": "array"
+    },
+    "values": {
+      "items": {
+        "$ref": "#/$defs/CompanyValue"
+      },
+      "title": "Values",
+      "type": "array"
+    },
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/ResearchCase"
+      },
+      "title": "Cases",
+      "type": "array"
+    },
+    "reports": {
+      "items": {
+        "$ref": "#/$defs/ReportSummary"
+      },
+      "title": "Reports",
+      "type": "array"
+    },
+    "history": {
+      "items": {
+        "$ref": "#/$defs/CompanyHistory"
+      },
+      "title": "History",
+      "type": "array"
+    }
+  },
+  "required": [
+    "subject",
+    "subject_at_time",
+    "scope",
+    "knowledge",
+    "sources",
+    "values",
+    "cases",
+    "reports",
+    "history"
+  ],
+  "title": "CompanyView",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/company_view.v1.json"
+}

@@ -1,0 +1,132 @@
+{
+  "$defs": {
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "revision": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "evidence": {
+      "$ref": "#/$defs/Ref"
+    },
+    "literal": {
+      "title": "Literal",
+      "type": "string"
+    },
+    "start": {
+      "minimum": 0,
+      "title": "Start",
+      "type": "integer"
+    },
+    "metric": {
+      "title": "Metric",
+      "type": "string"
+    },
+    "subject": {
+      "title": "Subject",
+      "type": "string"
+    },
+    "period": {
+      "title": "Period",
+      "type": "string"
+    },
+    "original_unit": {
+      "title": "Original Unit",
+      "type": "string"
+    },
+    "role": {
+      "enum": [
+        "actual",
+        "guidance",
+        "broker_forecast",
+        "consensus",
+        "assumption"
+      ],
+      "title": "Role",
+      "type": "string"
+    },
+    "basis": {
+      "title": "Basis",
+      "type": "string"
+    },
+    "frequency": {
+      "enum": [
+        "quarter",
+        "annual",
+        "ytd",
+        "point"
+      ],
+      "title": "Frequency",
+      "type": "string"
+    },
+    "table": {
+      "additionalProperties": true,
+      "title": "Table",
+      "type": "object"
+    },
+    "unit_evidence": {
+      "$ref": "#/$defs/Ref"
+    },
+    "period_evidence": {
+      "$ref": "#/$defs/Ref"
+    },
+    "basis_evidence": {
+      "$ref": "#/$defs/Ref"
+    }
+  },
+  "required": [
+    "id",
+    "revision",
+    "created_at",
+    "evidence",
+    "literal",
+    "start",
+    "metric",
+    "subject",
+    "period",
+    "original_unit",
+    "role",
+    "basis",
+    "frequency",
+    "table",
+    "unit_evidence",
+    "period_evidence",
+    "basis_evidence"
+  ],
+  "title": "Observation",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/observation.v1.json"
+}

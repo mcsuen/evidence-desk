@@ -1,0 +1,126 @@
+{
+  "$defs": {
+    "ChartSeries": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Ref"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Values",
+          "type": "array"
+        },
+        "role": {
+          "default": "actual",
+          "enum": [
+            "actual",
+            "forecast"
+          ],
+          "title": "Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "values",
+        "role"
+      ],
+      "title": "ChartSeries",
+      "type": "object"
+    },
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "const": "chart",
+      "default": "chart",
+      "title": "Type",
+      "type": "string"
+    },
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "column",
+        "line"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "categories": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Categories",
+      "type": "array"
+    },
+    "series": {
+      "items": {
+        "$ref": "#/$defs/ChartSeries"
+      },
+      "title": "Series",
+      "type": "array"
+    },
+    "unit": {
+      "title": "Unit",
+      "type": "string"
+    },
+    "note": {
+      "default": "",
+      "title": "Note",
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "id",
+    "title",
+    "kind",
+    "categories",
+    "series",
+    "unit",
+    "note"
+  ],
+  "title": "ChartBlock",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/chart_block.v1.json"
+}

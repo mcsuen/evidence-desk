@@ -1,0 +1,33 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "depth": {
+      "enum": [
+        "interactive",
+        "standard",
+        "deep"
+      ],
+      "title": "Depth",
+      "type": "string"
+    },
+    "apply": {
+      "default": false,
+      "title": "Apply",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "operation_id",
+    "depth"
+  ],
+  "title": "CalibrateBudget",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/calibrate_budget.v1.json"
+}

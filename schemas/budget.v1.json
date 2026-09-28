@@ -1,0 +1,43 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "policy_version": {
+      "default": "budget.1",
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "active_seconds": {
+      "minimum": 1,
+      "title": "Active Seconds",
+      "type": "number"
+    },
+    "tool_calls": {
+      "minimum": 1,
+      "title": "Tool Calls",
+      "type": "integer"
+    },
+    "reserve_fraction": {
+      "default": 0.1,
+      "exclusiveMaximum": 0.5,
+      "exclusiveMinimum": 0,
+      "title": "Reserve Fraction",
+      "type": "number"
+    },
+    "calibration": {
+      "default": "provisional",
+      "title": "Calibration",
+      "type": "string"
+    }
+  },
+  "required": [
+    "policy_version",
+    "active_seconds",
+    "tool_calls",
+    "reserve_fraction",
+    "calibration"
+  ],
+  "title": "Budget",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/budget.v1.json"
+}

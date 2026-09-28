@@ -1,0 +1,24 @@
+import {useEffect,useRef,useState} from 'react'
+import {NavLink,useParams} from 'react-router-dom'
+import {api,operation} from '../lib/api'
+import {Badge,Button,Card,CardHeader,Field,Input,InlineError,Select,Seg,Table} from '../ui'
+import {useData,Pending} from './shared'
+import SlackSettings from './SlackSettings'
+import {applyDensity,applyTheme,getDensity,getTheme,type Density,type Theme} from '../app/theme'
+import app from '../app/app.module.css'
+import s from '../features/maintenance/maintenance.module.css'
+export default function Settings(){
+ const hydrated=useRef(false)
+ const [theme,setTheme]=useState<Theme>(getTheme()),[density,setDensity]=useState<Density>(getDensity())
+ const {data,error,refetch}=useData('/settings',5000),{'*':path}=useParams(),section=path||'agents',[provider,setProvider]=useState(''),[model,setModel]=useState(''),[contact,setContact]=useState(''),[problem,setProblem]=useState(''),[busy,setBusy]=useState(false),[saved,setSaved]=useState('')
+ useEffect(()=>{if(data&&!hydrated.current){hydrated.current=true;setProvider(data.settings.agent_provider||'');setModel(data.settings.agent_models?.[data.settings.agent_provider]||'');setContact(data.settings.sec_user_agent||'')}},[data])
+ async function act(fn:()=>Promise<unknown>){setBusy(true);setSaved('');setProblem('');try{await fn();await refetch();setSaved('设置已保存')}catch(e){setProblem(String(e))}finally{setBusy(false)}}
+ if(!data)return <Pending error={error}/>
+ return <div className={app.page}><header className={app.pageHead}><h1 className="display">本机设置</h1><span className="sub">研究宿主、渠道与原件获取</span></header><nav className={s.subnav} aria-label="设置导航">{[['agents','研究 Agent'],['slack','Slack'],['contact','原件获取'],['documents','Word 环境'],['appearance','界面']].map(([path,label])=><NavLink key={path} to={'/settings/'+path} aria-current={section===path?'page':undefined}>{label}</NavLink>)}</nav>{problem&&<InlineError>{problem}</InlineError>}{saved&&<p role="status" className="sub">{saved}</p>}
+ {section==='agents'&&<><Card><CardHeader title="本机 Agent"><Button size="sm" disabled={busy} onClick={()=>act(()=>api('/agents/refresh',{operation_id:operation()}))}>重新检测本机 Agent</Button></CardHeader><Table><thead><tr><th>宿主</th><th>登录状态</th><th>版本</th></tr></thead><tbody>{data.agents.agents.map((agent:any)=><tr key={agent.id}><td><b>{agent.name||agent.id}</b></td><td><Badge tone={agent.status==='logged_in'?'ok':'warn'}>{agent.status==='logged_in'?'已就绪':agent.status}</Badge></td><td className="mono muted">{agent.version||'未取得版本'}</td></tr>)}</tbody></Table></Card><Card className={s.form}><h2>默认研究配置</h2><p className="sub">每项研究会固定当时选择的宿主与模型。</p><div className={s.grid2}><Field label="默认 Agent"><Select value={provider} onChange={e=>{setProvider(e.target.value);setModel(data.settings.agent_models?.[e.target.value]||'')}}><option value="">请选择</option><option value="codex">Codex</option><option value="claude">Claude</option></Select></Field><Field label="默认模型（留空沿用本机配置）"><Input value={model} onChange={e=>setModel(e.target.value)} placeholder="沿用本机配置"/></Field></div><Button variant="primary" disabled={busy||!provider} onClick={()=>act(()=>api('/settings',{operation_id:operation(),agent_provider:provider,agent_models:{[provider]:model||null}}))}>保存 Agent 设置</Button></Card></>}
+ {section==='contact'&&<Card className={s.form}><h2>原件获取</h2><Field label="SEC 访问联系信息" hint="向披露站点提供的姓名与联系邮箱。"><Input value={contact} onChange={e=>setContact(e.target.value)} placeholder="姓名和联系邮箱"/></Field><Button variant="primary" disabled={busy} onClick={()=>act(()=>api('/settings',{operation_id:operation(),sec_user_agent:contact}))}>保存联系信息</Button></Card>}
+ {section==='documents'&&<Card className={s.form}><h2>Word 编译与渲染</h2><p className="sub">报告内容与网页共用，生成的正文、表格和图表可以在 Word 中编辑。</p><Table><tbody><tr><td>原生 Word 编译器</td><td><Badge tone="ok">可用</Badge></td></tr><tr><td>逐页渲染</td><td><Badge tone={data.documents.renderer.available?'ok':'warn'}>{data.documents.renderer.available?'可用':'需要安装'}</Badge></td></tr><tr><td>中文字体</td><td><Badge tone={data.documents.font.available?'ok':'warn'}>{data.documents.font.available?'可用':'需要安装'}</Badge></td></tr></tbody></Table>{(!data.documents.renderer.available||!data.documents.font.available)&&<p className="sub">重新运行项目安装程序补齐依赖后，可独立重试导出。</p>}</Card>}
+ {section==='appearance'&&<Card className={s.form}><h2>主题与密度</h2><Field label="主题"><Seg label="主题" value={theme} onChange={v=>{setTheme(v as Theme);applyTheme(v as Theme)}} options={[{value:'system',label:'跟随系统'},{value:'light',label:'浅色'},{value:'dark',label:'深色'}]}/></Field><Field label="密度"><Seg label="密度" value={density} onChange={v=>{setDensity(v as Density);applyDensity(v as Density)}} options={[{value:'compact',label:'紧凑'},{value:'comfortable',label:'舒适'}]}/></Field></Card>}
+ {section==='slack'&&<div style={{maxWidth:720}}><SlackSettings saved={data.settings} reload={refetch}/></div>}
+ </div>
+}

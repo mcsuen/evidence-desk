@@ -1,0 +1,12 @@
+{
+  "name":"pdd-disclosures",
+  "version":"1.0",
+  "title":"PDD 官方季度披露阅读提示",
+  "subjects":["PDD"],
+  "rules":["财务报表表头通常以千元列示；本包只能提醒检查，不能替代当前原件的单位锚点。","同一页包含季度与半年累计列；按所问期间选择列。","每股数据的单位例外必须单独核对，不能把金额表头的缩放应用到每股数据。","管理层原因陈述和研究者因果推断分开表达；业务分拆未披露时保留缺项。"],
+  "sources":[
+    {"url":"https://investor.pddholdings.com/static-files/fd51ce6f-19eb-4ec7-a505-0bfe3bf30fb8","sha256":"b1cc6fb825e6999736e934a64b7a8f4dccaadf576ccfc4700434ca99f99edca4","page":4,"quote":"(Amounts in thousands of RMB and US$, except for per share data)"},
+    {"url":"https://investor.pddholdings.com/static-files/284c873a-332b-4fb6-b2d8-a9bfed73dbbe","sha256":"e607abe2844ec398a8aeef62ac0dd3d0c81bf9c1e6ac5e7d9eecc84afd5e20a6","page":4,"quote":"(Amounts in thousands of RMB and US$, except for per share data)"}
+  ],
+  "qualification":"阅读参考，不是当前研究的证据，不授予核验或采纳资格"
+}

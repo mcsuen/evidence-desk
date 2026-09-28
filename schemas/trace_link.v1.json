@@ -1,0 +1,38 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "source": {
+      "title": "Source",
+      "type": "string"
+    },
+    "target": {
+      "title": "Target",
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "sequence",
+        "dependency",
+        "repair",
+        "recovery",
+        "artifact"
+      ],
+      "title": "Kind",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "source",
+    "target",
+    "kind"
+  ],
+  "title": "TraceLink",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/trace_link.v1.json"
+}

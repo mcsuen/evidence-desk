@@ -1,0 +1,496 @@
+{
+  "schema": "pitr.ui-restoration.acceptance.1",
+  "checked_at": "2026-09-23T06:03:20.390479+00:00",
+  "status": "passed",
+  "base_commit": "df42754563f9eb46526e2a8a09d12eaa304607c4",
+  "source_tree_digest": "9a739650fd78a762dc6db765c51c8aec230308d977de0fe8405e556f1080e4c1",
+  "source_file_count": 374,
+  "default_api": "/api/v1",
+  "default_data_dir": "data/research",
+  "default_start": {
+    "health": "ok",
+    "runs_unchanged": true,
+    "reports_unchanged": true,
+    "existing_runs": 1,
+    "company_views": 0,
+    "trace_api": "trace.1",
+    "traces": [
+      {
+        "nodes": 244,
+        "gaps": [
+          "部分调用仅记录完成事件，开始时间和耗时未采集。",
+          "当前记录未采集 Agent 调用区间；仅展示已观察事件。"
+        ]
+      }
+    ],
+    "active_port": 8766,
+    "start_entrypoint": "./start"
+  },
+  "default_browser": {
+    "browser": "passed",
+    "authenticated": true,
+    "existing_runs": 1,
+    "errors": []
+  },
+  "backend": {
+    "passed": 235,
+    "failed": 0,
+    "view_boundary_tests": 8
+  },
+  "contracts": {
+    "pydantic": "passed",
+    "typescript_modules": 84
+  },
+  "production_build": "passed",
+  "lint": "passed_with_nonblocking_warnings",
+  "git_diff_check": "passed",
+  "browser": {
+    "e_paths": 6,
+    "restoration_tests": 10,
+    "failed": 0,
+    "provider": "Chrome on macOS",
+    "isolated_data_and_assets": true,
+    "real_docx_retry": true,
+    "visual_pages": 18,
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "viewports": [
+      [
+        1440,
+        1000
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "screenshot_baselines": 72,
+    "baseline_repeat": "passed",
+    "visual_review": "agent visual inspection of reference and restored screenshots",
+    "default_console_errors": 0
+  },
+  "native_boundaries": [
+    {
+      "provider": "codex",
+      "run": "run_771507601ed94e7b998a1590",
+      "cancelled_after_native_tools": true,
+      "service_restarted": true,
+      "partial_report": {
+        "id": "report_3eddd34076bd42a5a0b675c6",
+        "revision": 1
+      },
+      "partial_generation": 2,
+      "final_status": "completed",
+      "report": {
+        "id": "report_3eddd34076bd42a5a0b675c6",
+        "revision": 2
+      },
+      "checks": [
+        {
+          "name": "deterministic",
+          "status": "passed"
+        },
+        {
+          "name": "independent",
+          "status": "passed"
+        }
+      ],
+      "generation": 3
+    },
+    {
+      "provider": "claude",
+      "run": "run_9804b1aac61247d787f55d81",
+      "cancelled_after_native_tools": true,
+      "service_restarted": true,
+      "partial_report": {
+        "id": "report_f0bfa9a269cf49fc888f1dfd",
+        "revision": 1
+      },
+      "partial_generation": 2,
+      "final_status": "completed",
+      "report": {
+        "id": "report_f0bfa9a269cf49fc888f1dfd",
+        "revision": 2
+      },
+      "checks": [
+        {
+          "name": "deterministic",
+          "status": "passed"
+        },
+        {
+          "name": "independent",
+          "status": "passed"
+        }
+      ],
+      "generation": 3
+    }
+  ],
+  "native_trace_summary": [
+    {
+      "provider": "claude",
+      "status": "completed",
+      "generation": 3,
+      "spans": 28,
+      "agents": 4,
+      "recovery_links": 2,
+      "summary": {
+        "active_seconds": 134.9391665412113,
+        "queue_seconds": 0.274261,
+        "waiting_seconds": null,
+        "tool_seconds": 0.036595249781385064,
+        "measured_tools": 15,
+        "tool_count": 15,
+        "budget_tool_count": 11,
+        "tokens": {
+          "cache_creation_input_tokens": 14627,
+          "cache_read_input_tokens": 193015,
+          "input_tokens": 262,
+          "output_tokens": 7453
+        },
+        "gaps": []
+      }
+    },
+    {
+      "provider": "codex",
+      "status": "completed",
+      "generation": 3,
+      "spans": 26,
+      "agents": 4,
+      "recovery_links": 2,
+      "summary": {
+        "active_seconds": 125.87345320894383,
+        "queue_seconds": 0.95762,
+        "waiting_seconds": null,
+        "tool_seconds": 0.0325987059623003,
+        "measured_tools": 13,
+        "tool_count": 13,
+        "budget_tool_count": 11,
+        "tokens": {
+          "cached_input_tokens": 42496,
+          "input_tokens": 53920,
+          "output_tokens": 404,
+          "reasoning_output_tokens": 39
+        },
+        "gaps": []
+      }
+    }
+  ],
+  "native_browser": [
+    {
+      "provider": "claude",
+      "run": "run_9804b1aac61247d787f55d81",
+      "spans": 28,
+      "recovery_links": 2,
+      "browser": "passed"
+    },
+    {
+      "provider": "codex",
+      "run": "run_771507601ed94e7b998a1590",
+      "spans": 26,
+      "recovery_links": 2,
+      "browser": "passed"
+    }
+  ],
+  "retained_e_artifact_acceptance": "docs/benchmarks/final-acceptance.json",
+  "docs": "docs/ui-restoration.md",
+  "evidence_directory": "output/ui-restoration",
+  "reference_snapshot": "tmp/implementation-baseline/before.zip",
+  "preserved_e_snapshot": "tmp/ui-restoration-baseline/before.zip",
+  "limitations": [
+    "Older E traces without collected invocation intervals retain explicit missing timing notices.",
+    "Narrow screen checks use Chrome viewport simulation, not physical iOS or Android devices.",
+    "Human research-effectiveness blind evaluation remains a separate post-delivery target."
+  ],
+  "screenshots": [
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/companies-dark-1440-darwin.png",
+      "sha256": "ad8fe0a3db2ff5a6a076aa6579438ea22254c984189c305919fd2e871bb2e3e5"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/companies-dark-390-darwin.png",
+      "sha256": "5cea42bace69688b1dd137448b97bf213080ddf3726adb9928741ac0f3e53bab"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/companies-light-1440-darwin.png",
+      "sha256": "e73b3db416eec219385052008dd18de9df8eef6e9a50101064bc3c96354c3d9c"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/companies-light-390-darwin.png",
+      "sha256": "9dee3306aa360224d1cd4124c544a2fc4c3dd10a9d532af1a3fbf8ebd73248a4"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/company-dark-1440-darwin.png",
+      "sha256": "f30f8d137c35239d9bb39911b4eaf7a1d86a3cad9d54ece057e6842a3f572495"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/company-dark-390-darwin.png",
+      "sha256": "cebfbdfdf3e867df04d4bd44cbe3cefc6c05958d3bbb9ecf118594f2a56aafb3"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/company-light-1440-darwin.png",
+      "sha256": "d73ce21bc9cc0981757845e95fe8099ceedb36d8cec83ced4d09a503972c37ea"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/company-light-390-darwin.png",
+      "sha256": "ab890ce02db88439cb0df389ee3d5981e867f43c28babdb24ff4f49842b76fec"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/flow-dark-1440-darwin.png",
+      "sha256": "1b5060a92f7ff514d0fd4422b92e89f4d6f89ea2908583d730b6c2751fb8b69e"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/flow-dark-390-darwin.png",
+      "sha256": "8f2b6e2e4f22ea825ba80acfcb01fbedcd0da7706774125fec098f1028b8cd57"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/flow-light-1440-darwin.png",
+      "sha256": "3deda711cc34db8ecebd5a237273f4a4f0c3f51e880ce397530a5f32ac7f9b43"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/flow-light-390-darwin.png",
+      "sha256": "282e53fb030b0ee1ee7d9a72b5a9620dbfaa887651d6261ff74b3f5af4a18ae0"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/history-dark-1440-darwin.png",
+      "sha256": "0dfc6a81ccfbca485da149f3b964cfabfd701b50430cad182dd2b8a12447d534"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/history-dark-390-darwin.png",
+      "sha256": "d823a05e56b5d967a88c517e54f7664ef351bc6acbffdee00cec6ea83bbbb8f6"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/history-light-1440-darwin.png",
+      "sha256": "664fd43f8bdbdd812a11243672cb494fe25b1cc1798f269c61fcf64417e3a40f"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/history-light-390-darwin.png",
+      "sha256": "8230c4a5b5382f64b903fd008a2cd2ae20947c04805bc6ac8f9df4d7111b7ebb"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/knowledge-dark-1440-darwin.png",
+      "sha256": "d62ac76879c2bb9b93131ca4261372a4ad7931820a634af9c3aa4ecd8a952ed6"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/knowledge-dark-390-darwin.png",
+      "sha256": "111a39d0e8fd5e98e45ced3da1ef97923131316871b6b1f147a33c4212804c68"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/knowledge-light-1440-darwin.png",
+      "sha256": "8ddeb8fb57f13cfc94b25993a3c57d1e25e61ae309370776af9af818be81e7ff"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/knowledge-light-390-darwin.png",
+      "sha256": "2bbf6ac0f0731866e19249617e3c111232a87f2206232d828710960663a8bdf6"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/maintenance-dark-1440-darwin.png",
+      "sha256": "aa79f7c674fd551f52a946ef686238f2354517e4d7aa0218db26af579bd4ce78"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/maintenance-dark-390-darwin.png",
+      "sha256": "ac51286b0fc26c8ae30e291653c60d8d7b151e634c749c24c3b7a680ae52b19b"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/maintenance-light-1440-darwin.png",
+      "sha256": "82f9dc1e217f1f534d2053b9e1d4340e63c03621e6e06a263a4a08a9e03646ce"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/maintenance-light-390-darwin.png",
+      "sha256": "e10342ac93f276a88c70a52c91be2ea5abede398338f313a85a740ce955fe43d"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/map-dark-1440-darwin.png",
+      "sha256": "2f57133afc6c0b63e2264c6809c49d50cdaa07369c0b8b9c7a855cfa09f24760"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/map-dark-390-darwin.png",
+      "sha256": "17d3d5a5b7ff5d5656ca14444a084d379d770de5aacd933258c1f416ed252518"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/map-light-1440-darwin.png",
+      "sha256": "40ae22d9706f5e8e2ca9e64041a41cc3b4964a851ea5d7dfcb1d6bfd090a7be6"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/map-light-390-darwin.png",
+      "sha256": "478678b5db74f0364b9d47b8cc01536d8f102b048ddfc8ac28864ac5c2de4ba5"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/news-dark-1440-darwin.png",
+      "sha256": "22c76d5145a29601047187c0b8420a35a8ccce2dd105b11463828d86798d0821"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/news-dark-390-darwin.png",
+      "sha256": "f2313de5c58eacddc554131fece4eddeb12c755e4534fad2f5b968de6e93659b"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/news-light-1440-darwin.png",
+      "sha256": "7c8bac114bf140177aab261d7252aecad060fb9464b14a21c3e9eedef1c6e3ff"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/news-light-390-darwin.png",
+      "sha256": "7ecd5c5327e47672fd7cb990344d18a7906e7c1c66b9005bfd0eb63972a1fcb7"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/numbers-dark-1440-darwin.png",
+      "sha256": "a843752890bfe60231e9ca578b102872e6d1db3d3e27030047084e9eb30725d9"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/numbers-dark-390-darwin.png",
+      "sha256": "9d453036dc32c289b17debf8bc263ac3afcb66637ed2b6ff43832f8d764314e7"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/numbers-light-1440-darwin.png",
+      "sha256": "778e4c9c041fc419d68d279e9026cc2aa0895d7bb4284524fa32cb98c1191ef0"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/numbers-light-390-darwin.png",
+      "sha256": "0f9fa052f990e0bd5aed33b674bbf9d14d47e1883c1255be0c7c7adf9622bc83"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/questions-dark-1440-darwin.png",
+      "sha256": "a69bb2eb6d117bb8ec812f621f90bf46674bea90be2c2fe2733c67834ad2142e"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/questions-dark-390-darwin.png",
+      "sha256": "d10880592430a8a91d80c4f3a251f073d026bf217335823f7f7778ef8d65a86e"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/questions-light-1440-darwin.png",
+      "sha256": "0edabe845f9995ef7286211756b49b6adafdd3d95e3802cc59af8f39ec69a958"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/questions-light-390-darwin.png",
+      "sha256": "758a757a4ed11e3a5db60f26daf0c710c02e1f65cdede75ad736a0c9301f5ef9"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/report-dark-1440-darwin.png",
+      "sha256": "dc9500da33c718ec580b17080170afc241b4a8903292b12f750e2aeee0a625ee"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/report-dark-390-darwin.png",
+      "sha256": "7b93a4b7d2626e44fddfdbc7934491af17882ca04fe88c2c962a468d98f1f992"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/report-light-1440-darwin.png",
+      "sha256": "7544b8a9fd35176b66d7af48e877c0f95b026e5fc26e2b688fd280689ae018fa"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/report-light-390-darwin.png",
+      "sha256": "bc72bff382fffebb5f243248c1a1ddf568bf5dbb9fc537da0752be2c14e6c6b2"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/research-dark-1440-darwin.png",
+      "sha256": "b0d3b320e609e87cc40078c815bba26a97e6c45f22c64b1f691a785967d87450"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/research-dark-390-darwin.png",
+      "sha256": "b95c7c123493969a03153be3e0d2b8f7865097cddf5bcfb23170827f2895a9b5"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/research-light-1440-darwin.png",
+      "sha256": "ece07cb9b3c4f99b0c5abb732ed80cfc0b702b089c5a90d45b2f0e0e0d7ffdbe"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/research-light-390-darwin.png",
+      "sha256": "d849d60851fcf7f3abd74429c351aed8acbcd91fcbc71c9cc0359e5441968f8f"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/review-dark-1440-darwin.png",
+      "sha256": "ac2e5849c1216cc95d1a5c800edf50830e4c7cc82fe22b61628d4357d0f4fddf"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/review-dark-390-darwin.png",
+      "sha256": "ba01c8a21f5bd31179af181ae2aa7cb77f54567e541a2abefec98a3eaa94fc0e"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/review-light-1440-darwin.png",
+      "sha256": "a5d8c77c003b007a12299b4d7f3d8d096a089e15f2c1055862295b90eda48e83"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/review-light-390-darwin.png",
+      "sha256": "4f7794f04c3c093a33a0c9f1233fc8a7ca3830375d88ca0f60308a6770b9f9a5"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/settings-dark-1440-darwin.png",
+      "sha256": "fb3fa5261942bf1b2f71f3b8a30f6bb592405cad6c28bce0bcde5df949427f3f"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/settings-dark-390-darwin.png",
+      "sha256": "851f9287a8a52256ed4847f7f13504d688caa77c2f800bbafd574f215f156aba"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/settings-light-1440-darwin.png",
+      "sha256": "15016190e63f56742be8328be024f6dccffe052de7a61a04db0c764bc0f42135"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/settings-light-390-darwin.png",
+      "sha256": "f9b5185e2874811e5a287eca749efea3c30f486acb95675298ee806b44434c42"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/sources-dark-1440-darwin.png",
+      "sha256": "8234b41bd33c9ad29556a34c1e45c1ce74c54b5a79f4cacad0e4206a6e9ffc31"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/sources-dark-390-darwin.png",
+      "sha256": "c4758bb0506f9d102e9062dfad077082d5027e0f3e1a128fd2cacb5544b9f879"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/sources-light-1440-darwin.png",
+      "sha256": "f40ab08d7c5300514fef9e28f34dd1ead3bcb80e9eb8440f91394349249bbd64"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/sources-light-390-darwin.png",
+      "sha256": "dcc0c14944fcdd4e723ac4f5b2dc3d55d5a520f241357e3b89e01d226d1a4a7e"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/theses-dark-1440-darwin.png",
+      "sha256": "caab971155d1c508b0b3c46fe1d4990f76ef1d51798546475291093646d84136"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/theses-dark-390-darwin.png",
+      "sha256": "fb75d2e33018dd206e6c0b3b0e066208179f5a16f63c26796065bb03cc19a4c4"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/theses-light-1440-darwin.png",
+      "sha256": "93b1e73841f9a110d7bb3dca51337bed8c3cec21b4e11009fdda71139a8bcb0c"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/theses-light-390-darwin.png",
+      "sha256": "471a220f45e472000be0485ba2dcfffcd6c4a36e258d1747baa2d27ed260307b"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/today-dark-1440-darwin.png",
+      "sha256": "06f494a0e9c35c01c103c469d14b6d76bd1ddd07d5dfc1770e3af59d376db6da"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/today-dark-390-darwin.png",
+      "sha256": "60a559333542635b3b12e786a3846058980007c90a271578f5c5f6a96adb1a6a"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/today-light-1440-darwin.png",
+      "sha256": "572d5a993b57d2cf9b7a28cc7ab7cfb0d7044a5b1d8ed8e3f72c10a36ffb8514"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/today-light-390-darwin.png",
+      "sha256": "7edfe9e0dc467505feb36c55a44c1e943d1411e815323b94c6f4117dcb7b5ab9"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/waterfall-dark-1440-darwin.png",
+      "sha256": "f794699a7404f1e6ea8d233053ee761d3a59b25a66cd1954d193245365a5f724"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/waterfall-dark-390-darwin.png",
+      "sha256": "b3caf39645cb1e75659827ed32621e7261a01bbc587bffa192ee6223f8df2034"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/waterfall-light-1440-darwin.png",
+      "sha256": "0c6ac14f6e2b12b7b1a75a68dd9af7541e387d68dbe1cf68cd9813544fc5d7b7"
+    },
+    {
+      "path": "web/restoration-tests/restoration.spec.ts-snapshots/waterfall-light-390-darwin.png",
+      "sha256": "94c5fc3cb42fe23ed34680823790f4346aba5252cc0bda9b5b0e75c719b6b332"
+    }
+  ]
+}

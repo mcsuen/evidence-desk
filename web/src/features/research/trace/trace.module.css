@@ -1,0 +1,52 @@
+.panel{display:flex;flex-direction:column;gap:14px;margin-top:12px;min-width:0}
+.notice{display:flex;align-items:center;gap:12px;padding:10px 14px;border:1px solid var(--warn);background:var(--warn-soft);border-radius:var(--r-lg);font-size:13px;flex-wrap:wrap}
+.notice b{color:var(--warn)}
+.stats{display:flex;align-items:center;gap:18px;font-size:12px;color:var(--ink-3);flex-wrap:wrap}
+.stats b{color:var(--ink)}
+.body{display:flex;gap:24px;align-items:flex-start;min-width:0}
+.canvas{flex:1;min-width:0}
+.graph{height:640px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);overflow:hidden;position:relative}
+.graph :global(.react-flow__attribution){display:none}
+.graph :global(.react-flow__controls){box-shadow:none;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
+.graph :global(.react-flow__controls-button){background:var(--surface);border-bottom:1px solid var(--line);color:var(--ink-2);fill:var(--ink-2)}
+.graph :global(.react-flow__edge-textbg){fill:var(--surface)}
+.graph :global(.react-flow__edge-text){fill:var(--ink-2);font-size:11px}
+.node{width:280px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:10px 12px;display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--ink);box-shadow:none;cursor:pointer}
+.node:hover{border-color:var(--line-strong)}
+.node[data-selected="true"]{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.node[data-status="failed"],.node[data-status="interrupted"],.node[data-status="needs_review"]{border-color:var(--danger)}
+.node[data-status="running"]{border-color:var(--accent)}
+.nodeHead{display:flex;align-items:center;gap:8px}
+.nodeHead b{font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.nodeMeta{color:var(--ink-3);display:flex;gap:8px;flex-wrap:wrap}
+.tools{margin-top:4px;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
+.toolRow{display:flex;align-items:center;gap:8px;padding:4px 8px;border-bottom:1px solid var(--line);font-size:11px}
+.toolRow:last-child{border-bottom:0}
+.toolRow.fail{background:var(--danger-soft)}
+.bar{height:5px;border-radius:3px;background:var(--inset);width:70px;overflow:hidden;flex:none}
+.bar i{display:block;height:100%;background:var(--s1)}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--ink-3);flex-wrap:wrap;padding:0 4px}
+.waterfall{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);overflow:auto;max-height:640px}
+.wfHead,.wfRow{display:grid;grid-template-columns:minmax(220px,1.2fr) 90px 90px minmax(200px,2fr);gap:8px;align-items:center;padding:0 12px;font-size:12px}
+.wfHead{height:32px;border-bottom:1px solid var(--line);color:var(--ink-3);font-weight:600;letter-spacing:.04em;position:sticky;top:0;background:var(--surface);z-index:1}
+.wfRow{min-height:34px;border-bottom:1px solid var(--line);cursor:pointer}
+.wfRow:hover{background:var(--inset)}
+.wfRow[aria-selected="true"]{background:var(--accent-soft)}
+.wfRow.child{padding-left:28px}
+.wfRow.err{color:var(--danger)}
+.wfName{display:flex;align-items:center;gap:6px;min-width:0}
+.wfName span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wfName button{border:0;background:transparent;color:var(--ink-3);width:18px;padding:0}
+.track{position:relative;height:10px;background:var(--inset);border-radius:5px;overflow:hidden}
+.track i{position:absolute;top:0;bottom:0;background:var(--s1);border-radius:5px;min-width:2px}
+.track i.err{background:var(--danger)}
+.inspector{width:380px;flex:none}
+.kv{display:grid;grid-template-columns:88px minmax(0,1fr);gap:6px 10px;font-size:12px;margin:0}
+.kv dt{color:var(--ink-3)}.kv dd{margin:0;overflow-wrap:anywhere}
+.json{font-family:var(--font-mono);font-size:11px;line-height:1.5;background:var(--inset);border-radius:var(--r-md);padding:8px 10px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:320px;overflow:auto;margin:0}
+.event{display:flex;gap:8px;font-size:12px;align-items:flex-start;padding:4px 0;border-bottom:1px solid var(--line)}
+.event time{font-family:var(--font-mono);color:var(--ink-3);flex:none;width:58px}
+@media (max-width:1100px){.body{flex-direction:column;align-items:stretch}.canvas{width:100%;max-width:100%}.waterfall{max-width:100%}.inspector{width:100%}.graph{height:520px}}
+/* React Flow edge SVGs intentionally overflow a zero-width graph container. */
+.graph :global(.react-flow__edges svg){max-width:none}
+@media(max-width:767px){.wfHead,.wfRow{grid-template-columns:minmax(145px,1fr) 62px 62px minmax(110px,1fr);min-width:460px;font-size:11px}.graph{height:480px}.notice{gap:8px}.stats{gap:10px}}

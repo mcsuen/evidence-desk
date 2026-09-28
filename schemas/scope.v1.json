@@ -1,0 +1,64 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "subjects": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Subjects",
+      "type": "array"
+    },
+    "period": {
+      "default": "",
+      "title": "Period",
+      "type": "string"
+    },
+    "mode": {
+      "default": "live",
+      "enum": [
+        "live",
+        "historical"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "as_of": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "As Of"
+    },
+    "allow_public_search": {
+      "default": true,
+      "title": "Allow Public Search",
+      "type": "boolean"
+    },
+    "proof_level": {
+      "default": "proven",
+      "enum": [
+        "proven",
+        "declared"
+      ],
+      "title": "Proof Level",
+      "type": "string"
+    }
+  },
+  "required": [
+    "subjects",
+    "period",
+    "mode",
+    "as_of",
+    "allow_public_search",
+    "proof_level"
+  ],
+  "title": "Scope",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/scope.v1.json"
+}

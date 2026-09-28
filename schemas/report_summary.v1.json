@@ -1,0 +1,53 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "revision": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "case_id": {
+      "title": "Case Id",
+      "type": "string"
+    },
+    "run_id": {
+      "title": "Run Id",
+      "type": "string"
+    },
+    "input_revision": {
+      "title": "Input Revision",
+      "type": "integer"
+    },
+    "change_reason": {
+      "title": "Change Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "revision",
+    "created_at",
+    "title",
+    "case_id",
+    "run_id",
+    "input_revision",
+    "change_reason"
+  ],
+  "title": "ReportSummary",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/report_summary.v1.json"
+}

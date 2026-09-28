@@ -1,0 +1,69 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Id",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "kind": {
+      "default": "rss",
+      "enum": [
+        "rss",
+        "disclosure",
+        "gdelt"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "url": {
+      "default": "",
+      "title": "Url",
+      "type": "string"
+    },
+    "enabled": {
+      "default": true,
+      "title": "Enabled",
+      "type": "boolean"
+    },
+    "adapter": {
+      "default": "",
+      "title": "Adapter",
+      "type": "string"
+    },
+    "company": {
+      "default": "",
+      "title": "Company",
+      "type": "string"
+    },
+    "terms": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 20,
+      "title": "Terms",
+      "type": "array"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "kind",
+    "url",
+    "enabled",
+    "adapter",
+    "company",
+    "terms"
+  ],
+  "title": "NewsSource",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/lab_news_source.v1.json"
+}

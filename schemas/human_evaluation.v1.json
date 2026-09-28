@@ -1,0 +1,56 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "blind_id": {
+      "title": "Blind Id",
+      "type": "string"
+    },
+    "annotator": {
+      "minLength": 1,
+      "title": "Annotator",
+      "type": "string"
+    },
+    "edit_effort": {
+      "enum": [
+        "none",
+        "light",
+        "heavy",
+        "unusable"
+      ],
+      "title": "Edit Effort",
+      "type": "string"
+    },
+    "major_error": {
+      "title": "Major Error",
+      "type": "boolean"
+    },
+    "editing_minutes": {
+      "minimum": 0,
+      "title": "Editing Minutes",
+      "type": "number"
+    },
+    "comments": {
+      "default": "",
+      "title": "Comments",
+      "type": "string"
+    }
+  },
+  "required": [
+    "operation_id",
+    "blind_id",
+    "annotator",
+    "edit_effort",
+    "major_error",
+    "editing_minutes"
+  ],
+  "title": "HumanEvaluation",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/human_evaluation.v1.json"
+}

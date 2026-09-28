@@ -1,0 +1,183 @@
+{
+  "$defs": {
+    "SourceBlock": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "page": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Page"
+        },
+        "bbox": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Bbox",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "text",
+        "page",
+        "bbox"
+      ],
+      "title": "SourceBlock",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "revision": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "url": {
+      "title": "Url",
+      "type": "string"
+    },
+    "media_type": {
+      "title": "Media Type",
+      "type": "string"
+    },
+    "digest": {
+      "title": "Digest",
+      "type": "string"
+    },
+    "byte_count": {
+      "title": "Byte Count",
+      "type": "integer"
+    },
+    "subjects": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Subjects",
+      "type": "array"
+    },
+    "blocks": {
+      "items": {
+        "$ref": "#/$defs/SourceBlock"
+      },
+      "title": "Blocks",
+      "type": "array"
+    },
+    "page_count": {
+      "default": 0,
+      "title": "Page Count",
+      "type": "integer"
+    },
+    "published_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Published At"
+    },
+    "available_at": {
+      "title": "Available At",
+      "type": "string"
+    },
+    "observed_at": {
+      "title": "Observed At",
+      "type": "string"
+    },
+    "availability_basis": {
+      "default": "acquired",
+      "enum": [
+        "acquired",
+        "authoritative",
+        "archive",
+        "declared"
+      ],
+      "title": "Availability Basis",
+      "type": "string"
+    },
+    "availability_evidence": {
+      "default": "",
+      "title": "Availability Evidence",
+      "type": "string"
+    },
+    "origin_group": {
+      "default": "",
+      "title": "Origin Group",
+      "type": "string"
+    },
+    "source_role": {
+      "default": "upload",
+      "enum": [
+        "official",
+        "third_party",
+        "upload"
+      ],
+      "title": "Source Role",
+      "type": "string"
+    },
+    "issues": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Issues",
+      "type": "array"
+    }
+  },
+  "required": [
+    "id",
+    "revision",
+    "created_at",
+    "title",
+    "url",
+    "media_type",
+    "digest",
+    "byte_count",
+    "subjects",
+    "blocks",
+    "page_count",
+    "published_at",
+    "available_at",
+    "observed_at",
+    "availability_basis",
+    "availability_evidence",
+    "origin_group",
+    "source_role",
+    "issues"
+  ],
+  "title": "SourceVersion",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/source_version.v1.json"
+}

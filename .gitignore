@@ -1,5 +1,6 @@
 # Local environment and dependencies
 .venv/
+.tools/
 .pitr/
 __pycache__/
 *.pyc

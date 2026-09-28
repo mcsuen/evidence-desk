@@ -1,0 +1,91 @@
+{
+  "$defs": {
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "revision": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "operation": {
+      "enum": [
+        "add",
+        "subtract",
+        "multiply",
+        "divide",
+        "ratio",
+        "growth",
+        "change",
+        "quarterize"
+      ],
+      "title": "Operation",
+      "type": "string"
+    },
+    "inputs": {
+      "items": {
+        "$ref": "#/$defs/Ref"
+      },
+      "title": "Inputs",
+      "type": "array"
+    },
+    "amount": {
+      "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+      "title": "Amount",
+      "type": "string"
+    },
+    "unit": {
+      "title": "Unit",
+      "type": "string"
+    },
+    "rule_version": {
+      "default": "finance.1",
+      "title": "Rule Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "revision",
+    "created_at",
+    "operation",
+    "inputs",
+    "amount",
+    "unit",
+    "rule_version"
+  ],
+  "title": "Calculation",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/calculation.v1.json"
+}

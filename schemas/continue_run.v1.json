@@ -1,0 +1,44 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "expected_generation": {
+      "minimum": 0,
+      "title": "Expected Generation",
+      "type": "integer"
+    },
+    "additional_seconds": {
+      "default": 1800,
+      "maximum": 86400,
+      "minimum": 60,
+      "title": "Additional Seconds",
+      "type": "integer"
+    },
+    "additional_calls": {
+      "default": 180,
+      "maximum": 10000,
+      "minimum": 1,
+      "title": "Additional Calls",
+      "type": "integer"
+    },
+    "instruction": {
+      "default": "",
+      "maxLength": 16000,
+      "title": "Instruction",
+      "type": "string"
+    }
+  },
+  "required": [
+    "operation_id",
+    "expected_generation"
+  ],
+  "title": "ContinueRun",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/continue_run.v1.json"
+}

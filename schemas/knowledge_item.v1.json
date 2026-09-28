@@ -1,0 +1,263 @@
+{
+  "$defs": {
+    "Assertion": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "statement": {
+          "title": "Statement",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "source_statement",
+            "fact",
+            "interpretation",
+            "forecast",
+            "relationship"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "subjects": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Subjects",
+          "type": "array"
+        },
+        "support": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Support",
+          "type": "array"
+        },
+        "counterevidence": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Counterevidence",
+          "type": "array"
+        },
+        "values": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Values",
+          "type": "array"
+        },
+        "depends_on": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Depends On",
+          "type": "array"
+        },
+        "alternative": {
+          "default": "",
+          "title": "Alternative",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "next_check": {
+          "default": "",
+          "title": "Next Check",
+          "type": "string"
+        },
+        "relation": {
+          "additionalProperties": true,
+          "title": "Relation",
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "created_at",
+        "title",
+        "statement",
+        "kind",
+        "subjects",
+        "support",
+        "counterevidence",
+        "values",
+        "depends_on",
+        "alternative",
+        "limitations",
+        "next_check",
+        "relation"
+      ],
+      "title": "Assertion",
+      "type": "object"
+    },
+    "CurrentValidity": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "available",
+            "needs_review",
+            "withdrawn",
+            "superseded"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "reason": {
+          "default": "",
+          "title": "Reason",
+          "type": "string"
+        },
+        "updated_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Updated At"
+        }
+      },
+      "required": [
+        "status",
+        "reason",
+        "updated_at"
+      ],
+      "title": "CurrentValidity",
+      "type": "object"
+    },
+    "ModelRevision": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "subjects": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Subjects",
+          "type": "array"
+        },
+        "assumptions": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "outputs": {
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+          "title": "Outputs",
+          "type": "array"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "created_at",
+        "title",
+        "subjects",
+        "assumptions",
+        "outputs",
+        "rationale"
+      ],
+      "title": "ModelRevision",
+      "type": "object"
+    },
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "object": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Assertion"
+        },
+        {
+          "$ref": "#/$defs/ModelRevision"
+        }
+      ],
+      "title": "Object"
+    },
+    "current_validity": {
+      "$ref": "#/$defs/CurrentValidity"
+    }
+  },
+  "required": [
+    "object",
+    "current_validity"
+  ],
+  "title": "KnowledgeItem",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/knowledge_item.v1.json"
+}

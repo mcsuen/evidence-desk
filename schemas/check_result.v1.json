@@ -1,0 +1,104 @@
+{
+  "$defs": {
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "revision": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "target": {
+      "$ref": "#/$defs/Ref"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "not_run",
+        "passed",
+        "failed",
+        "unavailable",
+        "skipped",
+        "error",
+        "not_applicable"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "coverage": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Coverage",
+      "type": "array"
+    },
+    "findings": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Findings",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "policy_version": {
+      "title": "Policy Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "revision",
+    "created_at",
+    "target",
+    "name",
+    "status",
+    "coverage",
+    "findings",
+    "limitations",
+    "policy_version"
+  ],
+  "title": "CheckResult",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/check_result.v1.json"
+}

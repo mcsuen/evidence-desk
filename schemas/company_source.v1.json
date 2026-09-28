@@ -1,0 +1,136 @@
+{
+  "$defs": {
+    "CurrentValidity": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "available",
+            "needs_review",
+            "withdrawn",
+            "superseded"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "reason": {
+          "default": "",
+          "title": "Reason",
+          "type": "string"
+        },
+        "updated_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Updated At"
+        }
+      },
+      "required": [
+        "status",
+        "reason",
+        "updated_at"
+      ],
+      "title": "CurrentValidity",
+      "type": "object"
+    },
+    "SourceSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        },
+        "media_type": {
+          "title": "Media Type",
+          "type": "string"
+        },
+        "subjects": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Subjects",
+          "type": "array"
+        },
+        "source_role": {
+          "enum": [
+            "official",
+            "third_party",
+            "upload"
+          ],
+          "title": "Source Role",
+          "type": "string"
+        },
+        "available_at": {
+          "title": "Available At",
+          "type": "string"
+        },
+        "published_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Published At"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "created_at",
+        "title",
+        "url",
+        "media_type",
+        "subjects",
+        "source_role",
+        "available_at",
+        "published_at"
+      ],
+      "title": "SourceSummary",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "object": {
+      "$ref": "#/$defs/SourceSummary"
+    },
+    "current_validity": {
+      "$ref": "#/$defs/CurrentValidity"
+    }
+  },
+  "required": [
+    "object",
+    "current_validity"
+  ],
+  "title": "CompanySource",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/company_source.v1.json"
+}

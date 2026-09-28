@@ -24,7 +24,7 @@ class Settings:
 
     @property
     def data_dir(self) -> Path:
-        return Path(os.environ.get("PITR_DATA_DIR", self.root / "data"))
+        return Path(os.environ.get("PITR_DATA_DIR", self.root / "data/research"))
 
 
     @property

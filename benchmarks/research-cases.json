@@ -1,0 +1,1290 @@
+{
+  "version": "acceptance.1",
+  "cases": [
+    {
+      "id": "single_material-01",
+      "category": "单材料问题",
+      "name": "Revenue in original",
+      "question": "根据原件，这家公司本期收入是多少？给出准确口径与引用。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Revenue in original — synthetic acceptance fixture",
+          "text": "Revenue 100. GAAP RMB millions. 2025Q2. Example A Ltd."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "single_material-02",
+      "category": "单材料问题",
+      "name": "Negative expenses",
+      "question": "解释括号负数对经营结果的影响。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Negative expenses — synthetic acceptance fixture",
+          "text": "Example A Ltd. 2025Q2 GAAP RMB millions. Operating loss (20). Revenue 100."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "single_material-03",
+      "category": "单材料问题",
+      "name": "Management guidance",
+      "question": "区分实际收入和管理层指引。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Management guidance — synthetic acceptance fixture",
+          "text": "Example A Ltd. 2025Q2 GAAP RMB millions. Actual revenue 100. Next-quarter guidance 120-140, subject to demand."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "single_material-04",
+      "category": "单材料问题",
+      "name": "Missing cash data",
+      "question": "现金流未披露时能否判断盈利质量？",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Missing cash data — synthetic acceptance fixture",
+          "text": "Example A Ltd. 2025Q2 GAAP RMB millions. Net income 20; no cash-flow statement supplied."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "single_material-05",
+      "category": "单材料问题",
+      "name": "Several currencies",
+      "question": "选择人民币列，保留美元展示的换算限制。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Several currencies — synthetic acceptance fixture",
+          "text": "Example A Ltd. 2025Q2 GAAP. Revenue RMB million 100; USD million 14.6, convenience translation only."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "single_material-06",
+      "category": "单材料问题",
+      "name": "Same literal in columns",
+      "question": "定位本期100所在列，不引用上期相同数字。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Same literal in columns — synthetic acceptance fixture",
+          "text": "Example A Ltd. GAAP RMB millions. 2024Q2 revenue 100; 2025Q2 revenue 100."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "single_material-07",
+      "category": "单材料问题",
+      "name": "Scan with no text",
+      "question": "无法读取扫描页时准确说明缺项，不伪造原文。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Synthetic image-only financial statement",
+          "file": "benchmarks/materials/image-only.pdf",
+          "media_type": "application/pdf"
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "single_material-08",
+      "category": "单材料问题",
+      "name": "Unit exception",
+      "question": "金额表头不能用于每股数据。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Unit exception — synthetic acceptance fixture",
+          "text": "Example A Ltd. 2025Q2 GAAP amounts in thousands of RMB except per-share data. Revenue 100000. Earnings per ADS RMB 2.50."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "single_material-09",
+      "category": "单材料问题",
+      "name": "Wrong issuer in file",
+      "question": "问题针对A公司，材料属于B公司时如何处理？",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Wrong issuer in file — synthetic acceptance fixture",
+          "text": "Example B Ltd. 2025Q2 GAAP RMB millions. Revenue 500. Example A Ltd. is mentioned only as a competitor."
+        }
+      ],
+      "holdout": true,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "single_material-10",
+      "category": "单材料问题",
+      "name": "Conflicting footnote",
+      "question": "正文100与更正说明90发生冲突时不要无保留交付。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Conflicting footnote — synthetic acceptance fixture",
+          "text": "Example A Ltd. 2025Q2 GAAP RMB millions. Revenue 100. Correction: revenue should read 90; table has not yet been updated."
+        }
+      ],
+      "holdout": true,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "earnings_change-01",
+      "category": "财报变化",
+      "name": "Official PDD quarters",
+      "question": "只依据两期PDD官方披露，比较收入、经营利润和经营利润率，解释证据边界。",
+      "material_kind": "official_public",
+      "materials": [],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ],
+      "originals": [
+        {
+          "period": "2024Q2",
+          "title": "PDD Holdings Announces Second Quarter 2024 Unaudited Financial Results",
+          "url": "https://investor.pddholdings.com/static-files/fd51ce6f-19eb-4ec7-a505-0bfe3bf30fb8",
+          "file": "pdd-2024q2-results.pdf",
+          "sha256": "b1cc6fb825e6999736e934a64b7a8f4dccaadf576ccfc4700434ca99f99edca4",
+          "bytes": 54899,
+          "pages": 6,
+          "published_at": "2024-08-26"
+        },
+        {
+          "period": "2025Q2",
+          "title": "PDD Holdings Announces Second Quarter 2025 Unaudited Financial Results",
+          "url": "https://investor.pddholdings.com/static-files/284c873a-332b-4fb6-b2d8-a9bfed73dbbe",
+          "file": "pdd-2025q2-results.pdf",
+          "sha256": "e607abe2844ec398a8aeef62ac0dd3d0c81bf9c1e6ac5e7d9eecc84afd5e20a6",
+          "bytes": 53648,
+          "pages": 6,
+          "published_at": "2025-08-25"
+        }
+      ]
+    },
+    {
+      "id": "earnings_change-02",
+      "category": "财报变化",
+      "name": "Quarter vs cumulative",
+      "question": "半年累计不能直接与单季比较。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Quarter vs cumulative — synthetic acceptance fixture",
+          "text": "Example A Ltd. GAAP RMB millions. 2025H1 revenue 220; 2024Q2 revenue 100."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "earnings_change-03",
+      "category": "财报变化",
+      "name": "GAAP vs adjusted",
+      "question": "比较前明确GAAP和non-GAAP口径。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "GAAP vs adjusted — synthetic acceptance fixture",
+          "text": "Example A Ltd. RMB millions. 2025Q2 GAAP operating income 20; 2024Q2 non-GAAP operating income 30."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "earnings_change-04",
+      "category": "财报变化",
+      "name": "Revenue mix",
+      "question": "收入增长来自结构还是全量增长？",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Revenue mix — synthetic acceptance fixture",
+          "text": "Example A Ltd. GAAP RMB millions. 2024Q2 services 60 products 40; 2025Q2 services 90 products 30."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "earnings_change-05",
+      "category": "财报变化",
+      "name": "Cash vs profit",
+      "question": "解释现金流与利润方向不一致，避免直接认定造假。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Cash vs profit — synthetic acceptance fixture",
+          "text": "Example A Ltd. GAAP RMB millions. 2024Q2 net income 20 CFO 25; 2025Q2 net income 30 CFO 10. Receivables increased by 20."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "earnings_change-06",
+      "category": "财报变化",
+      "name": "One-time gain",
+      "question": "区分一次性收益与经营增长。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "One-time gain — synthetic acceptance fixture",
+          "text": "Example A Ltd. 2025Q2 GAAP RMB millions. Net income 40, asset-disposal gain 25; 2024Q2 net income 20, disposal gain 0."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "earnings_change-07",
+      "category": "财报变化",
+      "name": "Scaling change",
+      "question": "两期披露单位变化后重新计算。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Scaling change — synthetic acceptance fixture",
+          "text": "Example A Ltd. GAAP. 2024Q2 revenue RMB millions 100; 2025Q2 revenue RMB thousands 120000."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "earnings_change-08",
+      "category": "财报变化",
+      "name": "Missing comparison",
+      "question": "缺少同期材料时准确限定可比较范围。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Missing comparison — synthetic acceptance fixture",
+          "text": "Example A Ltd. 2025Q2 GAAP RMB millions. Revenue 100; operating income 20. No prior-period data."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "earnings_change-09",
+      "category": "财报变化",
+      "name": "Loss reversal",
+      "question": "亏损转盈的百分比如何表达才不误导？",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Loss reversal — synthetic acceptance fixture",
+          "text": "Example A Ltd. GAAP RMB millions. 2024Q2 net income (10); 2025Q2 net income 5."
+        }
+      ],
+      "holdout": true,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "earnings_change-10",
+      "category": "财报变化",
+      "name": "ADS share basis",
+      "question": "ADS和普通股分母不同，不能直接混算每股利润。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "ADS share basis — synthetic acceptance fixture",
+          "text": "Example A Ltd. 2025Q2 GAAP RMB millions. Net income 100, diluted ADS 25 million, ordinary shares 100 million. Each ADS represents four ordinary shares."
+        }
+      ],
+      "holdout": true,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "peer_comparison-01",
+      "category": "同业比较",
+      "name": "Different currencies",
+      "question": "两家公司币种不同，缺少汇率时不能直接排名。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Different currencies — synthetic acceptance fixture",
+          "text": "A: 2025Q2 GAAP revenue RMB millions 100. B: 2025Q2 GAAP revenue USD millions 20."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "peer_comparison-02",
+      "category": "同业比较",
+      "name": "Different calendars",
+      "question": "财年和自然年不同能否直接比较？",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Different calendars — synthetic acceptance fixture",
+          "text": "A: quarter ended June 30 2025 revenue 100. B: fiscal quarter ended March 31 2025 revenue 110. Both GAAP RMB millions."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "peer_comparison-03",
+      "category": "同业比较",
+      "name": "Margin benchmark",
+      "question": "分别计算利润率，再做同业比较。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Margin benchmark — synthetic acceptance fixture",
+          "text": "2025Q2 GAAP RMB millions. A revenue 100 operating income 20. B revenue 200 operating income 30."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "peer_comparison-04",
+      "category": "同业比较",
+      "name": "Gross vs net revenue",
+      "question": "总额法与净额法收入不可直接等同。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Gross vs net revenue — synthetic acceptance fixture",
+          "text": "A revenue 100 includes gross merchandise proceeds. B revenue 20 is commission net revenue. 2025Q2 GAAP RMB millions."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "peer_comparison-05",
+      "category": "同业比较",
+      "name": "Adjusted profit",
+      "question": "同业不同调整项如何披露比较限制？",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Adjusted profit — synthetic acceptance fixture",
+          "text": "A adjusted profit excludes share compensation; B adjusted profit excludes restructuring only. 2025Q2 RMB millions: A 30, B 35."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "peer_comparison-06",
+      "category": "同业比较",
+      "name": "Different segments",
+      "question": "集团与单一业务分部不能当同层级主体。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Different segments — synthetic acceptance fixture",
+          "text": "A group revenue 100; B cloud segment revenue 80. 2025Q2 GAAP RMB millions."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "peer_comparison-07",
+      "category": "同业比较",
+      "name": "Shared brand",
+      "question": "同名品牌不等于同一上市公司。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Shared brand — synthetic acceptance fixture",
+          "text": "Example A Ltd owns Brand X in China. Example B Ltd owns a different Brand X in Europe. Neither is a subsidiary of the other."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "peer_comparison-08",
+      "category": "同业比较",
+      "name": "Forecast vs actual",
+      "question": "研究员预测和已披露结果应分栏展示。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Forecast vs actual — synthetic acceptance fixture",
+          "text": "2025Q2 GAAP RMB millions. A reported revenue 100. B broker estimated revenue 110; no B official release."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "peer_comparison-09",
+      "category": "同业比较",
+      "name": "Missing denominator",
+      "question": "无收入分母时不能推算利润率排名。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Missing denominator — synthetic acceptance fixture",
+          "text": "A 2025Q2 operating profit 20, revenue not supplied. B 2025Q2 revenue 100 and operating profit 15. GAAP RMB millions."
+        }
+      ],
+      "holdout": true,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "peer_comparison-10",
+      "category": "同业比较",
+      "name": "Parent subsidiary",
+      "question": "母子公司披露不能当成两个独立同行样本。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Parent subsidiary — synthetic acceptance fixture",
+          "text": "A owns 100% of B and consolidates all B revenue. A group revenue 200 and B segment revenue 100 for 2025Q2 GAAP RMB millions."
+        }
+      ],
+      "holdout": true,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "company_diligence-01",
+      "category": "公司尽调",
+      "name": "Concentration",
+      "question": "客户集中度意味着哪些风险，哪些结论仍需证据？",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Concentration — synthetic acceptance fixture",
+          "text": "Example A Ltd. 2025 sales RMB 100 million, largest customer 40 million. No renewal terms provided."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "company_diligence-02",
+      "category": "公司尽调",
+      "name": "Competition",
+      "question": "竞争者同时提及不等于确定市场份额。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Competition — synthetic acceptance fixture",
+          "text": "Example A Ltd names B and C as competitors. No industry market size or competitor sales supplied."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "company_diligence-03",
+      "category": "公司尽调",
+      "name": "Backlog",
+      "question": "订单不等于收入，建立验证路径。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Backlog — synthetic acceptance fixture",
+          "text": "Example A Ltd backlog RMB 200 million, 30% cancellable; timing and recognition remain uncertain."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "company_diligence-04",
+      "category": "公司尽调",
+      "name": "Pricing power",
+      "question": "涨价与利润率同升能否证明定价权？",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Pricing power — synthetic acceptance fixture",
+          "text": "Example A Ltd raised prices 5% and margin rose 2pp in 2025; raw-material costs also declined 10%."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "company_diligence-05",
+      "category": "公司尽调",
+      "name": "Channel inventory",
+      "question": "出货和终端销售出现背离。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Channel inventory — synthetic acceptance fixture",
+          "text": "Example A Ltd shipments grew 20%, retail sell-through grew 3%; distributor inventory rose 40%."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "company_diligence-06",
+      "category": "公司尽调",
+      "name": "Customer evidence",
+      "question": "管理层声称客户满意，缺少独立材料。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Customer evidence — synthetic acceptance fixture",
+          "text": "Example A Ltd management says customer retention is strong; no retention-rate series or customer evidence supplied."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "company_diligence-07",
+      "category": "公司尽调",
+      "name": "Capex returns",
+      "question": "资本开支尚未投产时如何评估回报？",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Capex returns — synthetic acceptance fixture",
+          "text": "Example A Ltd plans RMB 100 million capex; plant starts next year. No utilization or margin assumptions supplied."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "company_diligence-08",
+      "category": "公司尽调",
+      "name": "Regulation",
+      "question": "公开征求意见不等于已生效法规。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Regulation — synthetic acceptance fixture",
+          "text": "A consultation draft may change the product rules; no final rule or effective date has been issued."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "company_diligence-09",
+      "category": "公司尽调",
+      "name": "Scenario assumptions",
+      "question": "明确估值假设与来源，做敏感性分析。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Scenario assumptions — synthetic acceptance fixture",
+          "text": "Example A Ltd base revenue RMB 100 million. Analyst assumptions: growth 5/10/15%; operating margin 15/20/25%. These are assumptions, not guidance."
+        }
+      ],
+      "holdout": true,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "company_diligence-10",
+      "category": "公司尽调",
+      "name": "Contradiction",
+      "question": "管理层与客户材料冲突，保留双方而非静默择一。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Contradiction — synthetic acceptance fixture",
+          "text": "Management of A says no delivery delays. Customer B reports delays of six weeks. Period, products and order coverage are unspecified."
+        }
+      ],
+      "holdout": true,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "industry_relationship-01",
+      "category": "产业关系",
+      "name": "Co-mention",
+      "question": "公告同时提到A和B不证明供货。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Co-mention — synthetic acceptance fixture",
+          "text": "A and B attended an industry conference. No commercial contract was announced."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "industry_relationship-02",
+      "category": "产业关系",
+      "name": "MOU",
+      "question": "谅解备忘录应属于哪种关系成熟度？",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "MOU — synthetic acceptance fixture",
+          "text": "A and B signed a nonbinding memorandum to explore joint research. No definitive contract."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "industry_relationship-03",
+      "category": "产业关系",
+      "name": "Announced contract",
+      "question": "合同宣布不代表已确认收入。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Announced contract — synthetic acceptance fixture",
+          "text": "A announced a three-year supply agreement with B, deliveries begin next year; no revenue recognized yet."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "industry_relationship-04",
+      "category": "产业关系",
+      "name": "Operating relationship",
+      "question": "将已交付与计划交付区分。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Operating relationship — synthetic acceptance fixture",
+          "text": "A delivered equipment to B during Q2 2025 under an executed contract. Further deliveries remain planned."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "industry_relationship-05",
+      "category": "产业关系",
+      "name": "Ended relationship",
+      "question": "终止公告如何影响旧判断？",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Ended relationship — synthetic acceptance fixture",
+          "text": "A and B ended their distribution agreement on June 30 2025. Old articles describe an active relationship."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "industry_relationship-06",
+      "category": "产业关系",
+      "name": "Indirect ownership",
+      "question": "共同股东不等于公司之间直接持股。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Indirect ownership — synthetic acceptance fixture",
+          "text": "Investor C owns shares in A and B. A does not hold B shares according to the supplied ownership list."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "industry_relationship-07",
+      "category": "产业关系",
+      "name": "Reprint sources",
+      "question": "三篇转载不能当作三份独立确认。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Reprint sources — synthetic acceptance fixture",
+          "text": "Publisher 1 reports A supplies B. Publishers 2 and 3 explicitly reprint Publisher 1 verbatim; no new original evidence."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "industry_relationship-08",
+      "category": "产业关系",
+      "name": "Capacity utilization",
+      "question": "扩产公告不能直接证明实际产量。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Capacity utilization — synthetic acceptance fixture",
+          "text": "A announced nameplate capacity of 100 units next year; commissioning and utilization are unconfirmed."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "industry_relationship-09",
+      "category": "产业关系",
+      "name": "Official rumor",
+      "question": "官方材料引用市场传闻不等于确认传闻。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Official rumor — synthetic acceptance fixture",
+          "text": "Regulator notice: media reports allege A supplies B; the regulator has not verified this claim."
+        }
+      ],
+      "holdout": true,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "industry_relationship-10",
+      "category": "产业关系",
+      "name": "Direction",
+      "question": "客户向供应商付款，关系方向不能颠倒。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Direction — synthetic acceptance fixture",
+          "text": "B purchased components from A. A is the supplier and B is the customer; B paid A after delivery."
+        }
+      ],
+      "holdout": true,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "historical_asof-01",
+      "category": "历史时点",
+      "name": "Late original",
+      "question": "研究截止后发布的财报必须排除。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Late original — synthetic acceptance fixture",
+          "text": "Report published 2025-08-20, cutoff 2025-06-30. Revenue 100 for 2025Q2."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "historical_asof-02",
+      "category": "历史时点",
+      "name": "Old URL new bytes",
+      "question": "旧网址的新版本不可回灌历史研究。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Old URL new bytes — synthetic acceptance fixture",
+          "text": "URL existed in 2024, but supplied bytes were replaced in September 2025. Cutoff June 2025; no archive supplied."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "historical_asof-03",
+      "category": "历史时点",
+      "name": "Archive proof",
+      "question": "只采用截止前已归档版本。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Archive proof — synthetic acceptance fixture",
+          "text": "Archive captured 2025-06-20: revenue 100. Live page updated 2025-08-20: revenue 90. Cutoff 2025-06-30."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "historical_asof-04",
+      "category": "历史时点",
+      "name": "Backdated article",
+      "question": "页面自报旧日期并不充分证明当时可得。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Backdated article — synthetic acceptance fixture",
+          "text": "Article displays 2025-01-01 but first observed 2025-09-01; no authoritative publication or archive proof."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "historical_asof-05",
+      "category": "历史时点",
+      "name": "Historical forecast",
+      "question": "当时预测不能被后来实际结果替换。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Historical forecast — synthetic acceptance fixture",
+          "text": "At 2025-06-30 management forecast revenue 100. Actual revenue 80 was disclosed 2025-08-20."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "historical_asof-06",
+      "category": "历史时点",
+      "name": "Time zone",
+      "question": "日期边界必须按市场时区解释。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Time zone — synthetic acceptance fixture",
+          "text": "Hong Kong directory date 2025-06-30 with no clock time; cutoff 2025-06-30T10:00:00Z. Treat publication conservatively at local day end."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "historical_asof-07",
+      "category": "历史时点",
+      "name": "Later adoption",
+      "question": "后来形成的判断不能加入较早时点知识。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Later adoption — synthetic acceptance fixture",
+          "text": "Original existed in May; assertion created and accepted in August. Historical cutoff June 30."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "historical_asof-08",
+      "category": "历史时点",
+      "name": "After withdrawal",
+      "question": "历史文件保留原文，当前提示显示后续撤回。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "After withdrawal — synthetic acceptance fixture",
+          "text": "June report used May original. Source withdrawn in August. June report and exported bytes must remain unchanged."
+        }
+      ],
+      "holdout": false,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "historical_asof-09",
+      "category": "历史时点",
+      "name": "No live search",
+      "question": "历史范围禁止新公开搜索，不能用当前搜索补证当时事实。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "No live search — synthetic acceptance fixture",
+          "text": "Historical cutoff 2025-06-30. Inputs contain no public availability proof. Live search is disabled."
+        }
+      ],
+      "holdout": true,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    },
+    {
+      "id": "historical_asof-10",
+      "category": "历史时点",
+      "name": "Restore historical export",
+      "question": "恢复备份后历史文件摘要应完全一致，无需调用模型。",
+      "material_kind": "synthetic",
+      "materials": [
+        {
+          "title": "Restore historical export — synthetic acceptance fixture",
+          "text": "Frozen report revision 1, artifact SHA-256 and evidence anchors are in backup. Restore into a fresh data directory."
+        }
+      ],
+      "holdout": true,
+      "evaluation_status": "not_run",
+      "review_dimensions": [
+        "重大事实错误",
+        "证据边界",
+        "编辑程度",
+        "核对与编辑时间"
+      ]
+    }
+  ],
+  "counts": {
+    "total": 60,
+    "development": 48,
+    "holdout": 12
+  },
+  "note": "研究用例与工程反例分别计分。not_run 不计为通过。真人盲评在交付后进行。",
+  "purpose": "48 个开发案例与 12 个留出案例；合成材料用于方法与缺口评估，PDD 使用原始官方披露。研究效果须真人盲评。"
+}

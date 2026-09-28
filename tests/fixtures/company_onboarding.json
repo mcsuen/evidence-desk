@@ -1,0 +1,18 @@
+{
+  "version": "company-onboarding.1",
+  "holdout_seed": 20260917,
+  "samples": [
+    {"id":"hk-tencent","name":"腾讯控股有限公司","market":"HKEX","code":"0700","issuer_url":"https://www.tencent.com/","coverage":["HK","dual_counter"]},
+    {"id":"hk-xiaomi","name":"小米集团","market":"HKEX","code":"1810","issuer_url":"https://ir.mi.com/","coverage":["HK","hardware"]},
+    {"id":"hk-meituan","name":"美团","market":"HKEX","code":"3690","issuer_url":"https://about.meituan.com/","coverage":["HK","services"]},
+    {"id":"us-microsoft","name":"Microsoft Corporation","market":"NASDAQ","code":"MSFT","issuer_url":"https://www.microsoft.com/en-us/Investor/","coverage":["US","domestic","NASDAQ"]},
+    {"id":"us-cocacola","name":"The Coca-Cola Company","market":"NYSE","code":"KO","issuer_url":"https://investors.coca-colacompany.com/","coverage":["US","domestic","NYSE"]},
+    {"id":"us-baidu","name":"Baidu, Inc.","market":"NASDAQ","code":"BIDU","issuer_url":"https://ir.baidu.com/","coverage":["US","foreign_issuer","ADR"]},
+    {"id":"a-moutai","name":"贵州茅台酒股份有限公司","market":"SSE","code":"600519","issuer_url":"https://www.moutaichina.com/","coverage":["A","Shanghai_main"]},
+    {"id":"a-midea","name":"美的集团股份有限公司","market":"SZSE","code":"000333","issuer_url":"https://www.midea.com/","coverage":["A","Shenzhen_main","AH"]},
+    {"id":"a-catl","name":"宁德时代新能源科技股份有限公司","market":"SZSE","code":"300750","issuer_url":"https://www.catl.com/","coverage":["A","ChiNext"]},
+    {"id":"a-smic","name":"中芯国际集成电路制造有限公司","market":"SSE","code":"688981","issuer_url":"https://www.smics.com/","coverage":["A","STAR","AH"]},
+    {"id":"a-byd","name":"比亚迪股份有限公司","market":"SZSE","code":"002594","issuer_url":"https://www.bydglobal.com/","coverage":["A","Shenzhen_main","AH"]},
+    {"id":"a-tonghui","name":"同辉佳视（北京）信息技术股份有限公司","market":"BSE","code":"920090","issuer_url":"https://www.tonghuitech.com/","historical_code":"430090","coverage":["A","Beijing","code_change"]}
+  ]
+}

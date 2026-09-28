@@ -1,0 +1,198 @@
+{
+  "$defs": {
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    },
+    "Scope": {
+      "additionalProperties": false,
+      "properties": {
+        "subjects": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Subjects",
+          "type": "array"
+        },
+        "period": {
+          "default": "",
+          "title": "Period",
+          "type": "string"
+        },
+        "mode": {
+          "default": "live",
+          "enum": [
+            "live",
+            "historical"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "as_of": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "As Of"
+        },
+        "allow_public_search": {
+          "default": true,
+          "title": "Allow Public Search",
+          "type": "boolean"
+        },
+        "proof_level": {
+          "default": "proven",
+          "enum": [
+            "proven",
+            "declared"
+          ],
+          "title": "Proof Level",
+          "type": "string"
+        }
+      },
+      "title": "Scope",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "question": {
+      "maxLength": 16000,
+      "minLength": 1,
+      "title": "Question",
+      "type": "string"
+    },
+    "scope": {
+      "$ref": "#/$defs/Scope"
+    },
+    "sources": {
+      "items": {
+        "$ref": "#/$defs/Ref"
+      },
+      "maxItems": 40,
+      "title": "Sources",
+      "type": "array"
+    },
+    "knowledge": {
+      "items": {
+        "$ref": "#/$defs/Ref"
+      },
+      "title": "Knowledge",
+      "type": "array"
+    },
+    "depth": {
+      "default": "standard",
+      "enum": [
+        "interactive",
+        "standard",
+        "deep"
+      ],
+      "title": "Depth",
+      "type": "string"
+    },
+    "report_type": {
+      "default": "memo",
+      "enum": [
+        "memo",
+        "earnings",
+        "company",
+        "industry"
+      ],
+      "title": "Report Type",
+      "type": "string"
+    },
+    "agent_provider": {
+      "anyOf": [
+        {
+          "enum": [
+            "codex",
+            "claude"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Agent Provider"
+    },
+    "model": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Model"
+    },
+    "reasoning": {
+      "default": "medium",
+      "title": "Reasoning",
+      "type": "string"
+    },
+    "parent_case_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Parent Case Id"
+    },
+    "news_draft_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "News Draft Id"
+    }
+  },
+  "required": [
+    "operation_id",
+    "question"
+  ],
+  "title": "CreateCase",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/create_case.v1.json"
+}

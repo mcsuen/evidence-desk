@@ -1,0 +1,31 @@
+{
+  "id": "template:healthcare.biopharma",
+  "title": "生物医药（创新药）产业模板",
+  "summary": "人工起草的第三行业模板，用于通用性验收的离线模式；节点结构来自模拟行业综述。",
+  "spec": {
+    "schema_version": "pitr-template.1",
+    "industry": "healthcare.biopharma",
+    "scope_note": "适用于创新药与生物制品公司；仿制药可复用制造与销售层。",
+    "entity_roles": ["group", "legal_entity", "product", "project"],
+    "coverage_rule": {"critical": "evidenced", "important": "candidate", "context": "no_candidate"},
+    "default_series": [{"metric": "revenue", "unit": "RMB_mn", "frequency": "annual"}, {"metric": "rd_expense", "unit": "RMB_mn", "frequency": "annual"}],
+    "nodes": [
+      {"id": "development", "label": "研发与临床", "node_type": "dependency", "relation_type": "supply", "subtype": "development", "materiality": "critical", "evidence_channels": ["exchange_disclosure", "listing_prospectus_and_inquiry"]},
+      {"id": "development.cro", "label": "CRO 临床服务", "node_type": "dependency", "parent": "development", "relation_type": "supply", "subtype": "development.cro", "materiality": "critical", "attributes": {"substitutability": "mid"}, "evidence_channels": ["exchange_disclosure", "recruitment"]},
+      {"id": "development.licensing", "label": "引进授权", "node_type": "dependency", "parent": "development", "relation_type": "license", "subtype": "development.licensing", "materiality": "important", "evidence_channels": ["exchange_disclosure", "patent"]},
+      {"id": "manufacturing", "label": "生产", "node_type": "dependency", "relation_type": "supply", "subtype": "manufacturing", "materiality": "critical", "evidence_channels": ["exchange_disclosure", "regulatory_permit"]},
+      {"id": "manufacturing.cdmo", "label": "CDMO 委托生产", "node_type": "dependency", "parent": "manufacturing", "relation_type": "supply", "subtype": "manufacturing.cdmo", "materiality": "critical", "attributes": {"substitutability": "low", "qualification_cycle": "12-24m"}, "evidence_channels": ["exchange_disclosure", "regulatory_permit"]},
+      {"id": "manufacturing.api", "label": "原料药与起始物料", "node_type": "dependency", "parent": "manufacturing", "relation_type": "supply", "subtype": "manufacturing.api", "materiality": "critical", "attributes": {"substitutability": "mid", "qualification_cycle": "12-24m"}, "evidence_channels": ["exchange_disclosure", "customs_trade"]},
+      {"id": "manufacturing.consumables", "label": "耗材与层析介质", "node_type": "dependency", "parent": "manufacturing", "relation_type": "supply", "subtype": "manufacturing.consumables", "materiality": "important", "evidence_channels": ["exchange_disclosure"]},
+      {"id": "products", "label": "产品管线", "node_type": "output", "subtype": "products", "materiality": "critical", "evidence_channels": ["exchange_disclosure", "patent"]},
+      {"id": "regulation", "label": "监管与准入", "node_type": "constraint", "relation_type": "regulatory", "subtype": "regulation", "materiality": "critical", "evidence_channels": ["government_program", "exchange_disclosure"]},
+      {"id": "regulation.approval", "label": "上市许可", "node_type": "constraint", "parent": "regulation", "relation_type": "regulatory", "subtype": "regulation.approval", "materiality": "critical", "evidence_channels": ["government_program", "exchange_disclosure"]},
+      {"id": "regulation.reimbursement", "label": "医保与集采", "node_type": "constraint", "parent": "regulation", "relation_type": "regulatory", "subtype": "regulation.reimbursement", "materiality": "important", "evidence_channels": ["government_program", "media"]},
+      {"id": "sales", "label": "销售与分销", "node_type": "channel", "relation_type": "purchase", "subtype": "sales", "materiality": "critical", "evidence_channels": ["exchange_disclosure"]},
+      {"id": "sales.distributors", "label": "医药分销商", "node_type": "channel", "parent": "sales", "relation_type": "purchase", "subtype": "sales.distributors", "materiality": "critical", "attributes": {"concentration": "high"}, "evidence_channels": ["exchange_disclosure"]},
+      {"id": "sales.overseas_partners", "label": "海外授权伙伴", "node_type": "channel", "parent": "sales", "relation_type": "license", "subtype": "sales.overseas_partners", "materiality": "important", "evidence_channels": ["exchange_disclosure"]},
+      {"id": "capital", "label": "资金与股东", "node_type": "constraint", "relation_type": "holding", "subtype": "capital", "materiality": "important", "evidence_channels": ["exchange_disclosure"]},
+      {"id": "competition", "label": "竞争者", "node_type": "market", "relation_type": "competition", "subtype": "competition", "materiality": "context", "evidence_channels": ["competitor_disclosure", "industry_database"]}
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "enabled": {
+      "title": "Enabled",
+      "type": "boolean"
+    },
+    "team_id": {
+      "title": "Team Id",
+      "type": "string"
+    },
+    "user_id": {
+      "title": "User Id",
+      "type": "string"
+    },
+    "channel_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Channel Ids",
+      "type": "array"
+    },
+    "app_token": {
+      "default": "",
+      "title": "App Token",
+      "type": "string"
+    },
+    "bot_token": {
+      "default": "",
+      "title": "Bot Token",
+      "type": "string"
+    }
+  },
+  "required": [
+    "enabled",
+    "team_id",
+    "user_id",
+    "channel_ids",
+    "app_token",
+    "bot_token"
+  ],
+  "title": "SlackConfiguration",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/slack_configuration.v1.json"
+}

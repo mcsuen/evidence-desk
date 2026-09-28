@@ -1,0 +1,15 @@
+.subnav{display:flex;gap:2px;border-bottom:1px solid var(--line);overflow-x:auto}
+.subnav a{height:38px;padding:0 12px;font-size:13px;font-weight:500;color:var(--ink-3);border-bottom:2px solid transparent;margin-bottom:-1px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;text-decoration:none}
+.subnav a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--ink)}
+.subnav a:hover{text-decoration:none;color:var(--ink)}
+.form{display:flex;flex-direction:column;gap:12px;padding:16px;max-width:720px}
+.form>button{align-self:flex-start}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.pipeline{display:flex;gap:6px;flex-wrap:wrap;font-size:12px;color:var(--ink-3)}
+.pipeline span{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:1px solid var(--line);border-radius:999px}
+.pipeline span b{font-family:var(--font-mono);font-weight:500}
+.weekdays{display:flex;gap:8px;flex-wrap:wrap;font-size:13px}
+.weekdays label{display:inline-flex;align-items:center;gap:4px}
+.coverage{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;font-size:13px}
+.coverage div{padding:8px 10px;border:1px solid var(--line);border-radius:var(--r-md);display:flex;flex-direction:column;gap:2px}
+@media (max-width:767px){.grid2{grid-template-columns:minmax(0,1fr)}}

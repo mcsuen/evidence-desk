@@ -1,0 +1,114 @@
+{
+  "$defs": {
+    "NewsMaterial": {
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "$ref": "#/$defs/Ref"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "title",
+        "url"
+      ],
+      "title": "NewsMaterial",
+      "type": "object"
+    },
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "company": {
+      "title": "Company",
+      "type": "string"
+    },
+    "question": {
+      "title": "Question",
+      "type": "string"
+    },
+    "event_id": {
+      "title": "Event Id",
+      "type": "string"
+    },
+    "score_id": {
+      "title": "Score Id",
+      "type": "string"
+    },
+    "profile_id": {
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "materials": {
+      "items": {
+        "$ref": "#/$defs/NewsMaterial"
+      },
+      "title": "Materials",
+      "type": "array"
+    },
+    "knowledge": {
+      "items": {
+        "$ref": "#/$defs/Ref"
+      },
+      "title": "Knowledge",
+      "type": "array"
+    },
+    "context": {
+      "additionalProperties": true,
+      "title": "Context",
+      "type": "object"
+    }
+  },
+  "required": [
+    "id",
+    "company",
+    "question",
+    "event_id",
+    "score_id",
+    "profile_id",
+    "created_at",
+    "materials",
+    "knowledge",
+    "context"
+  ],
+  "title": "NewsResearchDraft",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/lab_news_research_draft.v1.json"
+}

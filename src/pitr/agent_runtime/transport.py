@@ -134,7 +134,7 @@ for sig in (signal.SIGTERM,signal.SIGKILL):
                 self.proc.stdin.write(json.dumps(self.interrupt)+'\n');self.proc.stdin.flush()
             except (OSError,ValueError):pass
         self.cancelled.set()
-        # Kill the group even if its leader has already exited: MCP children
+        # Kill the group even if its leader has already exited: shell and search children
         # must not outlive the turn that granted their capability.
         try:
             os.killpg(self.proc.pid, signal.SIGTERM)

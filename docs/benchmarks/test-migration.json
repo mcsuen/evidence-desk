@@ -1,0 +1,98 @@
+{
+  "tests/test_agent_runtime.py": {
+    "destination": "tests/test_agent_runtime.py",
+    "behaviors": [
+      "runtime",
+      "test_native_protocol_and_continuation",
+      "test_model_discovery_uses_no_turn",
+      "test_discovery_selects_the_only_ready_agent_and_retains_selection",
+      "test_installed_signed_out_agents_do_not_become_the_default",
+      "test_claude_long_context_choice_survives_resolution_and_resume",
+      "test_task_scope_overrides_api_priority_without_global_environment",
+      "test_cancel_interrupts_wait_and_cleans_processes",
+      "test_bad_output_is_not_a_success",
+      "test_search_receipts_require_successful_tool_events",
+      "test_single_instance_link_is_fresh_and_original_lock_is_retained",
+      "test_bootstrap_cookie_csrf_host_origin_and_replay",
+      "test_connection_excludes_personal_configuration_and_other_secrets",
+      "test_invalid_models_are_rejected",
+      "test_connection_change_cannot_silently_change_authentication",
+      "test_concurrent_sessions_do_not_block_child_calls",
+      "test_isolation_hides_personal_config_but_preserves_native_auth_path",
+      "test_guardian_reaps_group_when_daemon_crashes",
+      "test_timeout_and_late_output_cannot_return_success",
+      "test_npm_cli_launcher_can_read_its_package_without_accessing_control_data",
+      "test_explicit_followup_can_start_after_cancelled_call_has_ended",
+      "test_shell_workspace_is_writable_but_runtime_authority_and_other_tasks_are_not",
+      "test_isolation_opens_only_the_claude_scratch_directory"
+    ]
+  },
+  "tests/test_slack_integration.py": {
+    "destination": "tests/test_slack_integration.py",
+    "behaviors": [
+      "Echo",
+      "Client",
+      "Socket",
+      "config",
+      "runtime",
+      "event",
+      "request",
+      "drain",
+      "test_socket_ack_follows_commit_and_precedes_work",
+      "test_socket_does_not_ack_uncommitted_event",
+      "test_unauthorized_and_non_trigger_events_are_ignored",
+      "test_mentions_threads_and_command_receipt",
+      "test_revoked_access_blocks_pending_work_and_delivery",
+      "test_generic_adapter_receives_file_bytes_without_slack_secrets",
+      "test_file_failure_boundaries",
+      "api_error",
+      "test_rate_limit_then_success_respects_delay_and_counts_real_attempts",
+      "test_partial_file_delivery_and_unknown_manual_retry",
+      "test_crashed_send_is_not_automatically_resent",
+      "test_inbox_lease_recovery_and_stable_business_request",
+      "test_action_binding_submission_validation_and_replay",
+      "test_interaction_business_rejection_explains_terminal_state",
+      "test_start_stop_reconnect_and_installation_lock",
+      "test_binary_result_files_preserve_bytes_and_thread",
+      "test_start_failure_releases_installation_and_accepts_new_credentials",
+      "test_restart_waits_for_previous_consumer_then_recovers_automatically",
+      "test_wrong_workspace_and_missing_scopes_prevent_connection",
+      "test_expired_interactions_get_a_reopen_message",
+      "test_only_previously_directed_messages_can_be_edited_or_deleted"
+    ]
+  },
+  "tests/test_company_identity.py": {
+    "destination": "tests/test_market_adapters.py",
+    "behaviors": [
+      "test_market_symbols_preserve_meaning",
+      "test_official_effective_date_typography_is_not_a_missing_date",
+      "test_hk_directory_full_width_share_markers_match_without_dropping_business_name",
+      "test_hk_directory_uses_actual_internal_id_and_never_labels_catalog_as_original",
+      "test_sec_directories_use_cik_and_actual_accession_and_cutoff",
+      "test_official_directory_error_is_not_empty_result",
+      "test_szse_full_master_resolves_legal_and_bilingual_names_without_model_codes",
+      "test_sse_full_name_lookup_reads_all_pages_and_preserves_row_origin",
+      "test_non_search_success_cannot_be_search_receipt",
+      "test_claude_nested_search_error_is_not_success",
+      "test_report_discovery_does_not_confuse_summary_or_meeting_with_financial_original",
+      "test_disclosure_administration_is_not_an_actual_financial_report",
+      "test_report_publication_letters_and_cross_references_are_not_report_originals",
+      "test_report_supplement_is_not_the_financial_statement_it_refers_to",
+      "test_forecasts_and_offering_outcomes_are_not_published_financials",
+      "test_sec_former_names_and_results_exhibits_are_official_located_data",
+      "test_szse_disclosure_paginates_until_financial_originals",
+      "test_bse_catalog_filters_other_issuers_and_cutoff"
+    ]
+  },
+  "tests/test_wiki_acquisition.py": {
+    "destination": "tests/test_public_fetch.py",
+    "behaviors": [
+      "public_dns",
+      "test_default_identity_sec_configuration_and_redirect_scope",
+      "test_connection_retry_is_bounded_and_attempts_preserved",
+      "test_dns_failures_obey_the_same_retry_limit",
+      "test_denial_is_not_retried",
+      "test_rate_limit_wait_or_defer_respects_remaining_budget"
+    ]
+  }
+}

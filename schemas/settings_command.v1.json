@@ -1,0 +1,123 @@
+{
+  "$defs": {
+    "SlackConfiguration": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "team_id": {
+          "title": "Team Id",
+          "type": "string"
+        },
+        "user_id": {
+          "title": "User Id",
+          "type": "string"
+        },
+        "channel_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Channel Ids",
+          "type": "array"
+        },
+        "app_token": {
+          "default": "",
+          "title": "App Token",
+          "type": "string"
+        },
+        "bot_token": {
+          "default": "",
+          "title": "Bot Token",
+          "type": "string"
+        }
+      },
+      "required": [
+        "enabled",
+        "team_id",
+        "user_id",
+        "channel_ids"
+      ],
+      "title": "SlackConfiguration",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "agent_provider": {
+      "anyOf": [
+        {
+          "enum": [
+            "codex",
+            "claude"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Agent Provider"
+    },
+    "agent_models": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Agent Models"
+    },
+    "sec_user_agent": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Sec User Agent"
+    },
+    "slack": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SlackConfiguration"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "operation_id"
+  ],
+  "title": "SettingsCommand",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/settings_command.v1.json"
+}

@@ -1,0 +1,663 @@
+{
+ "id": "template:healthcare.biopharma",
+ "title": "生物医药（创新药/生物制药）产业模板",
+ "summary": "由真实 Claude 模板研究 run（research_484ea0cb710841e9832d，2026-09-20）产出并经人工采纳的模板副本，用于跳过模板阶段的验收重放。",
+ "spec": {
+  "coverage_rule": {
+   "context": "no_candidate",
+   "critical": "evidenced",
+   "important": "candidate"
+  },
+  "default_series": [
+   {
+    "frequency": "annual",
+    "metric": "revenue",
+    "note": "按报告货币替换单位",
+    "unit": "RMB_mn"
+   },
+   {
+    "frequency": "annual",
+    "metric": "product_revenue",
+    "note": "产品销售收入，按产品/分子类型拆分",
+    "unit": "RMB_mn"
+   },
+   {
+    "frequency": "annual",
+    "metric": "licensing_revenue",
+    "note": "授权首付款与里程碑收入",
+    "unit": "RMB_mn"
+   },
+   {
+    "frequency": "annual",
+    "metric": "rd_expense",
+    "note": "研发费用",
+    "unit": "RMB_mn"
+   },
+   {
+    "frequency": "point",
+    "metric": "pipeline_count_by_phase",
+    "note": "按临床阶段统计的管线数量",
+    "unit": "count"
+   }
+  ],
+  "entity_roles": [
+   "group",
+   "legal_entity",
+   "product",
+   "project",
+   "facility"
+  ],
+  "industry": "healthcare.biopharma",
+  "nodes": [
+   {
+    "applicable_when": {},
+    "attributes": {},
+    "evidence_channels": [
+     "exchange_disclosure",
+     "listing_prospectus_and_inquiry",
+     "regulatory_permit",
+     "expert_interview"
+    ],
+    "id": "development",
+    "label": "研发与临床开发外部投入",
+    "materiality": "critical",
+    "node_type": "dependency",
+    "parent": null,
+    "relation_type": "cooperation",
+    "subtype": "development"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {
+     "substitutability": "mid",
+     "switching_note": "进行中的试验更换 CRO 影响进度与数据完整性"
+    },
+    "evidence_channels": [
+     "exchange_disclosure",
+     "listing_prospectus_and_inquiry",
+     "competitor_disclosure",
+     "recruitment",
+     "expert_interview"
+    ],
+    "id": "development.cro",
+    "label": "合同研究组织（CRO）临床前与临床试验服务",
+    "materiality": "critical",
+    "node_type": "dependency",
+    "parent": "development",
+    "relation_type": "purchase",
+    "subtype": "development.cro"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {
+     "substitutability": "mid"
+    },
+    "evidence_channels": [
+     "regulatory_permit",
+     "exchange_disclosure",
+     "expert_interview",
+     "media"
+    ],
+    "id": "development.trial_sites",
+    "label": "临床试验中心与主要研究者",
+    "materiality": "important",
+    "node_type": "dependency",
+    "parent": "development",
+    "relation_type": "cooperation",
+    "subtype": "development.trial_sites"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {
+     "payment_structure": "首付款、里程碑与销售分成",
+     "substitutability": "low"
+    },
+    "evidence_channels": [
+     "exchange_disclosure",
+     "listing_prospectus_and_inquiry",
+     "patent",
+     "media"
+    ],
+    "id": "development.in_licensing",
+    "label": "授权引进管线（高校与生物技术公司）",
+    "materiality": "critical",
+    "node_type": "dependency",
+    "parent": "development",
+    "relation_type": "license",
+    "subtype": "development.in_licensing"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {
+     "substitutability": "low"
+    },
+    "evidence_channels": [
+     "patent",
+     "exchange_disclosure",
+     "listing_prospectus_and_inquiry"
+    ],
+    "id": "development.platform_technology",
+    "label": "授权化合物库与平台技术",
+    "materiality": "important",
+    "node_type": "dependency",
+    "parent": "development",
+    "relation_type": "license",
+    "subtype": "development.platform_technology"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {},
+    "evidence_channels": [
+     "exchange_disclosure",
+     "listing_prospectus_and_inquiry",
+     "regulatory_permit",
+     "customs_trade"
+    ],
+    "id": "manufacturing",
+    "label": "生产与供应链投入",
+    "materiality": "critical",
+    "node_type": "dependency",
+    "parent": null,
+    "relation_type": "supply",
+    "subtype": "manufacturing"
+   },
+   {
+    "applicable_when": {
+     "commercial_stage_or_late_clinical": true
+    },
+    "attributes": {
+     "substitutability": "low",
+     "switching_note": "更换生产场地需变更注册与 GMP 检查"
+    },
+    "evidence_channels": [
+     "exchange_disclosure",
+     "listing_prospectus_and_inquiry",
+     "regulatory_permit",
+     "competitor_disclosure",
+     "site_visit"
+    ],
+    "id": "manufacturing.cdmo",
+    "label": "CDMO 原液与制剂委托生产",
+    "materiality": "critical",
+    "node_type": "dependency",
+    "parent": "manufacturing",
+    "relation_type": "supply",
+    "subtype": "manufacturing.cdmo"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {
+     "qualification_lead_time": "12-24 months",
+     "substitutability": "low",
+     "switching_note": "新供应商资质认证需变更注册申报"
+    },
+    "evidence_channels": [
+     "exchange_disclosure",
+     "listing_prospectus_and_inquiry",
+     "regulatory_permit",
+     "customs_trade",
+     "site_visit"
+    ],
+    "id": "manufacturing.api",
+    "label": "原料药（API）与关键起始物料供应",
+    "materiality": "critical",
+    "node_type": "dependency",
+    "parent": "manufacturing",
+    "relation_type": "supply",
+    "subtype": "manufacturing.api"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {
+     "substitutability": "mid"
+    },
+    "evidence_channels": [
+     "exchange_disclosure",
+     "customs_trade",
+     "expert_interview"
+    ],
+    "id": "manufacturing.excipients_packaging",
+    "label": "辅料与包装材料供应",
+    "materiality": "important",
+    "node_type": "dependency",
+    "parent": "manufacturing",
+    "relation_type": "supply",
+    "subtype": "manufacturing.excipients_packaging"
+   },
+   {
+    "applicable_when": {
+     "molecule_type": [
+      "biologics",
+      "cell_gene_therapy"
+     ]
+    },
+    "attributes": {
+     "substitutability": "low"
+    },
+    "evidence_channels": [
+     "exchange_disclosure",
+     "competitor_disclosure",
+     "customs_trade",
+     "expert_interview"
+    ],
+    "id": "manufacturing.bioprocess_consumables",
+    "label": "一次性生物反应器耗材与层析填料",
+    "materiality": "important",
+    "node_type": "dependency",
+    "parent": "manufacturing",
+    "relation_type": "supply",
+    "subtype": "manufacturing.bioprocess_consumables"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {},
+    "evidence_channels": [
+     "regulatory_permit",
+     "government_program",
+     "exchange_disclosure"
+    ],
+    "id": "regulation",
+    "label": "监管与政策约束",
+    "materiality": "critical",
+    "node_type": "constraint",
+    "parent": null,
+    "relation_type": "regulatory",
+    "subtype": "regulation"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {
+     "authorities": [
+      "NMPA",
+      "FDA",
+      "EMA"
+     ]
+    },
+    "evidence_channels": [
+     "regulatory_permit",
+     "exchange_disclosure",
+     "government_program",
+     "media"
+    ],
+    "id": "regulation.marketing_approval",
+    "label": "上市许可（NMPA/FDA/EMA 等药监审批）",
+    "materiality": "critical",
+    "node_type": "constraint",
+    "parent": "regulation",
+    "relation_type": "regulatory",
+    "subtype": "regulation.marketing_approval"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {},
+    "evidence_channels": [
+     "regulatory_permit",
+     "exchange_disclosure",
+     "site_visit"
+    ],
+    "id": "regulation.gmp",
+    "label": "GMP 检查与生产合规",
+    "materiality": "critical",
+    "node_type": "constraint",
+    "parent": "regulation",
+    "relation_type": "regulatory",
+    "subtype": "regulation.gmp"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {},
+    "evidence_channels": [
+     "regulatory_permit",
+     "exchange_disclosure"
+    ],
+    "id": "regulation.pharmacovigilance",
+    "label": "药物警戒义务",
+    "materiality": "important",
+    "node_type": "constraint",
+    "parent": "regulation",
+    "relation_type": "regulatory",
+    "subtype": "regulation.pharmacovigilance"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {},
+    "evidence_channels": [
+     "patent",
+     "exchange_disclosure",
+     "listing_prospectus_and_inquiry"
+    ],
+    "id": "regulation.patent_term",
+    "label": "专利期与市场独占期",
+    "materiality": "critical",
+    "node_type": "constraint",
+    "parent": "regulation",
+    "relation_type": "regulatory",
+    "subtype": "regulation.patent_term"
+   },
+   {
+    "applicable_when": {
+     "domestic_market": "china"
+    },
+    "attributes": {
+     "scope": "domestic_pricing"
+    },
+    "evidence_channels": [
+     "government_program",
+     "procurement_tender",
+     "exchange_disclosure",
+     "media"
+    ],
+    "id": "regulation.pricing_procurement",
+    "label": "带量采购与国家医保目录（NRDL）谈判定价",
+    "materiality": "critical",
+    "node_type": "constraint",
+    "parent": "regulation",
+    "relation_type": "regulatory",
+    "subtype": "regulation.pricing_procurement"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {
+     "organised_by": [
+      "therapeutic_area",
+      "molecule_type"
+     ],
+     "per_product": [
+      "patent_estate",
+      "exclusivity_period"
+     ]
+    },
+    "evidence_channels": [
+     "exchange_disclosure",
+     "regulatory_permit",
+     "patent"
+    ],
+    "id": "products",
+    "label": "产品与管线（按治疗领域与分子类型）",
+    "materiality": "critical",
+    "node_type": "output",
+    "parent": null,
+    "relation_type": null,
+    "subtype": "products"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {},
+    "evidence_channels": [
+     "exchange_disclosure",
+     "regulatory_permit",
+     "patent"
+    ],
+    "id": "products.small_molecule",
+    "label": "小分子药物",
+    "materiality": "important",
+    "node_type": "output",
+    "parent": "products",
+    "relation_type": null,
+    "subtype": "products.small_molecule"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {},
+    "evidence_channels": [
+     "exchange_disclosure",
+     "regulatory_permit",
+     "patent"
+    ],
+    "id": "products.biologics",
+    "label": "生物药（如单克隆抗体）",
+    "materiality": "important",
+    "node_type": "output",
+    "parent": "products",
+    "relation_type": null,
+    "subtype": "products.biologics"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {},
+    "evidence_channels": [
+     "exchange_disclosure",
+     "regulatory_permit",
+     "patent"
+    ],
+    "id": "products.cell_gene_therapy",
+    "label": "细胞与基因治疗",
+    "materiality": "important",
+    "node_type": "output",
+    "parent": "products",
+    "relation_type": null,
+    "subtype": "products.cell_gene_therapy"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {},
+    "evidence_channels": [
+     "exchange_disclosure",
+     "procurement_tender",
+     "industry_database"
+    ],
+    "id": "channels",
+    "label": "销售与分销渠道",
+    "materiality": "critical",
+    "node_type": "channel",
+    "parent": null,
+    "relation_type": "cooperation",
+    "subtype": "channels"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {
+     "substitutability": "mid"
+    },
+    "evidence_channels": [
+     "exchange_disclosure",
+     "listing_prospectus_and_inquiry",
+     "industry_database",
+     "expert_interview"
+    ],
+    "id": "channels.distributors",
+    "label": "医药分销商",
+    "materiality": "critical",
+    "node_type": "channel",
+    "parent": "channels",
+    "relation_type": "cooperation",
+    "subtype": "channels.distributors"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {},
+    "evidence_channels": [
+     "procurement_tender",
+     "government_program",
+     "exchange_disclosure"
+    ],
+    "id": "channels.hospital_tender",
+    "label": "医院招标采购",
+    "materiality": "critical",
+    "node_type": "channel",
+    "parent": "channels",
+    "relation_type": "purchase",
+    "subtype": "channels.hospital_tender"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {
+     "substitutability": "high"
+    },
+    "evidence_channels": [
+     "exchange_disclosure",
+     "industry_database"
+    ],
+    "id": "channels.retail_pharmacy",
+    "label": "零售药房",
+    "materiality": "important",
+    "node_type": "channel",
+    "parent": "channels",
+    "relation_type": "cooperation",
+    "subtype": "channels.retail_pharmacy"
+   },
+   {
+    "applicable_when": {
+     "exports_products": true
+    },
+    "attributes": {
+     "substitutability": "low"
+    },
+    "evidence_channels": [
+     "exchange_disclosure",
+     "regulatory_permit",
+     "competitor_disclosure",
+     "media"
+    ],
+    "id": "channels.overseas_partners",
+    "label": "海外授权伙伴（负责当地注册与商业化）",
+    "materiality": "important",
+    "node_type": "channel",
+    "parent": "channels",
+    "relation_type": "license",
+    "subtype": "channels.overseas_partners"
+   },
+   {
+    "applicable_when": {
+     "molecule_type": [
+      "biologics",
+      "cell_gene_therapy"
+     ]
+    },
+    "attributes": {
+     "substitutability": "mid"
+    },
+    "evidence_channels": [
+     "exchange_disclosure",
+     "recruitment",
+     "expert_interview"
+    ],
+    "id": "channels.cold_chain",
+    "label": "冷链物流服务商",
+    "materiality": "important",
+    "node_type": "dependency",
+    "parent": "channels",
+    "relation_type": "supply",
+    "subtype": "channels.cold_chain"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {},
+    "evidence_channels": [
+     "exchange_disclosure",
+     "listing_prospectus_and_inquiry"
+    ],
+    "id": "capital",
+    "label": "资本与治理",
+    "materiality": "important",
+    "node_type": "constraint",
+    "parent": null,
+    "relation_type": "holding",
+    "subtype": "capital"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {
+     "board_influence": "major shareholders may hold board seats"
+    },
+    "evidence_channels": [
+     "exchange_disclosure",
+     "listing_prospectus_and_inquiry"
+    ],
+    "id": "capital.equity",
+    "label": "股权融资与主要股东",
+    "materiality": "important",
+    "node_type": "constraint",
+    "parent": "capital",
+    "relation_type": "holding",
+    "subtype": "capital.equity"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {
+     "board_influence": "licensing partners may hold board seats"
+    },
+    "evidence_channels": [
+     "exchange_disclosure",
+     "media"
+    ],
+    "id": "capital.licensing_milestones",
+    "label": "授权合作里程碑款与合作方治理权",
+    "materiality": "important",
+    "node_type": "constraint",
+    "parent": "capital",
+    "relation_type": "license",
+    "subtype": "capital.licensing_milestones"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {},
+    "evidence_channels": [
+     "government_program",
+     "exchange_disclosure"
+    ],
+    "id": "capital.government_funds",
+    "label": "政府创新基金",
+    "materiality": "context",
+    "node_type": "constraint",
+    "parent": "capital",
+    "relation_type": "investment",
+    "subtype": "capital.government_funds"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {},
+    "evidence_channels": [
+     "competitor_disclosure",
+     "industry_database",
+     "regulatory_permit"
+    ],
+    "id": "markets",
+    "label": "市场与竞争",
+    "materiality": "context",
+    "node_type": "market",
+    "parent": null,
+    "relation_type": "competition",
+    "subtype": "markets"
+   },
+   {
+    "applicable_when": {},
+    "attributes": {},
+    "evidence_channels": [
+     "competitor_disclosure",
+     "regulatory_permit",
+     "industry_database"
+    ],
+    "id": "markets.originators",
+    "label": "同治疗领域原研竞争者",
+    "materiality": "context",
+    "node_type": "market",
+    "parent": "markets",
+    "relation_type": "competition",
+    "subtype": "markets.originators"
+   },
+   {
+    "applicable_when": {
+     "post_patent_expiry": true
+    },
+    "attributes": {},
+    "evidence_channels": [
+     "regulatory_permit",
+     "patent",
+     "competitor_disclosure",
+     "procurement_tender"
+    ],
+    "id": "markets.generics_biosimilars",
+    "label": "专利到期后的仿制药与生物类似药",
+    "materiality": "important",
+    "node_type": "market",
+    "parent": "markets",
+    "relation_type": "competition",
+    "subtype": "markets.generics_biosimilars"
+   }
+  ],
+  "schema_version": "pitr-template.1",
+  "scope_note": "适用于以自研或授权引进管线为核心、外包部分研发与生产、并通过分销与招标实现商业化的生物医药公司；仿制药/生物类似药企业可复用生产、监管与渠道层，CDMO/CRO 服务商不适用本模板的依赖层方向。节点依据为标注模拟数据的行业综述，需以真实原件复核。"
+ },
+ "origin_run": "research_484ea0cb710841e9832d"
+}

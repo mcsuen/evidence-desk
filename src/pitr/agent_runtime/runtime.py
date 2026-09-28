@@ -1,4 +1,4 @@
-"""One local transport implementation for research, discovery and Wiki calls."""
+"""One local transport implementation for research, discovery and review calls."""
 from __future__ import annotations
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
@@ -31,7 +31,7 @@ class Result:
 class AgentRuntime:
     def __init__(self, desk, settings=None, *, environ=None, isolate=True):
         from pitr.integrations.slack.settings import SettingsFile
-        self.desk = desk
+        self.context = desk
         self.settings = settings or SettingsFile(desk.root / 'private/settings.json')
         self.environ = dict(os.environ if environ is None else environ)
         self.isolate = isolate
@@ -42,6 +42,7 @@ class AgentRuntime:
         self.processes = {}
         self.cancelled = set()
         self.cancel_epochs = {}
+        self.execution_authorities = {}
         self.stopping = False
         self.model_cache = {}
         self.session_locks = {}
@@ -113,7 +114,7 @@ class AgentRuntime:
 
     def _binding(self, task):
         binding = dict(task['agent'])
-        with self.desk.store.connect() as db:
+        with self.context.store.connect() as db:
             row = db.execute('SELECT body FROM agent_bindings WHERE task_id=?', (task['id'],)).fetchone()
         if row:
             saved = json.loads(row['body'])
@@ -125,17 +126,13 @@ class AgentRuntime:
     def _pin_model(self, task, binding, model):
         if not model:
             return
-        with self.desk.store.connect(write=True) as db:
+        with self.context.store.connect(write=True) as db:
             row = db.execute('SELECT body FROM agent_bindings WHERE task_id=?', (task['id'],)).fetchone()
             saved = json.loads(row['body']) if row else binding
             if saved.get('resolved_model') and saved['resolved_model'] != model:
                 raise AgentError('实际运行模型已发生变化，请新建任务；已保留本次记录')
             binding.update(resolved_model=model)
             db.execute('INSERT OR REPLACE INTO agent_bindings VALUES(?,?)', (task['id'], json.dumps(binding)))
-            row=db.execute('SELECT body FROM tasks WHERE id=?',(task['id'],)).fetchone()
-            if row:
-                body=json.loads(row['body']);body['agent']=dict(binding)
-                db.execute('UPDATE tasks SET body=? WHERE id=?',(json.dumps(body,ensure_ascii=False),task['id']))
         task['agent'].update(binding)
 
     def models(self, provider):
@@ -156,10 +153,10 @@ class AgentRuntime:
             binary = executable(provider, self.environ)
             if not binary:
                 raise AgentError('Codex 尚未安装')
-            from pitr.desk.research.native import runtime_root
-            root = runtime_root(self.desk) / 'model-discovery' / uuid.uuid4().hex; root.mkdir(parents=True, exist_ok=True, mode=0o700)
+            from pitr.adapters.runtime_context import runtime_root
+            root = runtime_root(self.context) / 'model-discovery' / uuid.uuid4().hex; root.mkdir(parents=True, exist_ok=True, mode=0o700)
             from .isolation import prepare
-            prefix,_=prepare(self.desk,root,binary,config_home,env) if self.isolate else ([],{})
+            prefix,_=prepare(self.context,root,binary,config_home,env) if self.isolate else ([],{})
             p = Process(prefix+codex_command(binary, config), cwd=root, env=env, timeout=30)
             key=('model-discovery',root.name)
             with self.lock:
@@ -185,7 +182,18 @@ class AgentRuntime:
         self.model_cache[provider] = (time.monotonic(), result)
         return result
 
+    def isolation_backend(self, execution=None):
+        return 'seatbelt'
+
+    def revoke_execution(self, task_id):
+        path = self.execution_authorities.get(task_id)
+        if path and Path(path).exists():
+            from pitr.adapters.files import atomic_file
+            value = json.loads(Path(path).read_text())
+            atomic_file(Path(path), json.dumps({**value, 'active': False}).encode())
+
     def cancel(self, task_id):
+        self.revoke_execution(task_id)
         with self.lock:
             self.cancelled.add(task_id)
             self.cancel_epochs[task_id]=self.cancel_epochs.get(task_id,0)+1
@@ -194,6 +202,7 @@ class AgentRuntime:
             process.cancelled.set()
 
     def shutdown(self):
+        for identity in list(self.execution_authorities): self.revoke_execution(identity)
         with self.lock:
             self.stopping = True
             processes = list(self.processes.values())
@@ -207,13 +216,18 @@ class AgentRuntime:
         result = self.execute(task, prompt, schema, instructions=system or '', timeout=timeout, fence=fence)
         return LLMResult(result.data, result.provider + '_cli', result.model, json.dumps(result.data, ensure_ascii=False))
 
-    def execute(self, task, prompt, schema, *, instructions='', role='completion', session_id=None,
-                live_search=False, mcp=None, timeout=600, fence=lambda: None, on_event=lambda e: None,
-                on_session=lambda session: None):
+    def execute(self, *args, **kwargs):
+        from contextlib import ExitStack
+        with ExitStack() as resources:
+            return self._execute(*args, **kwargs, _resources=resources)
+
+    def _execute(self, task, prompt, schema, *, instructions='', role='completion', session_id=None,
+                live_search=False, workspace=None, execution=None, authority=None, timeout=600, fence=lambda: None, on_event=lambda e: None,
+                on_session=lambda session: None, _resources=None):
         # Cancellation invalidates calls already in flight. The queue/lease
         # fence decides whether a later explicit follow-up is authorized.
         epoch=self.cancel_epochs.get(task['id'],0)
-        from pitr.desk.research.native import runtime_root
+        from pitr.adapters.runtime_context import runtime_root
         from pitr.llm import strict_json_schema
         from .isolation import prepare
         binding = self._binding(task); provider = binding['provider']
@@ -227,46 +241,50 @@ class AgentRuntime:
             raise AgentError('CLI 版本或认证方式已改变，请从保留的资料新建任务；旧会话不会自动转移')
         if binding.get('connection_fingerprint')!=connection_fingerprint(env,config):
             raise AgentError('本机连接配置已改变，请恢复原设置或新建任务；不会改变运行中任务的认证方式')
-        # Resolve model defaults once for the complete research/Wiki chain.
+        # Resolve model defaults once for the complete research and review chain.
         model = binding.get('resolved_model') or binding.get('model')
         # Claude reports the resolved base model without the requested context
         # window suffix. Keep that option when pinning subsequent calls.
         if provider == 'claude' and model and (binding.get('model') or '').endswith('[1m]') and not model.endswith('[1m]'):
             model += '[1m]'
         call_id = uuid.uuid4().hex
-        root = runtime_root(self.desk) / (task['id'] + '-' + role) / call_id
+        root = runtime_root(self.context) / (task['id'] + '-' + role) / call_id
         root.mkdir(parents=True, exist_ok=True, mode=0o700)
         schema = strict_json_schema(schema)
         (root / 'schema.json').write_text(json.dumps(schema, ensure_ascii=False))
         (root / 'instructions.md').write_text(instructions)
+        workdir = Path(workspace).resolve() if workspace else root
+        if workspace:
+            self.execution_authorities[task['id']] = authority
+            import sys
+            env.update(PITR_WORKSPACE=str(workdir), PITR_RUN_ID=execution['run_id'], PITR_EXECUTION_ID=execution['id'],
+                       PITR_EXECUTION_FILE=str(authority), PYTHONDONTWRITEBYTECODE='1')
+            if execution.get('tool_url'):
+                env['PITR_TOOL_URL'] = execution['tool_url']
+            env['PATH'] = str(Path(sys.executable).parent) + os.pathsep + env.get('PATH', '')
         if provider == 'codex':
-            command = codex_command(binary, config)
+            command = codex_command(binary, config, shell=bool(workspace))
             command += ['-c', 'web_search=' + toml('live' if live_search else 'disabled')]
-            if mcp:
-                command+=['-c','features.code_mode_host=true']
-                for key, value in self._mcp(root, env, mcp).items():
-                    command += ['-c', 'mcp_servers.pitr_research.' + key + '=' + toml(value)]
         else:
-            # Restricted mode + hidden configuration keeps native authentication
-            # and explicitly injected MCP. Safe mode disables even our MCP.
             settings = {**config, 'disableAllHooks': True, 'autoMemoryEnabled': False}
+            native_tools = 'Bash,Read' if workspace else 'WebSearch' if live_search else ''
             command = [binary, '--restricted', '--disable-slash-commands', '--setting-sources', '', '--settings', json.dumps(settings),
                        '-p', '--input-format', 'stream-json', '--output-format', 'stream-json', '--verbose',
                        '--include-partial-messages', '--json-schema', json.dumps(schema),
                        '--system-prompt', instructions or 'Return the requested structured result.',
-                       '--tools', 'WebSearch' if live_search else '', '--permission-mode', 'dontAsk', '--strict-mcp-config']
-            servers = {'mcpServers': {}}
-            if mcp:
-                values = self._mcp(root, env, mcp)
-                servers['mcpServers']['pitr_research'] = {k: values[k] for k in ('command', 'args')}
-            command += ['--mcp-config', json.dumps(servers), '--allowedTools', 'mcp__pitr_research__*' + (',WebSearch' if live_search else '')]
-            if model:
-                command += ['--model', model]
-            if binding.get('reasoning'):
-                command += ['--effort', binding['reasoning']]
-            if session_id:
-                command += ['--resume', session_id]
-        prefix, isolation = prepare(self.desk, root, binary, config_home, env, mcp[0] if mcp else 0) if self.isolate else ([], {'passed': False, 'mechanism': 'test transport'})
+                       '--tools', native_tools, '--allowedTools', native_tools, '--permission-mode', 'dontAsk',
+                       '--strict-mcp-config', '--mcp-config', '{"mcpServers":{}}']
+            if model: command += ['--model', model]
+            if binding.get('reasoning'): command += ['--effort', binding['reasoning']]
+            if session_id: command += ['--resume', session_id]
+        backend = self.isolation_backend(execution)
+        if not self.isolate:
+            prefix, isolation = [], {'passed': False, 'mechanism': 'test transport', 'backend': backend}
+        else:
+            from .egress import ModelEgress
+            _resources.enter_context(ModelEgress(provider, env, config, root))
+            prefix, isolation = prepare(self.context, root, binary, config_home, env, workspace=workspace, authority=authority)
+        isolation['backend'] = backend
         key = (task['id'], call_id)
         def check():
             if self.stopping or self.cancel_epochs.get(task['id'],0)!=epoch:
@@ -296,13 +314,13 @@ class AgentRuntime:
                 events.append(event)
             on_event(event)
         try:
-            with self.desk.store.connect(write=True) as db:db.execute('INSERT INTO agent_calls VALUES(?,?,?)',(call_id,task['id'],json.dumps(call)))
+            with self.context.store.connect(write=True) as db:db.execute('INSERT INTO agent_calls VALUES(?,?,?)',(call_id,task['id'],json.dumps(call)))
             log=(root / 'events.jsonl').open('w')
-            p = Process(prefix + command, cwd=root, env=env, timeout=timeout, fence=check)
+            p = Process(prefix + command, cwd=workdir, env=env, timeout=timeout, fence=check)
             with self.lock:
                 self.processes[key] = p
             if provider == 'codex':
-                data = self._codex(p, prompt, schema, instructions, root, binding, session_id, emit)
+                data = self._codex(p, prompt, schema, instructions, workdir, binding, session_id, emit, shell=bool(workspace))
             else:
                 data = self._claude(p, prompt, emit)
             check()
@@ -331,24 +349,13 @@ class AgentRuntime:
                 self.processes.pop(key, None)
             session_lock.release()
             call.update(ended_at=time.time(),model=resolved,session_after=native_session,usage=usage or None)
-            with self.desk.store.connect(write=True) as db:db.execute('UPDATE agent_calls SET body=? WHERE id=?',(json.dumps(call,ensure_ascii=False),call_id))
+            with self.context.store.connect(write=True) as db:db.execute('UPDATE agent_calls SET body=? WHERE id=?',(json.dumps(call,ensure_ascii=False),call_id))
 
     @staticmethod
-    def _mcp(root, env, mcp):
-        import shutil, sys
-        from pitr.desk.research import proxy
-        shutil.copy2(Path(proxy.__file__), root / 'proxy.py')
-        env.update(PITR_RESEARCH_ENDPOINT=f'http://127.0.0.1:{mcp[0]}/', PITR_RESEARCH_CAPABILITY=mcp[1],
-                   NO_PROXY='127.0.0.1,localhost', no_proxy='127.0.0.1,localhost')
-        return {'command': str(Path(sys.executable).resolve()), 'args': [str(root / 'proxy.py')],
-                'env_vars': ['PITR_RESEARCH_ENDPOINT', 'PITR_RESEARCH_CAPABILITY'], 'required': True,
-                'startup_timeout_sec': 30, 'tool_timeout_sec': 600}
-
-    @staticmethod
-    def _codex(p, prompt, schema, instructions, root, binding, session_id, emit):
+    def _codex(p, prompt, schema, instructions, root, binding, session_id, emit, *, shell=False):
         text = []; usage = {};completed=[]
         names = {'agentMessage': 'agent_message', 'mcpToolCall': 'mcp_tool_call', 'webSearch': 'web_search',
-                 'commandExecution': 'command_execution', 'fileChange': 'file_change'}
+                 'commandExecution': 'command_execution', 'fileChange': 'file_change', 'imageView': 'image_view'}
         def event(value):
             method = value.get('method', ''); params = value.get('params') or {}
             if method=='turn/completed':
@@ -376,7 +383,7 @@ class AgentRuntime:
         p.rpc('initialize', {'clientInfo': {'name': 'pitr', 'version': '1'}}, event)
         p.send({'method': 'initialized', 'params': {}})
         params = {'cwd': str(root), 'developerInstructions': instructions,
-                  'approvalPolicy': 'never', 'sandbox': 'read-only'}
+                  'approvalPolicy': 'never', 'sandbox': 'danger-full-access' if shell else 'read-only'}
         model = binding.get('resolved_model') or binding.get('model')
         if model: params['model'] = model
         if session_id: params['threadId'] = session_id
@@ -405,6 +412,7 @@ class AgentRuntime:
 
     @staticmethod
     def _claude(p, prompt, emit):
+        tool_calls = {}
         p.send({'type': 'user', 'message': {'role': 'user', 'content': [{'type': 'text', 'text': prompt}]}})
         p.proc.stdin.close()
         while True:
@@ -417,7 +425,9 @@ class AgentRuntime:
                     if block.get('type') == 'text':
                         emit({'type': 'item.completed', 'item': {'type': 'agent_message', 'text': block.get('text', '')}})
                     elif block.get('type') in ('tool_use', 'server_tool_use'):
-                        emit({'type': 'item.started', 'item': {'type': 'mcp_tool_call', 'id': block.get('id'), 'name': block.get('name'), 'arguments': block.get('input')}})
+                        tool = {'type': 'command_execution' if block.get('name') == 'Bash' else 'file_read' if block.get('name') == 'Read' else 'native_tool_call', 'id': block.get('id'), 'name': block.get('name'), 'arguments': block.get('input')}
+                        tool_calls[block.get('id')] = tool
+                        emit({'type': 'item.started', 'item': tool})
                     elif block.get('type')=='web_search_tool_result':
                         content=block.get('content')
                         emit({'type':'item.completed','item':{'type':'mcp_tool_call','id':block.get('tool_use_id'),
@@ -429,7 +439,10 @@ class AgentRuntime:
             elif kind == 'user':
                 for block in value.get('message', {}).get('content', []):
                     if block.get('type') == 'tool_result':
-                        emit({'type': 'item.completed', 'item': {'type': 'mcp_tool_call', 'id': block.get('tool_use_id'), 'result': block.get('content'), 'is_error': block.get('is_error', False)}})
+                        tool = dict(tool_calls.get(block.get('tool_use_id'), {}))
+                        content = block.get('content')
+                        if tool.get('name') == 'Read' and isinstance(content, list) and any(c.get('type') == 'image' for c in content): tool['type'] = 'image_view'
+                        emit({'type': 'item.completed', 'item': {**tool, 'id': block.get('tool_use_id'), 'result': content, 'is_error': block.get('is_error', False)}})
             elif kind == 'result':
                 if value.get('is_error') or value.get('subtype') != 'success':
                     raise AgentError(str(value.get('result') or value.get('errors') or 'Claude Code 本轮未完成'))
@@ -446,11 +459,19 @@ def verified_searches(events):
     """A search description in model prose is never a search receipt."""
     starts = {e['item'].get('id'): e['item'] for e in events if e.get('type') == 'item.started' and e.get('item', {}).get('name') == 'WebSearch'}
     found = []
+    def failed(value):
+        if isinstance(value, dict):
+            return bool(value.get('is_error') or value.get('error') or value.get('status') in ('failed','cancelled','canceled','inProgress','in_progress')
+                or str(value.get('type','')).endswith('_error') or any(failed(v) for v in value.values()))
+        return isinstance(value, list) and any(failed(v) for v in value)
     for event in events:
         item = event.get('item', {})
         if event.get('type') != 'item.completed': continue
-        if item.get('type') == 'web_search' and item.get('status') not in ('failed','inProgress','in_progress'): found.append(item)
-        elif item.get('id') in starts and not item.get('is_error'):
+        if failed(item): continue
+        if item.get('type') == 'web_search':
+            action = item.get('action') or {}
+            if action.get('type') == 'search' or (not action.get('type') and item.get('query')): found.append(item)
+        elif item.get('id') in starts and item.get('result') is not None:
             found.append({**starts[item['id']], 'result': item.get('result')})
     if not found:
         raise AgentError('公开搜索没有实际成功的检索事件；已保留记录，可以重试或提供原件')

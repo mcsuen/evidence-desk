@@ -1,0 +1,126 @@
+{
+  "$defs": {
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "revision"
+      ],
+      "title": "Ref",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "report": {
+      "$ref": "#/$defs/Ref"
+    },
+    "signature": {
+      "title": "Signature",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "queued",
+        "running",
+        "completed",
+        "failed"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "paper": {
+      "enum": [
+        "Letter",
+        "A4"
+      ],
+      "title": "Paper",
+      "type": "string"
+    },
+    "template_version": {
+      "title": "Template Version",
+      "type": "string"
+    },
+    "check_refs": {
+      "items": {
+        "$ref": "#/$defs/Ref"
+      },
+      "title": "Check Refs",
+      "type": "array"
+    },
+    "delivery_at_request": {
+      "default": "draft",
+      "enum": [
+        "ready",
+        "partial",
+        "draft"
+      ],
+      "title": "Delivery At Request",
+      "type": "string"
+    },
+    "artifact": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Ref"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "error": {
+      "default": "",
+      "title": "Error",
+      "type": "string"
+    },
+    "attempts": {
+      "default": 0,
+      "title": "Attempts",
+      "type": "integer"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "updated_at": {
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "report",
+    "signature",
+    "status",
+    "paper",
+    "template_version",
+    "check_refs",
+    "delivery_at_request",
+    "artifact",
+    "error",
+    "attempts",
+    "created_at",
+    "updated_at"
+  ],
+  "title": "ExportJob",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pitr/export_job.v1.json"
+}
